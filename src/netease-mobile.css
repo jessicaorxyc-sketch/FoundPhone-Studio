@@ -26,3 +26,14 @@
 .nm .nm-profile-shortcuts button span{font-size:16px}
 .nm .nm-profile-promo{display:flex;align-items:center;justify-content:space-between;background:#352720;color:#d4c8c4;padding:15px 16px;margin:18px -14px -22px;font-size:12px;text-align:left;border-radius:12px 12px 0 0}
 .nm .nm-profile-promo span{font-size:22px}
+
+/* Compact middle section, matching latest user screenshot. */
+.nm .nm-profile-head{padding-bottom:0!important}
+.nm .nm-profile-bio{font-size:11px!important;line-height:1.35!important;margin:6px 0 4px!important}
+.nm .nm-profile-badges{font-size:10px!important;line-height:1.35!important;margin:3px 0 6px!important}
+.nm .nm-profile-stats{margin:8px 0 12px!important;gap:12px!important;font-size:12px!important;white-space:nowrap!important}
+.nm .nm-profile-shortcuts{margin:8px 0 12px!important;gap:5px!important}
+.nm .nm-profile-shortcuts button{font-size:11px!important;padding:8px 2px!important;gap:4px!important;min-height:34px!important}
+.nm .nm-profile-shortcuts button span{font-size:14px!important}
+.nm .nm-profile-promo{display:none!important}
+.nm .nm-profile-tabs{padding:9px 0!important}
