@@ -8,3 +8,13 @@
 .nm .nm-profile-playlists .nm-profile-playlist>span:last-child{display:block!important;flex:1 1 auto!important;min-width:0!important;margin:0!important;text-align:left!important}
 .nm .nm-profile-playlists .nm-profile-playlist small{display:block!important;margin-top:6px!important;white-space:normal!important}
 .nm .nm-profile-playlists h4{display:block!important;text-align:left!important;margin:14px 0 10px!important}
+
+/* App shell: only central content scrolls, never the tab bar or mini player. */
+.nm.nm-home{display:flex!important;flex-direction:column!important;height:100%!important;min-height:0!important;overflow:hidden!important;padding-bottom:0!important;box-sizing:border-box!important}
+.nm-home>.nm-top{flex:0 0 auto!important;min-height:0!important}
+.nm-home>.nm-scroll-content{display:block!important;flex:1 1 0!important;min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain!important;scrollbar-width:none!important}
+.nm-home>.nm-scroll-content::-webkit-scrollbar{display:none}
+.nm-home>.nm-scroll-content>.nm-profile{height:auto!important;min-height:100%!important;overflow:visible!important;flex:none!important}
+.nm-home>.nm-fixed-footer{position:relative!important;z-index:5!important;display:flex!important;flex-direction:column!important;flex:0 0 auto!important;width:100%!important;background:#101014!important;padding:4px 0 0!important}
+.nm-home>.nm-fixed-footer>.nm-mini{flex:0 0 auto!important}
+.nm-home>.nm-fixed-footer>.nm-bottom{flex:0 0 auto!important;display:flex!important;justify-content:space-around!important;align-items:center!important;width:100%!important;margin:0!important;padding:12px 0 16px!important}
