@@ -147,6 +147,7 @@ function PhoneRuntime({
   const [locked, setLocked] = useState(!creator);
   const [pinOpen, setPinOpen] = useState(false);
   const [pendingSongUrl, setPendingSongUrl] = useState<string | null>(null);
+  const [activeNetEaseSong, setActiveNetEaseSong] = useState<string | null>(null);
   const [quickCamera, setQuickCamera] = useState(false);
   const [keyboard, setKeyboard] = useState(false);
   const [recent, setRecent] = useState<string[]>([]);
@@ -294,7 +295,7 @@ function PhoneRuntime({
       setPinOpen(false);
       if (pendingSongUrl) {
         setApp("netease");
-        window.open(pendingSongUrl, "_blank", "noopener,noreferrer");
+        setActiveNetEaseSong(pendingSongUrl);
         setPendingSongUrl(null);
       }
       event("password", pin);
@@ -451,6 +452,17 @@ function PhoneRuntime({
                   open("camera");
                 }}
               />
+            ) : app === "netease" && activeNetEaseSong ? (
+              <AppWindow key="netease-song" className="app-screen skin-netease" creator={creator} origin={launchOrigin}>
+                <div style={{ height: "100%", display: "flex", flexDirection: "column", background: "#fafafa", color: "#222" }}>
+                  <header style={{ display: "flex", alignItems: "center", padding: "18px 16px 12px", gap: 12 }}>
+                    <button aria-label="返回网易云音乐" onClick={() => setActiveNetEaseSong(null)} style={{ border: 0, background: "transparent", color: "#222", fontSize: 22 }}>‹</button>
+                    <strong>网易云音乐 · 歌曲</strong>
+                  </header>
+                  <iframe title="网易云音乐歌曲" src={activeNetEaseSong} style={{ flex: 1, width: "100%", border: 0, background: "#fff" }} />
+                  <p style={{ fontSize: 11, padding: "10px 16px", color: "#888" }}>歌曲内容由网易云音乐提供；若平台禁止嵌入，此页面可能无法播放。</p>
+                </div>
+              </AppWindow>
             ) : app && app !== "appstore" ? (
               <AppWindow
                 key={app}
