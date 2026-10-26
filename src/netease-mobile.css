@@ -146,3 +146,6 @@
 .nm-mini .nm-mini-track>span:nth-child(2){flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .nm-mini .nm-mini-track small{display:block}
 .nm-mini .nm-mini-play-button,.nm-mini .nm-mini-queue-button{flex:0 0 31px;display:flex;align-items:center;justify-content:center;background:transparent;border:0;color:inherit;padding:5px 2px;cursor:pointer}
+
+/* Uploaded album artwork fills the center label without altering the vinyl grooves. */
+.nm-disc-label .nm-album-cover { display:block; width:100%; height:100%; object-fit:cover; border-radius:50%; }
