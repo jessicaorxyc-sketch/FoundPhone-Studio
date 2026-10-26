@@ -12,3 +12,5 @@
 .bv-danmu-compose{display:flex;gap:8px;padding:8px 12px;background:#191919}
 .bv-danmu-compose input{min-width:0;flex:1;border:1px solid #444;border-radius:18px;background:#303030;color:#fff;padding:8px 12px;font-size:12px}
 .bv-danmu-compose button{background:#fb6599;border:0;border-radius:16px;padding:6px 10px;color:#fff;font-size:12px}
+
+.bv-video-error button{border:1px solid #f69;background:#fa6599;color:#fff;border-radius:16px;padding:7px 12px;font-size:12px}
