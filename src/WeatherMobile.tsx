@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Cloud, CloudDrizzle, CloudRain, CloudSun, Sun, Moon, Wind, Droplets, Eye, Thermometer, Sunrise, Gauge, Map, List, ChevronLeft, X, RefreshCw } from "lucide-react";
+import { Map, List, X } from "lucide-react";
 import "./weather-mobile.css";
 
 type City = {name:string; latitude:number; longitude:number; zone:string};
@@ -31,7 +31,7 @@ export function WeatherMobile(){
  {list?<div className="wm-citylist"><h1>天气</h1>{cities.map((item,i)=>{const q=data[i]?.current||{};return <button key={item.name} onClick={()=>{setSelected(i);setList(false)}}><div><strong>{item.name}</strong><small>{desc(q.weather_code||0)}</small></div><b>{round(q.temperature_2m)}°</b></button>})}</div>:
  map?<div className="wm-mapview"><h2>空气质量地图</h2><div className="wm-mapbox"><span>中国</span><strong>{city.name}</strong><p>空气质量指数 {aq==null?"暂无数据":round(aq)}</p></div><small>空气质量数据来自 Open-Meteo。此处为城市概览，非实时地图图层。</small></div>:
  <>
- <header className="wm-hero"><h1>{city.name}</h1><div className="wm-temp">{weather.error?"--":round(c.temperature_2m)}°</div><div className="wm-condition">{weather.error||desc(c.weather_code||0)}</div><div className="wm-highlow">最高 {round((d.temperature_2m_max as number[])?.[0])}°　最低 {round((d.temperature_2m_min as number[])?.[0])}°</div></header>
+ <header className="wm-hero"><h1>{city.name}</h1><div className="wm-temp">{weather.error?"--":round(c.temperature_2m)}°</div><div className="wm-condition">{weather.error||desc(c.weather_code||0)}</div><div className="wm-highlow">最高 {round((d.temperature_2m_max as number[])?.[0])}° 最低 {round((d.temperature_2m_min as number[])?.[0])}°</div></header>
  {busy&&<p className="wm-loading">正在获取天气数据…</p>}
  {weather.error&&<p className="wm-loading">请检查网络连接后重新打开天气 App。</p>}
  {card("◷ 每小时天气预报",<div className="wm-hourly">{hourTimes.slice(start,start+24).map((t,i)=>{const ix=start+i,code=(h.weather_code as number[])?.[ix]||0;return <div key={t}><span>{i===0?"现在":clock(t)}</span><b>{emoji(code)}</b><strong>{round((h.temperature_2m as number[])?.[ix])}°</strong><small>{((h.precipitation_probability as number[])?.[ix]||0)>0?((h.precipitation_probability as number[])?.[ix])+"%":""}</small></div>})}</div>)}
