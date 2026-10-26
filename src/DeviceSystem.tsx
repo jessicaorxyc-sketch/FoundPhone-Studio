@@ -153,9 +153,9 @@ export function DeviceLock({
   onSongSelect: (url: string) => void;
 }) {
   const [code, setCode] = useState("");
-  const [songIndex, setSongIndex] = useState(0);
+  const [songIndex, setSongIndex] = useState(() => Math.floor(Math.random() * lockSongs.length));
   useEffect(() => {
-    const timer = window.setInterval(() => setSongIndex((i) => (i + 1) % lockSongs.length), 8000);
+    const timer = window.setInterval(() => setSongIndex((i) => (i + 1 + Math.floor(Math.random() * (lockSongs.length - 1))) % lockSongs.length), 8000);
     return () => window.clearInterval(timer);
   }, []);
   useEffect(() => {
