@@ -10,7 +10,7 @@ export function BilibiliVideo({onClose}:{onClose:()=>void}){
  return <div className="bv-page">
  <div className="bv-top"><button onClick={onClose} aria-label="返回"><ArrowLeft size={23}/></button><span>哔哩哔哩</span><button onClick={()=>setShowShare(v=>!v)}><MoreVertical size={22}/></button></div>
  <div className={"bv-video "+(fullscreen?"bv-fullscreen":"")}>
- <iframe title={title} src="https://player.bilibili.com/player.html?bvid=BV1h1kcBfEuJ&page=1&autoplay=0&high_quality=1" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen referrerPolicy="strict-origin-when-cross-origin"/>
+ <iframe title={title} src="https://player.bilibili.com/player.html?bvid=BV1h1kcBfEuJ&p=1&autoplay=0&poster=1&danmaku=0" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen referrerPolicy="strict-origin-when-cross-origin"/>
  {fullscreen&&<button className="bv-exit-full" onClick={()=>setFullscreen(false)}>退出全屏</button>}
  </div>
  <div className="bv-video-tools"><span>完整视频 · 04:41</span><button onClick={()=>setDanmu(v=>!v)}>弹幕 {danmu?"开":"关"}</button><button onClick={()=>setFullscreen(v=>!v)}><Maximize size={17}/> 全屏</button></div>
