@@ -25,6 +25,7 @@ export function NeteaseMobile({ song, songs, onSelect, onBack }: { song: Song | 
   </div>;
   return <div className="nm nm-home">
     {page !== "我的" && <div className="nm-top"><Menu size={22} /><div className="nm-tabs">{["心动","推荐","音乐","播客","听书","免费听"].map((t) => <button key={t} onClick={() => setTab(t)} className={tab === t ? "selected" : ""}>{t}</button>)}</div><Search size={22} /></div>}
+    <main className="nm-scroll-content">
     {page === "我的" ? <div className="nm-profile" style={{ flex: 1, minHeight: 0, overflowY: "auto", background: "#101014" }}>
       <div className="nm-profile-head" style={{ background: "linear-gradient(180deg,#35180f,#1c0c0b)", padding: "18px 14px 22px", textAlign: "center" }}><div className="nm-profile-tools" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, color: "#fff" }}><Menu size={21}/><span>＋ 添加状态</span><Search size={22}/><span>⋮</span></div><div className="nm-profile-avatar" style={{ width: 88, height: 88, borderRadius: "50%", background: "#f7e9eb", color: "#e9bfc3", display: "grid", placeItems: "center", margin: "28px auto 18px", fontSize: 55, border: "2px solid #fff" }}><span>●</span></div><h2>得意黑-king <span className="nm-profile-vip">◉ 陆</span></h2><p className="nm-profile-bio">在白茫的人群中做一个得意的黑.(谁把得意黑这个名字给取了 气了好久)</p><p className="nm-profile-badges">♂ · ◈ 4枚徽章 · ♡ 邓紫棋乐迷 · 助眠冥想十级学者 · IP:重庆</p><div className="nm-profile-stats" style={{ display: "flex", justifyContent: "center", gap: 22, margin: "20px 0", fontSize: 14 }}><span>7 关注</span><span>37.4万 粉丝</span><span>Lv.5</span></div><div className="nm-profile-actions" style={{ display: "flex", gap: 9, justifyContent: "center" }}><button onClick={() => setProfileList("关注")}>＋ 关注</button><button onClick={() => setProfileList("聊天")}>聊天</button><button onClick={() => setProfileList("更多")}>⌄</button></div></div>
       <div className="nm-profile-tabs" style={{ display: "flex", justifyContent: "space-around", padding: "12px 0", borderBottom: "1px solid #29292b" }}>{["音乐","播客","笔记"].map(t=><button key={t} className={profileTab===t?"selected":""} onClick={()=>{setProfileTab(t);setProfileList(null)}}>{t}</button>)}</div>
@@ -35,7 +36,8 @@ export function NeteaseMobile({ song, songs, onSelect, onBack }: { song: Song | 
       <h3>甄选歌单 <span>›</span></h3><div className="nm-cards">{songs.slice(0,4).map((s,i) => <button key={s.url} onClick={() => onSelect(s.url)}><div className={"nm-cover nm-cover-"+i}><Music2 size={28}/></div><span>{s.title}</span><small>{s.artist}</small></button>)}</div>
       <h3>最近喜欢 <span>›</span></h3><div className="nm-songlist">{songs.slice(0,5).map((s) => <button key={s.url} onClick={() => onSelect(s.url)}><div className="nm-songthumb"><Music2 size={18}/></div><span>{s.title}<small>{s.artist}</small></span><Play size={16}/></button>)}</div>
     </>}
-    <div className="nm-mini" onClick={() => onSelect(active.url)}><div className="nm-mini-cover"><Music2 size={18}/></div><span>{active.title}<small>{active.artist}</small></span><Play size={22}/><ListMusic size={20}/></div>
-    <nav className="nm-bottom">{["首页","搜索","笔记","我的"].map((t) => <button key={t} className={page===t?"selected":""} onClick={() => setPage(t)}>{t}</button>)}</nav>
+    </main>
+    <div className="nm-fixed-footer"><div className="nm-mini" onClick={() => onSelect(active.url)}><div className="nm-mini-cover"><Music2 size={18}/></div><span>{active.title}<small>{active.artist}</small></span><Play size={22}/><ListMusic size={20}/></div>
+    <nav className="nm-bottom">{["首页","搜索","笔记","我的"].map((t) => <button key={t} className={page===t?"selected":""} onClick={() => setPage(t)}>{t}</button>)}</nav></div>
   </div>;
 }
