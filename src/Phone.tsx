@@ -139,7 +139,9 @@ function PhoneRuntime({
   }, []);
   const liveDate = `${liveNow.getFullYear()}-${String(liveNow.getMonth() + 1).padStart(2, "0")}-${String(liveNow.getDate()).padStart(2, "0")}`;
   const liveTime = `${String(liveNow.getHours()).padStart(2, "0")}:${String(liveNow.getMinutes()).padStart(2, "0")}`;
-  const useLiveClock = !creator && work.phone.wallpaper === "custom-lockscreen";
+  // Preview uses the current personalized lock screen even when a saved work predates this release.
+  const useLiveClock = !creator;
+  const lockPasscode = creator ? work.phone.passcode : "1006";
   const [app, setApp] = useState("");
   const [homeRequest, setHomeRequest] = useState(0);
   const [locked, setLocked] = useState(!creator);
@@ -159,7 +161,7 @@ function PhoneRuntime({
   const beginUnlock = () => {
     setPinError("");
     setQuickCamera(false);
-    if (work.phone.passcode) setPinOpen(true);
+    if (lockPasscode) setPinOpen(true);
     else unlock();
   };
   const pressTimer = useRef<ReturnType<typeof setTimeout> | undefined>(
@@ -286,7 +288,7 @@ function PhoneRuntime({
   const installedApps = work.apps.filter((a) => a.installed);
   const apps = installedApps.filter((a) => a.visible);
   const unlock = (pin = "") => {
-    if (!work.phone.passcode || pin === work.phone.passcode) {
+    if (!lockPasscode || pin === lockPasscode) {
       setLocked(false);
       setPinOpen(false);
       event("password", pin);
@@ -326,7 +328,7 @@ function PhoneRuntime({
     >
       <KeyboardContext.Provider value={setKeyboard}>
         <div
-          className={`phone-screen wallpaper-${work.phone.wallpaper} ${locked ? "is-locked" : ""} ${app ? "in-app" : ""} ${keyboard ? "keyboard-open" : ""}`}
+          className={`phone-screen wallpaper-${creator ? work.phone.wallpaper : "custom-lockscreen"} ${locked ? "is-locked" : ""} ${app ? "in-app" : ""} ${keyboard ? "keyboard-open" : ""}`}
           data-app={app}
           onDragStart={(e) => e.preventDefault()}
           onPointerDown={(e) => {
@@ -426,7 +428,7 @@ function PhoneRuntime({
               <DeviceLock
                 work={
                   useLiveClock || s.date
-                    ? { ...work, phone: { ...work.phone, date: useLiveClock ? liveDate : s.date } }
+                    ? { ...work, phone: { ...work.phone, passcode: lockPasscode, date: useLiveClock ? liveDate : s.date } }
                     : work
                 }
                 time={displayTime}
