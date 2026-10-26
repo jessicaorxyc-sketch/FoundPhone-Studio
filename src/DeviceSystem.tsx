@@ -62,56 +62,67 @@ export function NativeComposer({
 const lockSongs = [
   {
     "title": "来自天堂的魔鬼",
+    "caption": "明知会坠落，还是想靠近你。",
     "artist": "邓紫棋",
     "url": "https://163cn.tv/bjxBqPux"
   },
   {
     "title": "淡季动物园",
+    "caption": "我们假装看风景，余光却都是彼此。",
     "artist": "许光汉",
     "url": "https://163cn.tv/bjxAzfn9"
   },
   {
     "title": "恋人未满",
+    "caption": "只差一句喜欢，就能牵你的手。",
     "artist": "穆祉丞",
     "url": "https://163cn.tv/bjxAV0us"
   },
   {
     "title": "恋人",
+    "caption": "世界很大，我只想和你并肩。",
     "artist": "李荣浩",
     "url": "https://163cn.tv/bjxBCMcM"
   },
   {
     "title": "笨小孩",
+    "caption": "不太会说爱，却想把真心都给你。",
     "artist": "刘德华 / 吴宗宪 / 柯受良",
     "url": "https://163cn.tv/bjxAXzr5"
   },
   {
     "title": "剩下的盛夏",
+    "caption": "那年夏天的风，替我记住了你。",
     "artist": "TFBOYS · 2016现场版",
     "url": "https://163cn.tv/bjxBap7j"
   },
   {
     "title": "多远都要在一起",
+    "caption": "隔着山海，也想奔向你的怀里。",
     "artist": "邓紫棋",
     "url": "https://163cn.tv/bjxBkWDz"
   },
   {
     "title": "刻在我心底的名字",
+    "caption": "有些名字，光是想起就会心动。",
     "artist": "卢广仲",
     "url": "https://163cn.tv/bjxAU9LX"
   },
   {
     "title": "虚拟",
+    "caption": "哪怕隔着屏幕，也想拥抱真实的你。",
     "artist": "陈粒",
     "url": "https://163cn.tv/bjxAqn75"
   },
   {
     "title": "克卜勒",
+    "caption": "你是我漫长宇宙里最亮的星。",
     "artist": "孙燕姿",
     "url": "https://163cn.tv/bjxA3dUx"
   },
   {
     "title": "绝对占有 相对自由",
+    "caption": "愿你自由，也愿你总想回到我身边。",
     "artist": "陈粒",
     "url": "https://163cn.tv/bjxBdMk3"
   }
@@ -189,8 +200,8 @@ export function DeviceLock({
             <h1>{time}</h1>
             <button type="button" className="custom-lock-lyrics" aria-label="点击歌曲解锁并打开网易云音乐" onClick={() => onSongSelect(lockSongs[songIndex].url)}>
               <span className="custom-lyrics-heading"><span className="custom-lyrics-symbol" aria-hidden="true">词<span className="custom-lyrics-miniheart">♥</span></span>心动歌词</span>
-              <span>{lockSongs[songIndex].title}</span>
-              <span>{lockSongs[songIndex].artist}</span>
+              <span>{lockSongs[songIndex].caption}</span>
+              <span>{lockSongs[songIndex].title} · {lockSongs[songIndex].artist}</span>
               <span className="custom-lyrics-heart" aria-hidden="true">♥</span>
             </button>
           </div>
