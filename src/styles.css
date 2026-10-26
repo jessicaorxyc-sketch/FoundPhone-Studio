@@ -4929,3 +4929,7 @@ label {
 .phone-screen.wallpaper-custom-lockscreen.is-locked .wallpaper-orb {
   display: none;
 }
+
+/* Hide native scrollbars throughout the phone UI while retaining touch, mousewheel and keyboard scrolling. */
+.phone-shell, .phone-shell *, .app-screen, .app-screen *, .clock-mobile, .clock-mobile *, .nm, .nm * { scrollbar-width: none !important; -ms-overflow-style: none !important; }
+.phone-shell::-webkit-scrollbar, .phone-shell *::-webkit-scrollbar, .app-screen::-webkit-scrollbar, .app-screen *::-webkit-scrollbar, .clock-mobile::-webkit-scrollbar, .clock-mobile *::-webkit-scrollbar, .nm::-webkit-scrollbar, .nm *::-webkit-scrollbar { display: none !important; width: 0 !important; height: 0 !important; }
