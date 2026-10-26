@@ -111,7 +111,6 @@ export function DeviceLock({
       {!pinOpen ? (
         <>
           <div className="lock-clock-block">
-            <LockKeyhole size={18} />
             <p>
               {new Intl.DateTimeFormat("zh-CN", {
                 month: "long",
@@ -123,6 +122,12 @@ export function DeviceLock({
               )}
             </p>
             <h1>{time}</h1>
+            <div className="custom-lock-lyrics" aria-label="心动歌词装饰">
+              <span className="custom-lyrics-heading">▣ 心动歌词</span>
+              <span>总有一条蜿蜒在童话镇里...</span>
+              <span>童话镇</span>
+              <span className="custom-lyrics-heart" aria-hidden="true">♥</span>
+            </div>
           </div>
           <div className="lock-notifications">
             {work.phone.notifications && (
