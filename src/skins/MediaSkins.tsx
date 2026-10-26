@@ -332,14 +332,14 @@ export function BilibiliSkin(p: Props) {
         ))}
       </div>
       <div className="catalog-scroll">
+        <div className="bili-grid">
         {(tab === "首页" && (category === "推荐" || category === "音乐")) && (
-          <button type="button" className="bili-featured-video" onClick={() => setFeaturedPlaying(true)} aria-label="在手机内播放TF家族2026新年音乐会《来自天堂的魔鬼》纯享版">
+          <button type="button" className="bili-featured-video bili-featured-grid-item" onClick={() => setFeaturedPlaying(true)} aria-label="在手机内播放TF家族2026新年音乐会《来自天堂的魔鬼》纯享版">
             <div className="bili-featured-art"><span className="bili-featured-play"><Play size={28} fill="white" /></span><small>TF家族 · 2026新年音乐会「荣耀」</small></div>
             <strong>【TF家族】2026新年音乐会「荣耀」：《来自天堂的魔鬼》纯享版（DAY2）</strong>
-            <span>哔哩哔哩 · 点击观看原视频</span>
+            <span>哔哩哔哩 · 点击进入视频详情页</span>
           </button>
         )}
-        <div className="bili-grid">
           {list.map((i) => (
             <button key={i.id} onClick={() => p.onItem(i)}>
               <div>
