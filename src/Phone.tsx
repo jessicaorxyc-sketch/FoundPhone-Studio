@@ -101,6 +101,8 @@ export function AppIcon({
   );
 }
 type PhoneProps = Omit<Parameters<typeof PhoneRuntime>[0], "deviceLayout">;
+
+const neteaseLockSongs = [{"title":"来自天堂的魔鬼","artist":"邓紫棋","url":"https://163cn.tv/bjxBqPux"},{"title":"淡季动物园","artist":"许光汉","url":"https://163cn.tv/bjxAzfn9"},{"title":"恋人未满","artist":"穆祉丞","url":"https://163cn.tv/bjxAV0us"},{"title":"恋人","artist":"李荣浩","url":"https://163cn.tv/bjxBCMcM"},{"title":"笨小孩","artist":"刘德华 / 吴宗宪 / 柯受良","url":"https://163cn.tv/bjxAXzr5"},{"title":"剩下的盛夏","artist":"TFBOYS · 2016现场版","url":"https://163cn.tv/bjxBap7j"},{"title":"多远都要在一起","artist":"邓紫棋","url":"https://163cn.tv/bjxBkWDz"},{"title":"刻在我心底的名字","artist":"卢广仲","url":"https://163cn.tv/bjxAU9LX"},{"title":"虚拟","artist":"陈粒","url":"https://163cn.tv/bjxAqn75"},{"title":"克卜勒","artist":"孙燕姿","url":"https://163cn.tv/bjxA3dUx"},{"title":"绝对占有 相对自由","artist":"陈粒","url":"https://163cn.tv/bjxBdMk3"}];
 export function Phone(props: PhoneProps) {
   const deviceLayout = useDeviceLayout(props.work, props.creator);
   return (
@@ -454,13 +456,22 @@ function PhoneRuntime({
               />
             ) : app === "netease" && activeNetEaseSong ? (
               <AppWindow key="netease-song" className="app-screen skin-netease" creator={creator} origin={launchOrigin}>
-                <div style={{ height: "100%", display: "flex", flexDirection: "column", background: "#fafafa", color: "#222" }}>
-                  <header style={{ display: "flex", alignItems: "center", padding: "18px 16px 12px", gap: 12 }}>
-                    <button aria-label="返回网易云音乐" onClick={() => setActiveNetEaseSong(null)} style={{ border: 0, background: "transparent", color: "#222", fontSize: 22 }}>‹</button>
-                    <strong>网易云音乐 · 歌曲</strong>
+                <div style={{ height: "100%", display: "flex", flexDirection: "column", background: "linear-gradient(160deg,#442b35 0%,#1b1b22 60%,#111 100%)", color: "#fff", padding: "18px 20px 32px", boxSizing: "border-box" }}>
+                  <header style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                    <button aria-label="返回网易云音乐" onClick={() => setActiveNetEaseSong(null)} style={{ border: 0, background: "transparent", color: "#fff", fontSize: 30, cursor: "pointer" }}>‹</button>
+                    <div><strong style={{ fontSize: 16 }}>网易云音乐</strong><div style={{ fontSize: 11, opacity: .7 }}>歌曲详情</div></div>
                   </header>
-                  <iframe title="网易云音乐歌曲" src={activeNetEaseSong} style={{ flex: 1, width: "100%", border: 0, background: "#fff" }} />
-                  <p style={{ fontSize: 11, padding: "10px 16px", color: "#888" }}>歌曲内容由网易云音乐提供；若平台禁止嵌入，此页面可能无法播放。</p>
+                  {(() => {
+                    const song = neteaseLockSongs.find((entry) => entry.url === activeNetEaseSong);
+                    return <div style={{ display: "flex", flex: 1, flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center", gap: 16 }}>
+                      <div style={{ width: 210, height: 210, maxWidth: "75%", aspectRatio: "1", borderRadius: "50%", border: "12px solid #111", boxShadow: "0 10px 40px #0008", background: "radial-gradient(circle,#9c4958 0%,#412934 45%,#17151a 46%,#17151a 100%)", display: "grid", placeItems: "center" }}><span style={{ fontSize: 58 }}>♫</span></div>
+                      <h2 style={{ margin: "12px 0 0", fontSize: 22 }}>{song?.title ?? "歌曲"}</h2>
+                      <p style={{ margin: 0, fontSize: 14, opacity: .75 }}>{song?.artist ?? ""}</p>
+                      <p style={{ margin: "10px 0", fontSize: 12, opacity: .55 }}>已打开手机内的歌曲详情</p>
+                      <div style={{ width: "100%", height: 3, borderRadius: 3, background: "#ffffff33" }} />
+                      <p style={{ fontSize: 12, lineHeight: 1.6, opacity: .7 }}>当前为站内模拟播放器。尚未接入网易云授权音源，无法在这里播放完整歌曲。</p>
+                    </div>;
+                  })()}
                 </div>
               </AppWindow>
             ) : app && app !== "appstore" ? (
