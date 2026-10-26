@@ -18,3 +18,11 @@
 .nm-home>.nm-fixed-footer{position:relative!important;z-index:5!important;display:flex!important;flex-direction:column!important;flex:0 0 auto!important;width:100%!important;background:#101014!important;padding:4px 0 0!important}
 .nm-home>.nm-fixed-footer>.nm-mini{flex:0 0 auto!important}
 .nm-home>.nm-fixed-footer>.nm-bottom{flex:0 0 auto!important;display:flex!important;justify-content:space-around!important;align-items:center!important;width:100%!important;margin:0!important;padding:12px 0 16px!important}
+
+/* My page shortcut row and promotion strip */
+.nm .nm-profile-shortcuts{display:flex;gap:7px;align-items:stretch;width:100%;margin:20px 0 0;padding:0 2px;box-sizing:border-box}
+.nm .nm-profile-shortcuts button{display:flex;flex:1 1 0;min-width:0;align-items:center;justify-content:center;gap:5px;padding:11px 3px;border:0;border-radius:6px;background:#48322c;color:#eee1dd;font-size:12px;white-space:nowrap}
+.nm .nm-profile-shortcuts button:last-child{flex:0 0 37px}
+.nm .nm-profile-shortcuts button span{font-size:16px}
+.nm .nm-profile-promo{display:flex;align-items:center;justify-content:space-between;background:#352720;color:#d4c8c4;padding:15px 16px;margin:18px -14px -22px;font-size:12px;text-align:left;border-radius:12px 12px 0 0}
+.nm .nm-profile-promo span{font-size:22px}
