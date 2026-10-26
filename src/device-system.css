@@ -1361,3 +1361,24 @@
   line-height: 1.5;
 }
 .ios18 .phone-screen.wallpaper-custom-lockscreen.is-locked .lock-clock-block > button.custom-lock-lyrics > span { text-align: left; }
+
+/* Reference screenshot: lyrics align near the left screen edge, independently of centered clock. */
+.ios18 .phone-screen.wallpaper-custom-lockscreen.is-locked .lock-clock-block > button.custom-lock-lyrics {
+  position: relative;
+  left: auto;
+  right: auto;
+  align-self: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-sizing: border-box;
+  width: calc(100% - 48px);
+  margin: 9px 24px 0;
+  padding: 0;
+  text-align: left;
+  color: #909090;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.ios18 .phone-screen.wallpaper-custom-lockscreen.is-locked .custom-lock-lyrics .custom-lyrics-heading { align-self: flex-start; text-align: left; }
+.ios18 .phone-screen.wallpaper-custom-lockscreen.is-locked .custom-lock-lyrics .custom-lyrics-heart { right: 0; }
