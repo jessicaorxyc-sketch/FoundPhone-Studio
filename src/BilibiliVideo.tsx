@@ -8,7 +8,7 @@ const samples=[{name:"哈哈大笑你管不着",text:"舞台真的太精彩了�
 export function BilibiliVideo({onClose}:{onClose:()=>void}){
  const [tab,setTab]=useState<"简介"|"评论">("简介"),[liked,setLiked]=useState(false),[disliked,setDisliked]=useState(false),[favorite,setFavorite]=useState(false),[coin,setCoin]=useState(false),[following,setFollowing]=useState(false),[danmu,setDanmu]=useState(false),[comment,setComment]=useState(""),[comments,setComments]=useState<{name:string;text:string;likes:number}[]>([]),[reply,setReply]=useState(""),[likedComments,setLikedComments]=useState<number[]>([]),[expanded,setExpanded]=useState(false),[showShare,setShowShare]=useState(false),[fullscreen,setFullscreen]=useState(false);
  const videoRef=useRef<HTMLVideoElement>(null);
- const [currentTime,setCurrentTime]=useState(0),[videoError,setVideoError]=useState(false),[danmuText,setDanmuText]=useState(""),[userDanmu,setUserDanmu]=useState<{text:string;at:number}[]>([]);
+ const [currentTime,setCurrentTime]=useState(0),[videoError,setVideoError]=useState(false),[retryKey,setRetryKey]=useState(0),[danmuText,setDanmuText]=useState(""),[userDanmu,setUserDanmu]=useState<{text:string;at:number}[]>([]);
  const sampleDanmu=[{text:"这个舞台太绝了！",at:8},{text:"前奏一响就起鸡皮疙瘩",at:24},{text:"好喜欢这个编舞",at:48},{text:"再看亿遍！",at:78},{text:"舞台表现力真的好强",at:125},{text:"这一段好帅",at:174},{text:"最后的ending太棒了",at:245}];
  const activeDanmu=[...sampleDanmu,...userDanmu].filter(x=>currentTime>=x.at&&currentTime<x.at+7);
  const sendDanmu=()=>{if(!danmuText.trim())return;setUserDanmu(v=>[...v,{text:danmuText.trim(),at:currentTime}]);setDanmu(true);setDanmuText("");};
@@ -16,14 +16,14 @@ export function BilibiliVideo({onClose}:{onClose:()=>void}){
  return <div className="bv-page">
  <div className="bv-top"><button onClick={onClose} aria-label="返回"><ArrowLeft size={23}/></button><span>哔哩哔哩</span><button onClick={()=>setShowShare(v=>!v)}><MoreVertical size={22}/></button></div>
  <div className={"bv-video "+(fullscreen?"bv-fullscreen":"")}>
- <video ref={videoRef} src={mp4Url} controls playsInline preload="metadata" onTimeUpdate={e=>setCurrentTime(e.currentTarget.currentTime)} onError={()=>setVideoError(true)} aria-label={title}/>
+ <video key={retryKey} ref={videoRef} src={mp4Url} controls playsInline preload="metadata" onTimeUpdate={e=>setCurrentTime(e.currentTarget.currentTime)} onError={()=>setVideoError(true)} aria-label={title}/>
  {danmu&&<div className="bv-danmu-layer" aria-live="off">{activeDanmu.map((d,i)=><span key={d.at+"-"+i} className="bv-flying-danmu" style={{top:(12+(i%4)*19)+"%",animationDuration:"7s"}}>{d.text}</span>)}</div>}
- {videoError&&<div className="bv-video-error">视频暂时无法加载。<a href={mp4Url} target="_blank" rel="noreferrer">打开视频文件</a></div>}
+ {videoError&&<div className="bv-video-error">视频暂时无法加载。<button type="button" onClick={()=>{setVideoError(false);setRetryKey(v=>v+1)}}>在此重试播放</button></div>}
  {fullscreen&&<button className="bv-exit-full" onClick={()=>setFullscreen(false)}>退出全屏</button>}
  </div>
  <div className="bv-video-tools"><span>完整视频 · 04:41</span><button onClick={()=>setDanmu(v=>!v)}>弹幕 {danmu?"开":"关"}</button><button onClick={()=>setFullscreen(v=>!v)}><Maximize size={17}/> 全屏</button></div>
  <div className="bv-danmu-compose"><input value={danmuText} onChange={e=>setDanmuText(e.target.value)} onKeyDown={e=>{if(e.key==="Enter")sendDanmu()}} placeholder="发送弹幕（示例弹幕为模拟内容）"/><button onClick={sendDanmu}>发送弹幕</button></div>
- <div className="bv-embed-notice">使用已授权上传的视频文件播放；弹幕示例为模拟内容。<a href={videoUrl} target="_blank" rel="noopener noreferrer">原视频页面</a></div>
+ <div className="bv-embed-notice">视频在当前页面内播放，不会跳转；弹幕示例为模拟内容。</div>
  <div className="bv-tabs"><button className={tab==="简介"?"selected":""} onClick={()=>setTab("简介")}>简介</button><button className={tab==="评论"?"selected":""} onClick={()=>setTab("评论")}>评论 {(794.4+comments.length/10000).toFixed(1)}万</button><button className="bv-danmu" onClick={()=>setDanmu(v=>!v)}>弹幕 {danmu?"已开启":"已关闭"}</button></div>
  {tab==="简介"?<div className="bv-details">
  <div className="bv-creator"><div className="bv-avatar">TF</div><div><strong>TF家族</strong><small>963.5万粉丝 2708视频</small></div><button className={following?"followed":""} onClick={()=>setFollowing(v=>!v)}>{following?"已关注":"+ 关注"}</button></div>
