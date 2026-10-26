@@ -28,6 +28,7 @@ import { catalogSkins } from "./skins/catalog";
 import "./skins/skins.css";
 import "./ios18.css";
 import "./device-system.css";
+import { NeteaseMobile } from "./NeteaseMobile";
 import "./ios/tokens.css";
 import "./ios/reference.css";
 import "./ios/status-bar.css";
@@ -454,25 +455,9 @@ function PhoneRuntime({
                   open("camera");
                 }}
               />
-            ) : app === "netease" && activeNetEaseSong ? (
-              <AppWindow key="netease-song" className="app-screen skin-netease" creator={creator} origin={launchOrigin}>
-                <div style={{ height: "100%", display: "flex", flexDirection: "column", background: "linear-gradient(160deg,#442b35 0%,#1b1b22 60%,#111 100%)", color: "#fff", padding: "18px 20px 32px", boxSizing: "border-box" }}>
-                  <header style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                    <button aria-label="返回网易云音乐" onClick={() => setActiveNetEaseSong(null)} style={{ border: 0, background: "transparent", color: "#fff", fontSize: 30, cursor: "pointer" }}>‹</button>
-                    <div><strong style={{ fontSize: 16 }}>网易云音乐</strong><div style={{ fontSize: 11, opacity: .7 }}>歌曲详情</div></div>
-                  </header>
-                  {(() => {
-                    const song = neteaseLockSongs.find((entry) => entry.url === activeNetEaseSong);
-                    return <div style={{ display: "flex", flex: 1, flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center", gap: 16 }}>
-                      <div style={{ width: 210, height: 210, maxWidth: "75%", aspectRatio: "1", borderRadius: "50%", border: "12px solid #111", boxShadow: "0 10px 40px #0008", background: "radial-gradient(circle,#9c4958 0%,#412934 45%,#17151a 46%,#17151a 100%)", display: "grid", placeItems: "center" }}><span style={{ fontSize: 58 }}>♫</span></div>
-                      <h2 style={{ margin: "12px 0 0", fontSize: 22 }}>{song?.title ?? "歌曲"}</h2>
-                      <p style={{ margin: 0, fontSize: 14, opacity: .75 }}>{song?.artist ?? ""}</p>
-                      <p style={{ margin: "10px 0", fontSize: 12, opacity: .55 }}>已打开手机内的歌曲详情</p>
-                      <div style={{ width: "100%", height: 3, borderRadius: 3, background: "#ffffff33" }} />
-                      <p style={{ fontSize: 12, lineHeight: 1.6, opacity: .7 }}>当前为站内模拟播放器。尚未接入网易云授权音源，无法在这里播放完整歌曲。</p>
-                    </div>;
-                  })()}
-                </div>
+            ) : app === "netease" ? (
+              <AppWindow key="netease-native" className="app-screen skin-netease" creator={creator} origin={launchOrigin}>
+                <NeteaseMobile song={neteaseLockSongs.find((entry) => entry.url === activeNetEaseSong) ?? null} songs={neteaseLockSongs} onSelect={(url) => setActiveNetEaseSong(url)} onBack={() => setActiveNetEaseSong(null)} />
               </AppWindow>
             ) : app && app !== "appstore" ? (
               <AppWindow
