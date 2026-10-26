@@ -29,6 +29,7 @@ import "./skins/skins.css";
 import "./ios18.css";
 import "./device-system.css";
 import { NeteaseMobile } from "./NeteaseMobile";
+import { ClockMobile } from "./ClockMobile";
 import "./ios/tokens.css";
 import "./ios/reference.css";
 import "./ios/status-bar.css";
@@ -459,6 +460,10 @@ function PhoneRuntime({
             ) : app === "netease" ? (
               <AppWindow key="netease-native" className="app-screen skin-netease" creator={creator} origin={launchOrigin}>
                 <NeteaseMobile song={neteaseLockSongs.find((entry) => entry.url === activeNetEaseSong) ?? null} songs={neteaseLockSongs} onSelect={(url) => setActiveNetEaseSong(url)} onBack={() => setActiveNetEaseSong(null)} />
+              </AppWindow>
+            ) : app === "clock" ? (
+              <AppWindow key="clock-native" className="app-screen skin-clock" creator={creator} origin={launchOrigin}>
+                <ClockMobile />
               </AppWindow>
             ) : app && app !== "appstore" ? (
               <AppWindow
