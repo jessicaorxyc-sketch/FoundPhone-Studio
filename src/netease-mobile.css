@@ -57,3 +57,25 @@
 .nm .nm-details-value{color:#e7e7eb;display:flex;align-items:center;justify-content:flex-end;gap:7px;text-align:right;max-width:77%;line-height:1.55;overflow-wrap:anywhere}
 .nm .nm-details-value b{color:#66666d;font-size:24px;font-weight:300}
 .nm .nm-details-divider{border-top:1px solid #232329;margin-top:17px;padding-top:17px}
+
+.nm .nm-details-field:has(.nm-details-value){cursor:pointer}
+.nm .nm-gallery{min-height:100%;background:#0e0e12;color:#eee;padding:0 14px 45px;box-sizing:border-box}
+.nm .nm-gallery header{height:74px;display:flex;align-items:center;justify-content:space-between;font-size:18px}
+.nm .nm-gallery header button{font-size:31px;min-width:28px;color:#fff}
+.nm .nm-gallery-day{display:flex;gap:14px;margin:35px 0 25px}
+.nm .nm-gallery-date{width:64px;flex:0 0 64px;display:flex;flex-direction:column;gap:10px}
+.nm .nm-gallery-date b{font-size:25px}
+.nm .nm-gallery-date small{color:#888;font-size:13px;text-align:right}
+.nm .nm-gallery-grid{flex:1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px}
+.nm .nm-gallery-photo{position:relative;display:flex;align-items:center;justify-content:center;aspect-ratio:1;background:linear-gradient(135deg,#59545a,#29282d);color:#bbb;overflow:hidden;font-size:11px}
+.nm .nm-gallery-day>.nm-gallery-photo{width:calc((100% - 78px)/3);flex:none}
+.nm .nm-gallery-photo-1{background:linear-gradient(150deg,#cf8d99,#614354)}
+.nm .nm-gallery-photo-2{background:linear-gradient(140deg,#8a6546,#bba07d)}
+.nm .nm-gallery-photo-3{background:linear-gradient(140deg,#9a8495,#cfc0bb)}
+.nm .nm-gallery-photo-4{background:linear-gradient(140deg,#6b88a0,#c59b68)}
+.nm .nm-gallery-photo-5{background:linear-gradient(140deg,#2d4737,#9a783e)}
+.nm .nm-gallery-photo small{position:absolute;right:4px;bottom:4px;color:white;text-shadow:0 1px 3px #000}
+.nm .nm-gallery-view-header{background:#000}
+.nm .nm-gallery:has(.nm-gallery-view-header){background:#000;min-height:100%;display:flex;flex-direction:column}
+.nm .nm-gallery-large{flex:1;display:flex;align-items:center;justify-content:center;margin:55px -14px 35px;min-height:260px}
+.nm .nm-gallery-likes{align-self:flex-end;border:1px solid #555;border-radius:25px;padding:9px 20px;margin-bottom:24px}
