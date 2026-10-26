@@ -58,6 +58,64 @@ export function NativeComposer({
     </button>
   );
 }
+
+const lockSongs = [
+  {
+    "title": "来自天堂的魔鬼",
+    "artist": "邓紫棋",
+    "url": "https://music.163.com/#/search/m/?s=%E6%9D%A5%E8%87%AA%E5%A4%A9%E5%A0%82%E7%9A%84%E9%AD%94%E9%AC%BC%20%E9%82%93%E7%B4%AB%E6%A3%8B&type=1"
+  },
+  {
+    "title": "淡季动物园",
+    "artist": "许光汉",
+    "url": "https://music.163.com/#/search/m/?s=%E6%B7%A1%E5%AD%A3%E5%8A%A8%E7%89%A9%E5%9B%AD%20%E8%AE%B8%E5%85%89%E6%B1%89&type=1"
+  },
+  {
+    "title": "恋人未满",
+    "artist": "穆祉丞",
+    "url": "https://music.163.com/#/search/m/?s=%E6%81%8B%E4%BA%BA%E6%9C%AA%E6%BB%A1%20%E7%A9%86%E7%A5%89%E4%B8%9E&type=1"
+  },
+  {
+    "title": "恋人",
+    "artist": "李荣浩",
+    "url": "https://music.163.com/#/search/m/?s=%E6%81%8B%E4%BA%BA%20%E6%9D%8E%E8%8D%A3%E6%B5%A9&type=1"
+  },
+  {
+    "title": "笨小孩",
+    "artist": "刘德华",
+    "url": "https://music.163.com/#/search/m/?s=%E7%AC%A8%E5%B0%8F%E5%AD%A9%20%E5%88%98%E5%BE%B7%E5%8D%8E&type=1"
+  },
+  {
+    "title": "剩下的盛夏",
+    "artist": "TFBOYS",
+    "url": "https://music.163.com/#/search/m/?s=%E5%89%A9%E4%B8%8B%E7%9A%84%E7%9B%9B%E5%A4%8F%20TFBOYS&type=1"
+  },
+  {
+    "title": "多远都要在一起",
+    "artist": "邓紫棋",
+    "url": "https://music.163.com/#/search/m/?s=%E5%A4%9A%E8%BF%9C%E9%83%BD%E8%A6%81%E5%9C%A8%E4%B8%80%E8%B5%B7%20%E9%82%93%E7%B4%AB%E6%A3%8B&type=1"
+  },
+  {
+    "title": "刻在我心底的名字",
+    "artist": "卢广仲",
+    "url": "https://music.163.com/#/search/m/?s=%E5%88%BB%E5%9C%A8%E6%88%91%E5%BF%83%E5%BA%95%E7%9A%84%E5%90%8D%E5%AD%97%20%E5%8D%A2%E5%B9%BF%E4%BB%B2&type=1"
+  },
+  {
+    "title": "虚拟",
+    "artist": "陈粒",
+    "url": "https://music.163.com/#/search/m/?s=%E8%99%9A%E6%8B%9F%20%E9%99%88%E7%B2%92&type=1"
+  },
+  {
+    "title": "克卜勒",
+    "artist": "孙燕姿",
+    "url": "https://music.163.com/#/search/m/?s=%E5%85%8B%E5%8D%9C%E5%8B%92%20%E5%AD%99%E7%87%95%E5%A7%BF&type=1"
+  },
+  {
+    "title": "绝对占有 相对自由",
+    "artist": "陈粒",
+    "url": "https://music.163.com/#/search/m/?s=%E7%BB%9D%E5%AF%B9%E5%8D%A0%E6%9C%89%20%E7%9B%B8%E5%AF%B9%E8%87%AA%E7%94%B1%20%E9%99%88%E7%B2%92&type=1"
+  }
+];
 export function DeviceLock({
   work,
   time,
@@ -69,6 +127,7 @@ export function DeviceLock({
   onUnlock,
   onCamera,
   onLight,
+  onSongSelect,
 }: {
   work: Work;
   time: string;
@@ -80,8 +139,14 @@ export function DeviceLock({
   onUnlock: (v: string) => void;
   onCamera: () => void;
   onLight: () => void;
+  onSongSelect: (url: string) => void;
 }) {
   const [code, setCode] = useState("");
+  const [songIndex, setSongIndex] = useState(0);
+  useEffect(() => {
+    const timer = window.setInterval(() => setSongIndex((i) => (i + 1) % lockSongs.length), 8000);
+    return () => window.clearInterval(timer);
+  }, []);
   useEffect(() => {
     if (error) setCode("");
   }, [error]);
@@ -122,12 +187,12 @@ export function DeviceLock({
               )}
             </p>
             <h1>{time}</h1>
-            <div className="custom-lock-lyrics" aria-label="心动歌词装饰">
+            <button type="button" className="custom-lock-lyrics" aria-label="点击歌曲解锁并打开网易云音乐" onClick={() => onSongSelect(lockSongs[songIndex].url)}>
               <span className="custom-lyrics-heading"><span className="custom-lyrics-symbol" aria-hidden="true">词<span className="custom-lyrics-miniheart">♥</span></span>心动歌词</span>
-              <span>总有一条蜿蜒在童话镇里...</span>
-              <span>童话镇</span>
+              <span>{lockSongs[songIndex].title}</span>
+              <span>{lockSongs[songIndex].artist}</span>
               <span className="custom-lyrics-heart" aria-hidden="true">♥</span>
-            </div>
+            </button>
           </div>
           <div className="lock-notifications">
             {work.phone.notifications && (
