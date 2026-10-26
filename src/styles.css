@@ -4918,3 +4918,14 @@ label {
   background: #e34f58;
   transform: rotate(135deg);
 }
+
+/* User-provided wallpaper: retain the original image without recoloring. */
+.phone-screen.wallpaper-custom-lockscreen.is-locked {
+  background-image: url("../assets/4873904ebaff23c36f3c6e316976f88.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.phone-screen.wallpaper-custom-lockscreen.is-locked .wallpaper-orb {
+  display: none;
+}
