@@ -132,6 +132,14 @@ function PhoneRuntime({
   runtime?: Runtime;
   onRuntime?: (s: Runtime) => void;
 }) {
+  const [liveNow, setLiveNow] = useState(() => new Date());
+  useEffect(() => {
+    const timer = window.setInterval(() => setLiveNow(new Date()), 1000);
+    return () => window.clearInterval(timer);
+  }, []);
+  const liveDate = `${liveNow.getFullYear()}-${String(liveNow.getMonth() + 1).padStart(2, "0")}-${String(liveNow.getDate()).padStart(2, "0")}`;
+  const liveTime = `${String(liveNow.getHours()).padStart(2, "0")}:${String(liveNow.getMinutes()).padStart(2, "0")}`;
+  const useLiveClock = !creator && work.phone.wallpaper === "custom-lockscreen";
   const [app, setApp] = useState("");
   const [homeRequest, setHomeRequest] = useState(0);
   const [locked, setLocked] = useState(!creator);
@@ -290,7 +298,7 @@ function PhoneRuntime({
   useEffect(() => {
     if (app && !work.apps.some((a) => a.id === app && a.installed)) setApp("");
   }, [app, work.apps]);
-  const displayTime = creator ? work.phone.time : s.time || work.phone.time;
+  const displayTime = useLiveClock ? liveTime : creator ? work.phone.time : s.time || work.phone.time;
   const plugin = getApp(app);
   useEffect(() => {
     const count = s.notifications.length;
@@ -417,8 +425,8 @@ function PhoneRuntime({
             {locked && !(quickCamera && app === "camera") ? (
               <DeviceLock
                 work={
-                  s.date
-                    ? { ...work, phone: { ...work.phone, date: s.date } }
+                  useLiveClock || s.date
+                    ? { ...work, phone: { ...work.phone, date: useLiveClock ? liveDate : s.date } }
                     : work
                 }
                 time={displayTime}
