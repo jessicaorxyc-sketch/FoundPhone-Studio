@@ -27,13 +27,17 @@
 .nm .nm-profile-promo{display:flex;align-items:center;justify-content:space-between;background:#352720;color:#d4c8c4;padding:15px 16px;margin:18px -14px -22px;font-size:12px;text-align:left;border-radius:12px 12px 0 0}
 .nm .nm-profile-promo span{font-size:22px}
 
-/* Compact middle section, matching latest user screenshot. */
-.nm .nm-profile-head{padding-bottom:0!important}
-.nm .nm-profile-bio{font-size:11px!important;line-height:1.35!important;margin:6px 0 4px!important}
-.nm .nm-profile-badges{font-size:10px!important;line-height:1.35!important;margin:3px 0 6px!important}
-.nm .nm-profile-stats{margin:8px 0 12px!important;gap:12px!important;font-size:12px!important;white-space:nowrap!important}
-.nm .nm-profile-shortcuts{margin:8px 0 12px!important;gap:5px!important}
-.nm .nm-profile-shortcuts button{font-size:11px!important;padding:8px 2px!important;gap:4px!important;min-height:34px!important}
-.nm .nm-profile-shortcuts button span{font-size:14px!important}
+
+/* Profile page: preserve the full-size reference layout while replacing account data. */
+.nm .nm-profile-head{padding:18px 14px 22px!important;text-align:center!important;background:linear-gradient(180deg,#35180f,#1c0c0b)!important}
+.nm .nm-profile-tools{display:flex!important;align-items:center!important;justify-content:space-between!important;min-height:35px!important}
+.nm .nm-profile-avatar{width:88px!important;height:88px!important;margin:28px auto 18px!important;border-radius:50%!important}
+.nm .nm-profile-head h2{font-size:21px!important;line-height:1.4!important;margin:0 0 10px!important}
+.nm .nm-profile-bio{font-size:12px!important;line-height:1.6!important;margin:8px 0!important}
+.nm .nm-profile-badges{font-size:11px!important;line-height:1.5!important;margin:7px 0!important}
+.nm .nm-profile-stats{display:flex!important;justify-content:center!important;align-items:center!important;gap:13px!important;margin:17px 0 19px!important;font-size:13px!important;white-space:nowrap!important}
+.nm .nm-profile-shortcuts{display:flex!important;gap:7px!important;margin:14px 0 0!important;padding:0 2px!important}
+.nm .nm-profile-shortcuts button{display:flex!important;min-height:38px!important;align-items:center!important;justify-content:center!important;gap:5px!important;padding:9px 3px!important;font-size:12px!important;border-radius:5px!important;background:#48322c!important}
+.nm .nm-profile-shortcuts button span{font-size:16px!important}
 .nm .nm-profile-promo{display:none!important}
-.nm .nm-profile-tabs{padding:9px 0!important}
+.nm .nm-profile-tabs{padding:12px 0!important}
