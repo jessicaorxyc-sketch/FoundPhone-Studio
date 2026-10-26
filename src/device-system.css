@@ -1339,3 +1339,6 @@
 .ios18 .phone-screen.wallpaper-custom-lockscreen.is-locked .custom-lyrics-heading { display: flex; align-items: center; gap: 5px; }
 .ios18 .phone-screen.wallpaper-custom-lockscreen.is-locked .custom-lyrics-symbol { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 17px; height: 17px; border-radius: 4px; background: #818181; color: #fff; font-size: 12px; font-weight: 600; line-height: 1; flex: none; }
 .ios18 .phone-screen.wallpaper-custom-lockscreen.is-locked .custom-lyrics-miniheart { position: absolute; right: -4px; bottom: -5px; font-size: 9px; color: #818181; text-shadow: 0 1px #fff; }
+
+.ios18 .phone-screen.wallpaper-custom-lockscreen.is-locked button.custom-lock-lyrics { width: calc(100% - 68px); border: 0; padding: 0; background: transparent; cursor: pointer; font: inherit; }
+.ios18 .phone-screen.wallpaper-custom-lockscreen.is-locked button.custom-lock-lyrics:focus-visible { outline: 2px solid #888; outline-offset: 4px; border-radius: 4px; }
