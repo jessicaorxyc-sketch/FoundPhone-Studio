@@ -146,6 +146,7 @@ function PhoneRuntime({
   const [homeRequest, setHomeRequest] = useState(0);
   const [locked, setLocked] = useState(!creator);
   const [pinOpen, setPinOpen] = useState(false);
+  const [pendingSongUrl, setPendingSongUrl] = useState<string | null>(null);
   const [quickCamera, setQuickCamera] = useState(false);
   const [keyboard, setKeyboard] = useState(false);
   const [recent, setRecent] = useState<string[]>([]);
@@ -291,6 +292,11 @@ function PhoneRuntime({
     if (!lockPasscode || pin === lockPasscode) {
       setLocked(false);
       setPinOpen(false);
+      if (pendingSongUrl) {
+        setApp("netease");
+        window.open(pendingSongUrl, "_blank", "noopener,noreferrer");
+        setPendingSongUrl(null);
+      }
       event("password", pin);
     } else {
       setPinError("密码不正确");
@@ -438,6 +444,7 @@ function PhoneRuntime({
                 setPinOpen={setPinOpen}
                 error={pinError}
                 onUnlock={unlock}
+                onSongSelect={(url) => { setPendingSongUrl(url); setPinOpen(true); }}
                 onLight={() => setPanel("light")}
                 onCamera={() => {
                   setQuickCamera(true);
