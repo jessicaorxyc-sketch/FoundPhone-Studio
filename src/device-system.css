@@ -1342,3 +1342,22 @@
 
 .ios18 .phone-screen.wallpaper-custom-lockscreen.is-locked button.custom-lock-lyrics { width: calc(100% - 68px); border: 0; padding: 0; background: transparent; cursor: pointer; font: inherit; }
 .ios18 .phone-screen.wallpaper-custom-lockscreen.is-locked button.custom-lock-lyrics:focus-visible { outline: 2px solid #888; outline-offset: 4px; border-radius: 4px; }
+
+/* Restore the reference's left-aligned lyrics widget below the centered clock. */
+.ios18 .phone-screen.wallpaper-custom-lockscreen.is-locked .lock-clock-block > button.custom-lock-lyrics {
+  align-self: stretch;
+  box-sizing: border-box;
+  width: calc(100% - 68px);
+  margin: 9px 34px 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  color: #909090;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.ios18 .phone-screen.wallpaper-custom-lockscreen.is-locked .lock-clock-block > button.custom-lock-lyrics > span { text-align: left; }
