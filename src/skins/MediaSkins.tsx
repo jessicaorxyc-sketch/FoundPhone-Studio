@@ -303,6 +303,7 @@ export function YouTubeSkin(p: Props) {
 export function BilibiliSkin(p: Props) {
   const { tab, setTab, q, setQ, items } = useContent(p, "首页");
   const [category, setCategory] = useState("推荐");
+  const [featuredPlaying, setFeaturedPlaying] = useState(false);
   const list =
     tab === "历史"
       ? items.filter((i) => i.folder === "历史")
@@ -331,11 +332,11 @@ export function BilibiliSkin(p: Props) {
       </div>
       <div className="catalog-scroll">
         {(tab === "首页" && (category === "推荐" || category === "音乐")) && (
-          <a className="bili-featured-video" href="https://b23.tv/B7z53XW" target="_blank" rel="noopener noreferrer" aria-label="打开TF家族2026新年音乐会《来自天堂的魔鬼》纯享版">
+          <button type="button" className="bili-featured-video" onClick={() => setFeaturedPlaying(true)} aria-label="在手机内播放TF家族2026新年音乐会《来自天堂的魔鬼》纯享版">
             <div className="bili-featured-art"><span className="bili-featured-play"><Play size={28} fill="white" /></span><small>TF家族 · 2026新年音乐会「荣耀」</small></div>
             <strong>【TF家族】2026新年音乐会「荣耀」：《来自天堂的魔鬼》纯享版（DAY2）</strong>
             <span>哔哩哔哩 · 点击观看原视频</span>
-          </a>
+          </button>
         )}
         <div className="bili-grid">
           {list.map((i) => (
@@ -355,6 +356,11 @@ export function BilibiliSkin(p: Props) {
         </div>
         <Empty items={list} />
       </div>
+      {featuredPlaying && <div className="bili-inline-player-overlay" role="dialog" aria-label="视频播放">
+        <div className="bili-inline-player-top"><strong>正在播放</strong><button onClick={() => setFeaturedPlaying(false)} aria-label="关闭播放器">✕</button></div>
+        <iframe title="TF家族2026新年音乐会《来自天堂的魔鬼》纯享版" src="https://player.bilibili.com/player.html?bvid=BV1h1kcBfEuJ&autoplay=1&high_quality=1" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen referrerPolicy="strict-origin-when-cross-origin" />
+        <div className="bili-inline-player-description"><strong>【TF家族】2026新年音乐会「荣耀」：《来自天堂的魔鬼》纯享版（DAY2）</strong><p>使用哔哩哔哩官方嵌入播放器。部分设备或视频权限可能限制播放。</p></div>
+      </div>}
       <Tabs
         tabs={["首页", "动态", "历史"]}
         value={tab}
