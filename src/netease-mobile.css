@@ -117,3 +117,22 @@
 .nm { overflow-x: hidden; }
 .nm-top, .nm-tabs { min-width: 0; }
 .nm-tabs { overflow-x: auto; }
+
+.nm-heart-controls{display:flex!important;align-items:center;justify-content:space-around!important;width:100%;gap:0!important}
+.nm-heart-controls button{flex:1;min-width:0}
+.nm-heart-controls button:first-child,.nm-heart-controls button:last-child{font-size:27px!important;opacity:.75}
+.nm-queue-backdrop{position:absolute;inset:0;z-index:110;background:rgba(0,0,0,.48);display:flex;align-items:flex-end}
+.nm-queue-sheet{width:100%;height:72%;background:#f3f6f9;color:#23252b;border-radius:22px 22px 0 0;display:flex;flex-direction:column;padding:10px 16px 20px;box-sizing:border-box}
+.nm-queue-handle{width:36px;height:4px;border-radius:6px;background:#d5d8db;margin:0 auto 16px}
+.nm-queue-heading{display:flex;align-items:center;gap:22px}
+.nm-queue-heading button{background:none;border:0;color:#858990;font-size:17px;padding:5px 0}
+.nm-queue-heading button.active{color:#202329;font-weight:700}
+.nm-queue-heading button:last-child{margin-left:auto}
+.nm-queue-heading small{font-size:11px}
+.nm-queue-source{font-size:12px;color:#92979c;margin:17px 0 8px}
+.nm-queue-items{overflow-y:auto;flex:1;scrollbar-width:none}
+.nm-queue-items button{border:0;background:transparent;color:#25282d;display:flex;justify-content:space-between;align-items:center;text-align:left;width:100%;padding:13px 2px;font-size:14px}
+.nm-queue-items button small{color:#888b90;font-size:12px}
+.nm-queue-items button.nm-queue-current,.nm-queue-items button.nm-queue-current small{color:#e66a79}
+.nm-queue-options{display:flex;gap:10px;padding-top:10px}
+.nm-queue-options button{flex:1;border:0;border-radius:10px;background:white;padding:13px 4px;color:#24262b}
