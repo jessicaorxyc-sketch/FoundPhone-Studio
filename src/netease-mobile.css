@@ -140,3 +140,9 @@
 .nm-queue-items button.nm-queue-current,.nm-queue-items button.nm-queue-current small{color:#e66a79}
 .nm-queue-options{display:flex;gap:10px;padding-top:10px}
 .nm-queue-options button{flex:1;border:0;border-radius:10px;background:white;padding:13px 4px;color:#24262b}
+
+.nm-mini{display:flex!important;align-items:center!important}
+.nm-mini .nm-mini-track{display:flex;align-items:center;gap:10px;flex:1;min-width:0;text-align:left;background:transparent;border:0;color:inherit;padding:0}
+.nm-mini .nm-mini-track>span:nth-child(2){flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nm-mini .nm-mini-track small{display:block}
+.nm-mini .nm-mini-play-button,.nm-mini .nm-mini-queue-button{flex:0 0 31px;display:flex;align-items:center;justify-content:center;background:transparent;border:0;color:inherit;padding:5px 2px;cursor:pointer}
