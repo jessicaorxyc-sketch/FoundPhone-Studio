@@ -3,13 +3,12 @@ import { ArrowLeft, ThumbsUp, ThumbsDown, Star, Share2, Send, Maximize, Play, Mo
 import "./bilibili-video.css";
 const mp4Url="https://github.com/jessicaorxyc-sketch/FoundPhone-Studio/releases/download/bilibili-Video-v1/ca803be0cc5e0070adeafa7df3713c7b.mp4";
 const embedUrl="https://player.bilibili.com/player.html?bvid=BV1h1kcBfEuJ&autoplay=0&danmaku=0";
-const videoUrl="https://b23.tv/LYQS51F";
 const title="【TF家族】2026新年音乐会「荣耀」：《来自天堂的魔鬼》纯享版（DAY2）";
 const samples=[{name:"哈哈大笑你管不着",text:"舞台真的太精彩了！黑白造型和编舞特别有感染力。",likes:7754},{name:"小圆步",text:"这段表演我可以反复看好多遍！",likes:320},{name:"星星落下",text:"最喜欢副歌的舞台设计。",likes:215}];
 export function BilibiliVideo({onClose}:{onClose:()=>void}){
  const [tab,setTab]=useState<"简介"|"评论">("简介"),[liked,setLiked]=useState(false),[disliked,setDisliked]=useState(false),[favorite,setFavorite]=useState(false),[coin,setCoin]=useState(false),[following,setFollowing]=useState(false),[danmu,setDanmu]=useState(false),[comment,setComment]=useState(""),[comments,setComments]=useState<{name:string;text:string;likes:number}[]>([]),[reply,setReply]=useState(""),[likedComments,setLikedComments]=useState<number[]>([]),[expanded,setExpanded]=useState(false),[showShare,setShowShare]=useState(false),[fullscreen,setFullscreen]=useState(false);
  const videoRef=useRef<HTMLVideoElement>(null);
- const [currentTime,setCurrentTime]=useState(0),[videoError,setVideoError]=useState(false),[retryKey,setRetryKey]=useState(0),[useUploadedFile,setUseUploadedFile]=useState(false),[danmuText,setDanmuText]=useState(""),[userDanmu,setUserDanmu]=useState<{text:string;at:number}[]>([]);
+ const [currentTime,setCurrentTime]=useState(0),[videoError,setVideoError]=useState(false),[retryKey]=useState(0),[useUploadedFile,setUseUploadedFile]=useState(false),[danmuText,setDanmuText]=useState(""),[userDanmu,setUserDanmu]=useState<{text:string;at:number}[]>([]);
  const sampleDanmu=[{text:"这个舞台太绝了！",at:8},{text:"前奏一响就起鸡皮疙瘩",at:24},{text:"好喜欢这个编舞",at:48},{text:"再看亿遍！",at:78},{text:"舞台表现力真的好强",at:125},{text:"这一段好帅",at:174},{text:"最后的ending太棒了",at:245}];
  const activeDanmu=[...sampleDanmu,...userDanmu].filter(x=>currentTime>=x.at&&currentTime<x.at+7);
  const sendDanmu=()=>{if(!danmuText.trim())return;setUserDanmu(v=>[...v,{text:danmuText.trim(),at:currentTime}]);setDanmu(true);setDanmuText("");};
