@@ -410,36 +410,39 @@ function VerticalVideo({ p, item }: { p: Props; item: Item }) {
   );
 }
 export function DouyinSkin(p: Props) {
-  const { tab, setTab, items } = useContent(p, "推荐");
-  const list = tab === "推荐" ? items : items.filter((i) => i.folder === tab);
-  return (
-    <div className="catalog-skin douyin-ui">
-      <Header p={p} />
-      <div className="douyin-top">
-        {["同城", "关注", "推荐"].map((t) => (
-          <button
-            className={tab === t ? "selected" : ""}
-            key={t}
-            onClick={() => setTab(t)}
-          >
-            {t}
-          </button>
-        ))}
-      </div>
-      <div className="vertical-feed">
-        {list.map((i) => (
-          <VerticalVideo key={i.id} p={p} item={i} />
-        ))}
-        <Empty items={list} />
-      </div>
-      <Tabs
-        tabs={["推荐", "关注", "我"]}
-        value={tab}
-        set={setTab}
-        icons={[<Home />, <Users />, <User />]}
-      />
-    </div>
-  );
+  const { items } = useContent(p, "推荐");
+  const [page,setPage] = useState<"首页"|"朋友"|"消息"|"我">("首页");
+  const [feed,setFeed] = useState("推荐");
+  const [index,setIndex] = useState(0);
+  const [likes,setLikes] = useState<string[]>([]);
+  const [saves,setSaves] = useState<string[]>([]);
+  const [following,setFollowing] = useState<string[]>([]);
+  const [panel,setPanel] = useState<"评论"|"分享"|"搜索"|"发布"|null>(null);
+  const [draft,setDraft] = useState("");
+  const [comments,setComments] = useState<string[]>([]);
+  const [chat,setChat] = useState<string|null>(null);
+  const [chatText,setChatText] = useState("");
+  const [chatMessages,setChatMessages] = useState<string[]>([]);
+  const [profileTab,setProfileTab] = useState("作品");
+  const [paused,setPaused] = useState(false);
+  const [expanded,setExpanded] = useState(false);
+  const current = items.length ? items[index % items.length] : undefined;
+  const toggle=(list:string[],set:(v:string[])=>void,id:string)=>set(list.includes(id)?list.filter(x=>x!==id):[...list,id]);
+  const go=(delta:number)=>{if(items.length)setIndex(v=>(v+delta+items.length)%items.length);setPaused(false);setExpanded(false);};
+  const nav=(next:typeof page)=>{setPage(next);setPanel(null);setChat(null);};
+  return <div className={"catalog-skin douyin-ui dy-app dy-"+page}>
+    {page==="首页"&&<><div className="dy-feed-top"><button onClick={()=>setPanel("搜索")}>☰</button><div>{["热点","直播","精选","同城","商城","关注","推荐"].map(t=><button key={t} className={feed===t?"selected":""} onClick={()=>{setFeed(t);setIndex(0)}}>{t}</button>)}</div><button onClick={()=>setPanel("搜索")} aria-label="搜索"><Search size={22}/></button></div>
+    <div className="dy-feed" onTouchStart={e=>{(e.currentTarget as HTMLElement).dataset.startY=String(e.touches[0].clientY)}} onTouchEnd={e=>{const d=Number((e.currentTarget as HTMLElement).dataset.startY)-e.changedTouches[0].clientY;if(Math.abs(d)>55)go(d>0?1:-1)}}>
+    {current?<><div className="dy-media" onClick={()=>setPaused(v=>!v)}><Media item={current}/>{paused&&<span className="dy-paused"><Play size={38} fill="white"/></span>}</div>
+    <div className="dy-side"><button onClick={()=>toggle(following,setFollowing,current.sender)}><Avatar name={current.sender}/><span className="dy-plus">{following.includes(current.sender)?"✓":"+"}</span></button><button onClick={()=>toggle(likes,setLikes,current.id)}><Heart size={30} fill={likes.includes(current.id)?"#ff315a":"white"} color={likes.includes(current.id)?"#ff315a":"white"}/><small>{current.likes+(likes.includes(current.id)?1:0)}</small></button><button onClick={()=>setPanel("评论")}><MessageCircle size={30} fill="white"/><small>{current.comments.length+comments.length}</small></button><button onClick={()=>toggle(saves,setSaves,current.id)}><Bookmark size={30} fill={saves.includes(current.id)?"#ffd466":"white"}/><small>收藏</small></button><button onClick={()=>setPanel("分享")}><span style={{fontSize:30}}>➦</span><small>分享</small></button></div>
+    <div className="dy-caption"><strong>@{current.sender}</strong><p onClick={()=>setExpanded(v=>!v)}>{expanded?current.body:current.body.slice(0,75)}{!expanded&&current.body.length>75?"… 展开":""}</p><small>♫ {current.title}</small></div></>:<div className="dy-empty">暂无视频，可在故事中添加视频内容</div>}
+    <div className="dy-swipe"><button onClick={()=>go(-1)}>↑</button><button onClick={()=>go(1)}>↓</button></div></div></>}
+    {page==="朋友"&&<div className="dy-white"><div className="dy-heading">朋友 <button onClick={()=>setPanel("搜索")}><Search/></button></div><div className="dy-friend-intro"><Users size={42}/><h2>发现朋友的日常</h2><p>关注喜欢的创作者，查看他们的最新作品</p></div>{items.slice(0,8).map(i=><button className="dy-person" key={i.id} onClick={()=>toggle(following,setFollowing,i.sender)}><Avatar name={i.sender}/><span><strong>{i.sender}</strong><small>{i.title}</small></span><b>{following.includes(i.sender)?"已关注":"+ 关注"}</b></button>)}</div>}
+    {page==="消息"&&<div className="dy-white"><div className="dy-heading"><button onClick={()=>setPanel("搜索")}>☰</button>消息<button onClick={()=>setPanel("搜索")}><Search/></button></div>{chat?<><div className="dy-chat-title"><button onClick={()=>setChat(null)}>‹</button>{chat}</div><div className="dy-chat-body">{chatMessages.map((m,i)=><p key={i}>{m}</p>)}</div><div className="dy-chat-send"><input value={chatText} onChange={e=>setChatText(e.target.value)} placeholder="发送消息"/><button onClick={()=>{if(chatText.trim())setChatMessages(v=>[...v,chatText.trim()]);setChatText("")}}>发送</button></div></>:<><div className="dy-shortcuts">{[["👥","粉丝"],["♥","赞与其他"],["●","评论弹幕"],["✓","群通知"],["◉","限时日常"]].map(([ico,label])=><button key={label} onClick={()=>setChat(label)}><span>{ico}</span><small>{label}</small></button>)}</div>{["Lykke.","2 群","1 群","购物消息","Jorc","TF家族路透分享-6群","TF家族路透分享-5群","展丞99"].map((name,i)=><button className="dy-message" key={name} onClick={()=>{setChat(name);setChatMessages([])}}><span className="dy-msg-avatar">{name[0]}</span><span><strong>{name}</strong><small>{i%2?"[分享视频]":"你好，最近怎么样…"}</small></span><time>{i<3?"刚刚":"昨天"}</time></button>)}</>}</div>}
+    {page==="我"&&<div className="dy-white dy-profile"><div className="dy-profile-hero"><div className="dy-profile-top"><button onClick={()=>setPanel("搜索")}>☰</button><span>♡　♧　⌕</span></div><div className="dy-profile-person"><Avatar name={p.owner??"我"}/><div><h2>{p.owner??"我的主页"}</h2><small>抖音号 · 我的账号</small></div></div></div><div className="dy-profile-stats"><span><b>{likes.length}</b>获赞</span><span><b>{following.length}</b>关注</span><span><b>0</b>粉丝</span><button onClick={()=>setPanel("发布")}>编辑主页</button></div><p className="dy-bio">记录生活，分享喜欢的瞬间。</p><div className="dy-profile-links">{["主播中心","我的订单","观看历史","我的钱包","全部功能"].map(x=><button key={x} onClick={()=>setProfileTab(x)}>{x}</button>)}</div><div className="dy-profile-tabs">{["作品","日常","推荐","收藏","喜欢"].map(x=><button key={x} className={profileTab===x?"selected":""} onClick={()=>setProfileTab(x)}>{x}</button>)}</div><div className="dy-profile-grid">{(profileTab==="收藏"?items.filter(i=>saves.includes(i.id)):profileTab==="喜欢"?items.filter(i=>likes.includes(i.id)):items).map(i=><button key={i.id} onClick={()=>{setIndex(items.indexOf(i));nav("首页")}}><Media item={i}/></button>)}</div></div>}
+    <div className="dy-bottom">{(["首页","朋友","发布","消息","我"] as const).map(t=><button key={t} className={page===t?"active":""} onClick={()=>t==="发布"?setPanel("发布"):nav(t)}>{t==="发布"?<span className="dy-publish">+</span>:t}</button>)}</div>
+    {panel&&<div className="dy-modal"><div className="dy-modal-head"><strong>{panel}</strong><button onClick={()=>setPanel(null)}>✕</button></div>{panel==="评论"?<><div className="dy-comment-list">{current?.comments.map((c,i)=><p key={i}>{typeof c==="string"?c:JSON.stringify(c)}</p>)}{comments.map((c,i)=><p key={i}>我：{c}</p>)}</div><div className="dy-input"><input value={draft} onChange={e=>setDraft(e.target.value)} placeholder="善语结善缘，恶语伤人心"/><button onClick={()=>{if(draft.trim())setComments(v=>[...v,draft.trim()]);setDraft("")}}>发送</button></div></>:panel==="分享"?<div className="dy-share-options"><button onClick={()=>{navigator.clipboard?.writeText(location.href);setPanel(null)}}>复制链接</button><button onClick={()=>setPanel(null)}>取消</button></div>:panel==="搜索"?<div className="dy-input"><Search/><input value={draft} onChange={e=>setDraft(e.target.value)} placeholder="搜索抖音内容"/></div>:<div className="dy-publish-panel"><p>从手机故事中添加视频，即可在推荐页展示。</p><button onClick={()=>setPanel(null)}>返回</button></div>}</div>}
+  </div>;
 }
 export function TikTokSkin(p: Props) {
   const { tab, setTab, items } = useContent(p, "For You");
