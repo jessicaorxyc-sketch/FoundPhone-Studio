@@ -330,6 +330,13 @@ export function BilibiliSkin(p: Props) {
         ))}
       </div>
       <div className="catalog-scroll">
+        {(tab === "首页" && (category === "推荐" || category === "音乐")) && (
+          <a className="bili-featured-video" href="https://b23.tv/B7z53XW" target="_blank" rel="noopener noreferrer" aria-label="打开TF家族2026新年音乐会《来自天堂的魔鬼》纯享版">
+            <div className="bili-featured-art"><span className="bili-featured-play"><Play size={28} fill="white" /></span><small>TF家族 · 2026新年音乐会「荣耀」</small></div>
+            <strong>【TF家族】2026新年音乐会「荣耀」：《来自天堂的魔鬼》纯享版（DAY2）</strong>
+            <span>哔哩哔哩 · 点击观看原视频</span>
+          </a>
+        )}
         <div className="bili-grid">
           {list.map((i) => (
             <button key={i.id} onClick={() => p.onItem(i)}>
