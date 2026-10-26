@@ -43,3 +43,17 @@
 .nm .nm-profile-tabs{padding:12px 0!important}
 
 .nm-library-filters{display:flex;align-items:center;gap:15px;min-height:44px;border-bottom:1px solid #19191d;margin-bottom:9px}.nm-library-filters button{color:#85858b;font-size:12px;padding:8px 0}.nm-library-filters button.active{color:#fff;font-weight:650}.nm-library-filters sup{font-size:9px}.nm-library-spacer{flex:1}.nm-library .nm-profile-playlist{display:flex;align-items:center;gap:12px;width:100%;min-height:69px;padding:7px 0;text-align:left}.nm-library .nm-profile-art{width:54px;height:54px;flex:0 0 54px;border-radius:5px;background:#29292f;display:grid;place-items:center;font-size:25px;color:#fff}.nm-library .nm-art-heart{background:#7a8381;color:#fff}.nm-library .nm-art-flower{background:#83a9b6}.nm-library .nm-art-cover{background:#715a68}.nm-library .nm-art-extra{background:#1f1f25;color:#8b8b92;font-size:30px}.nm-library-description{flex:1;min-width:0;font-size:14px;line-height:1.35;overflow-wrap:anywhere}.nm-library-description small{display:block;color:#888;font-size:11px;margin-top:6px}.nm-library-description em{font-size:10px;background:#fc2951;border-radius:4px;padding:2px 4px;font-style:italic;margin-left:5px}.nm-library-action{font-size:10px;color:#bfc0c4;white-space:nowrap}.nm-library h4{font-size:12px;font-weight:600;margin:18px 0 8px}
+
+/* NetEase personal details, matched to the supplied two-screen reference. */
+.nm .nm-profile-name{cursor:pointer}
+.nm .nm-details{min-height:100%;background:#101014;color:#f4f4f5;padding:0 14px 40px;box-sizing:border-box}
+.nm .nm-details-header{height:76px;display:flex;align-items:center;justify-content:center;position:relative;font-size:18px}
+.nm .nm-details-header button{position:absolute;left:0;top:10px;font-size:42px;font-weight:200;line-height:1;color:#f4f4f5}
+.nm .nm-details-avatar{height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
+.nm .nm-details-avatar>span{height:94px;width:94px;border:2px solid #fff;border-radius:50%;background:linear-gradient(#fff7f7,#f4dddd);color:#f4cdd0;display:grid;place-items:center;font-size:57px}
+.nm .nm-details-avatar small{margin-top:-15px;z-index:1;background:#222227;color:#fff;padding:5px 13px;border-radius:18px;font-size:12px}
+.nm .nm-details-fields{padding:0 2px}
+.nm .nm-details-field{min-height:55px;display:flex;align-items:center;justify-content:space-between;gap:15px;font-size:14px;color:#b7b7bc}
+.nm .nm-details-value{color:#e7e7eb;display:flex;align-items:center;justify-content:flex-end;gap:7px;text-align:right;max-width:77%;line-height:1.55;overflow-wrap:anywhere}
+.nm .nm-details-value b{color:#66666d;font-size:24px;font-weight:300}
+.nm .nm-details-divider{border-top:1px solid #232329;margin-top:17px;padding-top:17px}
