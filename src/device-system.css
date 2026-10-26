@@ -1324,3 +1324,13 @@
   grid-template-rows: repeat(6, 99px);
   grid-auto-rows: 99px;
 }
+
+/* Personal lock screen: light monochrome layout inspired by supplied reference. */
+.ios18 .phone-screen.wallpaper-custom-lockscreen.is-locked .device-lock { color: #777; }
+.ios18 .phone-screen.wallpaper-custom-lockscreen.is-locked .lock-clock-block { top: 95px; }
+.ios18 .phone-screen.wallpaper-custom-lockscreen.is-locked .lock-clock-block > p { font-size: 17px; font-weight: 500; color: #777; }
+.ios18 .phone-screen.wallpaper-custom-lockscreen.is-locked .lock-clock-block > h1 { font-size: 105px; font-weight: 400; letter-spacing: -5px; line-height: 1.04; color: #777; }
+.ios18 .phone-screen.wallpaper-custom-lockscreen.is-locked .lock-tools button { background: #f6f6f6a8; color: #101010; backdrop-filter: blur(9px); border: 1px solid #ffffffb0; }
+.ios18 .phone-screen.wallpaper-custom-lockscreen.is-locked .custom-lock-lyrics { position: relative; display: flex; flex-direction: column; text-align: left; margin: 9px 34px 0; font-size: 13px; line-height: 1.5; color: #909090; }
+.ios18 .phone-screen.wallpaper-custom-lockscreen.is-locked .custom-lyrics-heading { font-size: 15px; font-weight: 600; color: #808080; margin-bottom: 5px; }
+.ios18 .phone-screen.wallpaper-custom-lockscreen.is-locked .custom-lyrics-heart { position: absolute; right: 0; top: 18px; font-size: 33px; line-height: 1; color: #919191; }
