@@ -1,4 +1,5 @@
 import { AudioPlayer, useTrack } from "../audio";
+import { BilibiliVideo } from "../BilibiliVideo";
 import { useSkinState } from "../skinState";
 import {
   Bookmark,
@@ -356,11 +357,7 @@ export function BilibiliSkin(p: Props) {
         </div>
         <Empty items={list} />
       </div>
-      {featuredPlaying && <div className="bili-inline-player-overlay" role="dialog" aria-label="视频播放">
-        <div className="bili-inline-player-top"><strong>正在播放</strong><button onClick={() => setFeaturedPlaying(false)} aria-label="关闭播放器">✕</button></div>
-        <iframe title="TF家族2026新年音乐会《来自天堂的魔鬼》纯享版" src="https://player.bilibili.com/player.html?bvid=BV1h1kcBfEuJ&autoplay=1&high_quality=1" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen referrerPolicy="strict-origin-when-cross-origin" />
-        <div className="bili-inline-player-description"><strong>【TF家族】2026新年音乐会「荣耀」：《来自天堂的魔鬼》纯享版（DAY2）</strong><p>使用哔哩哔哩官方嵌入播放器。部分设备或视频权限可能限制播放。</p></div>
-      </div>}
+      {featuredPlaying && <BilibiliVideo onClose={() => setFeaturedPlaying(false)} />}
       <Tabs
         tabs={["首页", "动态", "历史"]}
         value={tab}
