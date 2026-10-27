@@ -3,7 +3,6 @@ import { AudioPlayer, useTrack } from "../audio";
 import { useSkinState } from "../skinState";
 import {
   Calendar,
-  Camera,
   CheckCircle,
   ChevronLeft,
   ChevronRight,
@@ -262,7 +261,6 @@ export function CameraSkin({ onClose }: { onClose?: () => void } = {}) {
   const [error,setError]=useState("");
   const [shot,setShot]=useState("");
   const [busy,setBusy]=useState(false);
-  const [mode,setMode]=useState<"照片"|"视频">("照片");
   useEffect(()=>{
     let cancelled=false;
     setError("");
