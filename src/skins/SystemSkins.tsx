@@ -25,7 +25,7 @@ import {
   Users,
   Wallet,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { download } from "../io";
 import { safeMedia, type Item } from "../schema";
 import {
@@ -185,6 +185,8 @@ export function ContactsSkin(p: Props) {
 export function PhotosSkin(p: Props) {
   const { tab, setTab, q, setQ, items } = useContent(p, "图库");
   const [album, setAlbum] = useState("");
+  const captured = useTemporaryPhotos();
+  const [viewPhoto,setViewPhoto]=useState<string|null>(null);
   const list =
     tab === "收藏"
       ? items.filter((i) => i.favorite)
@@ -214,6 +216,7 @@ export function PhotosSkin(p: Props) {
           <>
             <SearchBox value={q} set={setQ} />
             <div className="photo-mosaic">
+              {tab!=="收藏"&&!album&&captured.map((src,i)=><button key={"capture-"+i} onClick={()=>setViewPhoto(src)}><img src={src} alt={"临时拍摄照片 "+(i+1)} style={{width:"100%",height:"100%",objectFit:"cover"}}/></button>)}
               {list.map((i) => (
                 <button
                   aria-label={`查看${i.title}`}
@@ -225,11 +228,12 @@ export function PhotosSkin(p: Props) {
                 </button>
               ))}
             </div>
-            <p className="media-count">{list.length} 个项目</p>
+            <p className="media-count">{list.length+(tab!=="收藏"&&!album?captured.length:0)} 个项目</p>
           </>
         )}
         <Empty items={list} />
       </div>
+{viewPhoto&&<div className="dy-temp-photo-view"><button onClick={()=>setViewPhoto(null)}>‹ 返回</button><img src={viewPhoto} alt="拍摄照片"/></div>}
       <Tabs
         tabs={["图库", "相簿", "收藏"]}
         value={tab}
@@ -242,65 +246,53 @@ export function PhotosSkin(p: Props) {
     </div>
   );
 }
-export function CameraSkin(p: Props) {
-  const [mode, setMode] = useState("照片"),
-    [index, setIndex] = useState(0);
-  const frames = p.items.filter((i) =>
-    mode === "视频" ? i.kind === "video" : i.kind !== "video",
-  );
-  const frame = frames[index % Math.max(frames.length, 1)];
-  return (
-    <div className="catalog-skin native-camera">
-      <Header p={p} />
-      <div className="camera-top">
-        <span>闪光灯关闭</span>
-        <span>{mode === "视频" ? "HD · 30" : "4:3"}</span>
-      </div>
-      <div className="camera-view">
-        {frame ? <Media item={frame} /> : <p>未设置取景画面</p>}
-        <div className="camera-grid" />
-      </div>
-      <div className="camera-mode">
-        {["视频", "照片"].map((m) => (
-          <button
-            className={mode === m ? "selected" : ""}
-            key={m}
-            onClick={() => {
-              setMode(m);
-              setIndex(0);
-            }}
-          >
-            {m}
-          </button>
-        ))}
-      </div>
-      <div className="camera-controls">
-        <button
-          aria-label="查看上一画面"
-          disabled={!frames.length}
-          onClick={() => setIndex((i) => (i + 1) % frames.length)}
-        >
-          <Image size={24} />
-        </button>
-        <button
-          className="camera-shutter"
-          aria-label={p.creator ? "编辑拍摄画面" : "查看拍摄内容"}
-          disabled={!p.creator && !frame}
-          onClick={() => (p.creator ? p.onAdd() : frame && p.onItem(frame))}
-        >
-          <span />
-        </button>
-        <button
-          aria-label="切换取景画面"
-          disabled={frames.length < 2}
-          onClick={() => setIndex((i) => i + 1)}
-        >
-          <Camera size={24} />
-        </button>
-      </div>
-      <small className="camera-caption">作者设置的虚构取景内容</small>
-    </div>
-  );
+// Temporary in-memory photos: intentionally reset on every full page reload.
+const temporaryPhotos: string[] = [];
+const photoListeners = new Set<() => void>();
+function notifyPhotos(){ photoListeners.forEach(listener=>listener()); }
+function useTemporaryPhotos(){
+  const [,setVersion]=useState(0);
+  useEffect(()=>{const listener=()=>setVersion(v=>v+1);photoListeners.add(listener);return ()=>{photoListeners.delete(listener)}},[]);
+  return temporaryPhotos;
+}
+export function CameraSkin({ onClose }: { onClose?: () => void } = {}) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const streamRef = useRef<MediaStream|null>(null);
+  const [facing,setFacing]=useState<"user"|"environment">("environment");
+  const [error,setError]=useState("");
+  const [shot,setShot]=useState("");
+  const [busy,setBusy]=useState(false);
+  const [mode,setMode]=useState<"照片"|"视频">("照片");
+  useEffect(()=>{
+    let cancelled=false;
+    setError("");
+    const open=async()=>{
+      if(!navigator.mediaDevices?.getUserMedia){setError("此浏览器不支持相机，请使用 HTTPS 并允许相机权限");return}
+      try{
+        const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:facing}},audio:false});
+        if(cancelled){stream.getTracks().forEach(t=>t.stop());return}
+        streamRef.current=stream;
+        if(videoRef.current){videoRef.current.srcObject=stream;void videoRef.current.play().catch(()=>{})}
+      }catch{if(!cancelled)setError("无法访问相机，请检查浏览器相机权限")}
+    };
+    void open();
+    return ()=>{cancelled=true;streamRef.current?.getTracks().forEach(t=>t.stop());streamRef.current=null};
+  },[facing]);
+  const capture=()=>{
+    const v=videoRef.current;
+    if(!v||!v.videoWidth||busy)return;
+    setBusy(true);
+    const canvas=document.createElement("canvas");
+    canvas.width=v.videoWidth;canvas.height=v.videoHeight;
+    const ctx=canvas.getContext("2d");
+    if(ctx){ctx.drawImage(v,0,0);const url=canvas.toDataURL("image/jpeg",0.88);temporaryPhotos.unshift(url);notifyPhotos();setShot(url)}
+    setTimeout(()=>setBusy(false),250);
+  };
+  return <div className="dy-live-camera">
+    <div className="dy-camera-top"><button onClick={onClose} aria-label="关闭相机">✕</button><span>相机</span><span>HDR</span></div>
+    <div className="dy-camera-preview"><video ref={videoRef} autoPlay playsInline muted style={{transform:facing==="user"?"scaleX(-1)":undefined}}/>{error&&<p>{error}</p>}{shot&&<div className="dy-camera-shot"><img src={shot} alt="刚拍摄的照片"/><button onClick={()=>setShot("")}>继续拍摄</button></div>}</div>
+    <div className="dy-camera-bottom"><div className="dy-camera-modes"><button className="selected">照片</button></div><div className="dy-camera-actions"><span className="dy-camera-last">{temporaryPhotos[0]&&<img src={temporaryPhotos[0]} alt="最近照片"/>}</span><button className="dy-camera-capture" aria-label="拍照" onClick={capture} disabled={!!error||busy}><span/></button><button aria-label="切换前后摄像头" onClick={()=>setFacing(facing==="user"?"environment":"user")}>↻</button></div><small>照片仅临时保存在本次页面中，刷新后清空</small></div>
+  </div>;
 }
 export function SafariSkin(p: Props) {
   const [q, setQ] = useState(""),
