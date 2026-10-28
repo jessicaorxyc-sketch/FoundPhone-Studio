@@ -106,3 +106,26 @@
 .tb2026 .tb-wechat-family-icon{background:#efaa40;color:#fff;border-radius:6px;width:31px;height:31px;display:grid;place-items:center}
 .tb2026 .tb-wechat-pay-confirm{background:#07b75b;border:0;border-radius:7px;color:#fff;font-size:17px;padding:15px;margin:38px 8px 0}
 .tb2026 .tb-wechat-pay-notice{text-align:center;color:#999;font-size:11px;margin-top:20px}
+
+
+/* Shared compact visual language based on reference screenshots */
+.tb2026{--tb-surface:#fff;--tb-ground:#f5f5f5;--tb-accent:#f66a28}
+.tb2026 .tb-content{background:var(--tb-ground)}
+.tb2026 .tb-order-flow>section{border-radius:12px;margin:9px 9px 12px;padding:13px 12px}
+.tb2026 .tb-confirm-product{margin:10px 0 12px}
+.tb2026 .tb-confirm-prices>div,.tb2026 .tb-confirm-prices>label{min-height:40px}
+.tb2026 .tb-confirm-prices h3{margin:3px 0 12px}
+.tb2026 .tb-confirm-paymethods .tb-payment-option{padding:12px 0}
+.tb2026 .tb-confirm-fixed{position:sticky;bottom:0;z-index:12;margin:0!important;border-radius:0!important;background:#fff!important;padding:8px 12px 12px!important}
+.tb2026 .tb-confirm-fixed button{width:100%;border-radius:25px}
+.tb2026 .tb-cart-list .tb-shop{box-shadow:none}
+.tb2026 .tb-cart-product{margin:10px 0}
+.tb2026 .tb-order-flow>.tb-payment-success{background:linear-gradient(180deg,#eaf1ff,#f9fbff 78%)!important;min-height:calc(100% - 18px);margin:0!important;border-radius:0!important;display:flex;align-items:center;flex-direction:column;padding:70px 18px 28px!important}
+.tb2026 .tb-payment-success>span{background:#3d6cf3;color:white;border-radius:50%;width:82px;height:82px;display:grid;place-items:center;font-size:54px;margin-bottom:17px}
+.tb2026 .tb-payment-success h2{font-size:19px;color:#222;margin:0 0 10px}
+.tb2026 .tb-payment-success h1{font-size:40px;color:#222;margin:0 0 28px}
+.tb2026 .tb-success-method{width:100%;background:#fff;border-radius:13px;display:flex;flex-direction:column;gap:5px;padding:17px;margin:0 0 25px;text-align:left}
+.tb2026 .tb-success-method strong{font-size:15px}
+.tb2026 .tb-success-method small{font-size:12px;color:#888}
+.tb2026 .tb-payment-success>button{width:90%;border-radius:28px;background:#4378f4;color:white;font-size:18px;padding:14px}
+.tb2026 .tb-payment-success>small{font-size:11px;color:#999;margin-top:18px}
