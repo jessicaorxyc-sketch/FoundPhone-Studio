@@ -305,3 +305,9 @@
 .phone-shell.dark-phone .tb2026 .tb-upsell-item{background:#35343a}
 .phone-shell.dark-phone .tb2026 .tb-upsell-description strong{color:#f5f4f7}
 .phone-shell.dark-phone .tb2026 .tb-confirm-prices>label select{background:#35343a!important;color:#dedde5!important}
+
+/* The payment bar is a sibling of the scroll region, never part of its flow. */
+.tb2026>.tb-confirm-fixed{position:relative!important;inset:auto!important;flex:0 0 auto;display:flex;align-items:center;box-sizing:border-box;width:100%;margin:0!important;padding:10px 13px max(12px,env(safe-area-inset-bottom))!important;border-radius:0!important;border-top:1px solid #ececf0;background:#fff!important;z-index:5}
+.tb2026>.tb-confirm-fixed button{display:block;width:100%;min-height:46px;margin:0;border-radius:24px!important;font-size:16px!important}
+.tb2026 .tb-order-flow{padding-bottom:18px!important}
+.phone-shell.dark-phone .tb2026>.tb-confirm-fixed{background:#25252b!important;border-color:#3b3a40}
