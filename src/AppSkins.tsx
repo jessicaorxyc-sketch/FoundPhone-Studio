@@ -325,7 +325,7 @@ export function WeChatSkin(p: SkinProps) {
         <div className="skin-scroll">
           {tab === "微信" ? (
             <>
-              {(searchOpen || true) && (
+              {(
                 <label className="wx-search">
                   <Search size={14} />
                   <input
