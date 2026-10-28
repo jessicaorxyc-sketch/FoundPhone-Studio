@@ -388,7 +388,7 @@ export function WeChatSkin(p: SkinProps) {
       ) : p.thread ? (
         <>
           <MessageList
-            items={[...p.items.filter((i) => i.title === p.thread).map((i) => isTestChat(p.thread) ? {...i, body:"生气了？", outgoing:false, sender:"穆兄哥", avatar:`${import.meta.env.BASE_URL}fa05a67256ead0c941419d34989dd42.jpg`} : i),...(wxSent[p.thread]||[]).map((m,i)=>({id:"wx-sent-"+i,title:p.thread!,sender:"我",avatar:"",body:m.body,time:m.time,outgoing:true,kind:"text" as const}))]}
+            items={[...p.items.filter((i) => i.title === p.thread).map((i) => isTestChat(p.thread) ? {...i, body:"生气了？", outgoing:false, sender:"穆兄哥", avatar:`${import.meta.env.BASE_URL}fa05a67256ead0c941419d34989dd42.jpg`} : i),...(wxSent[p.thread]||[]).map((m,i)=>({...p.items[0],id:"wx-sent-"+i,title:p.thread!,sender:"我",avatar:"",body:m.body,time:m.time,outgoing:true,kind:"text" as const,media:"",folder:p.thread!}))]}
             creator={p.creator}
             onItem={p.onItem}
             onRead={p.onRead}
