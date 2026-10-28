@@ -153,6 +153,7 @@ function PhoneRuntime({
   const [pinOpen, setPinOpen] = useState(false);
   const [pendingSongUrl, setPendingSongUrl] = useState<string | null>(null);
   const [activeNetEaseSong, setActiveNetEaseSong] = useState<string | null>(null);
+  const [neteasePlaying, setNeteasePlaying] = useState(false);
   const [quickCamera, setQuickCamera] = useState(false);
   const [keyboard, setKeyboard] = useState(false);
   const [recent, setRecent] = useState<string[]>([]);
@@ -421,6 +422,7 @@ function PhoneRuntime({
               <StatusGlyph kind="silent" />
             </button>
             <div className="dynamic-island" />
+            {neteasePlaying && app !== "netease" && !locked && <button type="button" onClick={() => { setApp("netease"); setPanel(""); }} aria-label="返回网易云音乐播放界面" title="正在播放 · 点击返回网易云音乐" style={{position:"absolute",top:8,left:"50%",transform:"translateX(-50%)",zIndex:90,width:138,height:33,border:0,borderRadius:24,background:"#070707",color:"#fff",display:"flex",alignItems:"center",justifyContent:"space-around",padding:"0 12px",cursor:"pointer"}}><span style={{fontSize:14}}>♫</span><span style={{fontSize:10,whiteSpace:"nowrap"}}>正在播放</span><span style={{fontSize:12}}>▂▅▃▆</span></button>
             <button
               className="signals"
               onClick={() => setPanel(panel === "control" ? "" : "control")}
@@ -458,10 +460,7 @@ function PhoneRuntime({
                   open("camera");
                 }}
               />
-            ) : app === "netease" ? (
-              <AppWindow key="netease-native" className="app-screen skin-netease" creator={creator} origin={launchOrigin}>
-                <NeteaseMobile song={neteaseLockSongs.find((entry) => entry.url === activeNetEaseSong) ?? null} songs={neteaseLockSongs} onSelect={(url) => setActiveNetEaseSong(url)} onBack={() => setActiveNetEaseSong(null)} />
-              </AppWindow>
+
             ) : app === "weather" ? (
               <AppWindow key="weather-native" className="app-screen skin-weather" creator={creator} origin={launchOrigin}>
                 <WeatherMobile />
@@ -553,6 +552,12 @@ function PhoneRuntime({
               />
             )}
           </AnimatePresence>
+          {/* Keep the player mounted when navigating home or opening other apps. */}
+          <div style={{display:app === "netease" && !locked ? "contents" : "none"}}>
+            <AppWindow className="app-screen skin-netease" creator={creator} origin={launchOrigin}>
+              <NeteaseMobile song={neteaseLockSongs.find((entry) => entry.url === activeNetEaseSong) ?? null} songs={neteaseLockSongs} onSelect={(url) => setActiveNetEaseSong(url)} onBack={() => setActiveNetEaseSong(null)} onPlaybackChange={setNeteasePlaying} />
+            </AppWindow>
+          </div>
           {folder && (
             <div className="folder-overlay" onClick={() => setFolder("")}>
               <h2>{folder}</h2>
