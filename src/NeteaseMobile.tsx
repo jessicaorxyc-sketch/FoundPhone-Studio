@@ -52,14 +52,14 @@ export function NeteaseMobile({ song, songs, onSelect, onBack, onPlaybackChange,
     "笨小孩": "benxiaohai.mp3",
     "虚拟": "虚拟.mp3",
     "恋人未满": "e2e6efa93599014918737f9b122d29fc.mp3",
-    "克卜勒": "kepler.mp3",
+    "克卜勒": "80b5483d527b04f50af8c271580819b3.mp3",
   };
   const albumCovers: Record<string, string> = {
     "绝对占有 相对自由": "ed41a8a3b11b0735108e85d67b6ee58.jpg",
     "笨小孩": "3bd2ab3aa7a9894968c6c1a38aad29c.jpg",
     "虚拟": "903843fe9c3cf6ee854eea655e08d1d.jpg",
     "恋人未满": "7f8dfe77b26dfc1f0d9434f3b80e356.jpg",
-    "克卜勒": "kepler.jpg",
+    "克卜勒": "5d6d8c6fcb148aec4464867b07561d7.jpg",
   };
   const audioFile = currentSong ? audioSources[currentSong.title] : undefined;
   const hasTestSource = Boolean(audioFile);
