@@ -504,10 +504,10 @@ export function WeChatSkin(p: SkinProps) {
           ) : (
             <>
               <div className="wx-profile">
-                <Avatar name="Jess1ka" />
+                <Avatar name="king" />
                 <div>
-                  <h2>Jess1ka</h2>
-                  <small>微信 ID：Jessica-4569</small>
+                  <h2>king</h2>
+                  <small>微信 ID：reflection27</small>
                   <button
                     className="wx-profile-status"
                     onClick={() => setUtility("状态")}
