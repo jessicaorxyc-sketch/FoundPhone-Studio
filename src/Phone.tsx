@@ -55,6 +55,8 @@ import {
   ArrowUp,
   Folder,
   Phone as PhoneIcon,
+  Pause,
+  Play,
 } from "lucide-react";
 import { getApp, type AppPlugin } from "./registry";
 import {
@@ -477,7 +479,7 @@ function PhoneRuntime({
                     <div className="music-island-actions">
                       <button onClick={() => setIslandExpanded(false)} aria-label="收起">★</button>
                       <button onClick={() => islandAction("previous")} aria-label="上一首">◀◀</button>
-                      <button onClick={() => islandAction("toggle")} aria-label={neteasePlaying ? "暂停" : "播放"}>{neteasePlaying ? "Ⅱ" : "▶"}</button>
+                      <button onClick={() => islandAction("toggle")} aria-label={neteasePlaying ? "暂停" : "播放"}>{neteasePlaying ? <Pause size={25} fill="currentColor" strokeWidth={2.5} /> : <Play size={25} fill="currentColor" strokeWidth={2.5} />}</button>
                       <button onClick={() => islandAction("next")} aria-label="下一首">▶▶</button>
                       <button onClick={() => { setIslandExpanded(false); setApp("netease"); setPanel(""); }} aria-label="返回网易云">↗</button>
                     </div>
