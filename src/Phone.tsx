@@ -451,7 +451,7 @@ function PhoneRuntime({
               onClick={() => {
                 if (!neteasePlaying || app === "netease" || locked) return;
                 if (islandLongPress.current) { islandLongPress.current = false; return; }
-                if (islandExpanded) return;
+                if (islandExpanded) { setIslandExpanded(false); return; }
                 setIslandExpanded(false);
                 setApp("netease");
                 setPanel("");
