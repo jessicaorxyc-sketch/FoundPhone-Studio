@@ -45,7 +45,18 @@ export function NeteaseMobile({ song, songs, onSelect, onBack, onPlaybackChange,
 
   const heartSong = songs[heartIndex % Math.max(songs.length, 1)];
   const currentSong = song ?? heartSong;
-  const hasTestSource = currentSong?.title === "绝对占有 相对自由";
+  const audioSources: Record<string, string> = {
+    "绝对占有 相对自由": "8191158f23902d23e630745c82af8e1e.mp3",
+    "笨小孩": "benxiaohai.mp3",
+    "虚拟": "虚拟.mp3",
+  };
+  const albumCovers: Record<string, string> = {
+    "绝对占有 相对自由": "ed41a8a3b11b0735108e85d67b6ee58.jpg",
+    "笨小孩": "3bd2ab3aa7a9894968c6c1a38aad29c.jpg",
+    "虚拟": "903843fe9c3cf6ee854eea655e08d1d.jpg",
+  };
+  const audioFile = currentSong ? audioSources[currentSong.title] : undefined;
+  const hasTestSource = Boolean(audioFile);
   useEffect(() => {
     const audio = new Audio();
     audio.preload = "metadata";
@@ -69,9 +80,9 @@ export function NeteaseMobile({ song, songs, onSelect, onBack, onPlaybackChange,
     setHeartProgress(0);
     setHeartDuration(0);
     setAudioError("");
-    if (hasTestSource) { audio.src = publicAudioUrl; audio.load(); }
+    if (hasTestSource) { audio.src = `${import.meta.env.BASE_URL}${audioFile}`; audio.load(); }
     else { audio.removeAttribute("src"); audio.load(); }
-  }, [currentSong?.title, hasTestSource, publicAudioUrl]);
+  }, [currentSong?.title, hasTestSource, audioFile]);
   const toggleAudio = async () => {
     const audio = audioRef.current;
     if (!audio || !hasTestSource) { setAudioError("音频文件尚未上传到网站资源目录。"); return; }
@@ -89,7 +100,7 @@ export function NeteaseMobile({ song, songs, onSelect, onBack, onPlaybackChange,
   const heartTime=(n:number)=>{ const total=Math.max(0,Math.floor(Number.isFinite(n)?n:0)); return `${String(Math.floor(total/60)).padStart(2,"0")}:${String(total%60).padStart(2,"0")}`; };
   if (song) return <div className="nm nm-player">
     <header className="nm-player-top"><button onClick={onBack} aria-label="返回首页"><ArrowLeft /></button><div><strong>{song.title}</strong><small>{song.artist}</small></div><button onClick={() => setLiked(!liked)} aria-label="喜欢"><Heart fill={liked ? "#e5474d" : "none"} color={liked ? "#e5474d" : "#fff"} /></button></header>
-    <div className="nm-turntable"><div className="nm-arm"><div className="nm-arm-base" /><div className="nm-arm-rod" /></div><div className={"nm-disc" + (playing ? " nm-spinning" : "")}><div className="nm-disc-label">{song.title === "绝对占有 相对自由" ? <img src={`${import.meta.env.BASE_URL}ed41a8a3b11b0735108e85d67b6ee58.jpg`} alt="陈粒《绝对占有 相对自由》封面" className="nm-album-cover" /> : <><Music2 size={48} /><span>{song.title}</span><small>{song.artist}</small></>}</div></div></div>
+    <div className="nm-turntable"><div className="nm-arm"><div className="nm-arm-base" /><div className="nm-arm-rod" /></div><div className={"nm-disc" + (playing ? " nm-spinning" : "")}><div className="nm-disc-label">{albumCovers[song.title] ? <img src={`${import.meta.env.BASE_URL}${albumCovers[song.title]}`} alt={`${song.title}专辑封面` className="nm-album-cover" /> : <><Music2 size={48} /><span>{song.title}</span><small>{song.artist}</small></>}</div></div></div>
     <div className="nm-track"><strong>{song.title}</strong><span>{song.artist}</span></div>
     <div className="nm-progress"><input aria-label="播放进度" type="range" min={0} max={heartDuration || 1} step="0.1" value={heartProgress} onChange={e=>seekAudio(Number(e.target.value))} disabled={!heartDuration}/><div><span>{heartTime(heartProgress)}</span><span>{heartDuration ? heartTime(heartDuration) : "--:--"}</span></div></div>
     <div className="nm-controls"><button aria-label="上一首" onClick={() => choose(-1)}><SkipBack fill="currentColor" /></button><button className="nm-play" aria-label={playing ? "暂停" : "播放"} onClick={toggleAudio}>{playing ? <Pause fill="currentColor" /> : <Play fill="currentColor" />}</button><button aria-label="下一首" onClick={() => choose(1)}><SkipForward fill="currentColor" /></button></div>
