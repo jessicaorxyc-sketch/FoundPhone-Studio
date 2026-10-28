@@ -69,6 +69,17 @@ import {
 } from "./schema";
 import { dispatch, choose, visible, advance } from "./engine";
 import { db } from "./persistence";
+// App Store artwork for the requested phone apps (external CDN assets).
+const officialAppIcons: Record<string, string> = {
+  didi: "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/57/5e/b1/575eb12c-3229-5a56-9775-2bad218f6c34/Placeholder.mill/512x512bb.jpg",
+  identityv: "https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/92/a0/ff/92a0ff48-8ad2-3da7-0edd-756918b8b272/AppIcon-1x_U007emarketing-0-10-85-220.png/512x512bb.png",
+  perfectworld: "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/08/6b/d3/086bd3b5-a0d2-a25e-f77d-58e3bf2ff9a3/Placeholder.mill/512x512bb.jpg",
+  dianping: "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/07/88/be/0788be4d-3e15-9475-f673-c7eeaee20c73/AppIcon-0-0-1x_U007epad-0-11-0-0-sRGB-85-220.png/512x512bb.png",
+  doubao: "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/21/2d/8a/212d8a12-004c-d832-a3e1-95dfe3112bba/app.png/512x512bb.png",
+  tfamily: "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/92/af/35/92af357e-2df2-380f-e4d5-7ffe856b7636/AppIcon-0-1x_U007ephone-0-1-0-0-sRGB-85-220-0.png/512x512bb.png",
+  xianyu: "https://exp-picture.cdn.bcebos.com/3761a73acd8920c530297e82568a59de440788bd.jpg",
+  kfc: "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/ae/18/1e/ae181e1b-04e7-82d3-e5df-730ac5f79f6b/Placeholder.mill/512x512bb.jpg",
+};
 export function AppIcon({
   id,
   name,
@@ -95,6 +106,8 @@ export function AppIcon({
           ) : (
             <span>{custom.slice(0, 2)}</span>
           )
+        ) : officialAppIcons[id] ? (
+          <img src={officialAppIcons[id]} alt={`${a.name} 图标`} loading="eager" referrerPolicy="no-referrer" />
         ) : hasNativeArtwork(id) ? (
           <AppArtwork id={id} date={date} time={time} />
         ) : (
