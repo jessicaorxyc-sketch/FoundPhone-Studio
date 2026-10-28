@@ -164,7 +164,7 @@ export function WeChatSkin(p: SkinProps) {
     [],
   );
   const [wxDraft,setWxDraft] = useState("");
-  const [wxSent,setWxSent] = useSkinState<Record<string, {body:string;time:string}[]>>(p,"wxSentMessages",{});
+  const [wxSent,setWxSent] = useState<Record<string, {body:string;time:string}[]>>({});
   const sendWxMessage = () => {
     const body=wxDraft.trim();
     if(!body || !p.thread) return;
