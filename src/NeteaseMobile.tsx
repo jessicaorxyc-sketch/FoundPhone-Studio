@@ -2,8 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, Heart, ListMusic, Menu, Music2, Pause, Play, Search, SkipBack, SkipForward } from "lucide-react";
 import "./netease-mobile.css";
 
-// Temporary externally hosted video: audio-only playback, subject to expiry and access restrictions.
-const TEST_AUDIO_URL = "https://v26-default.365yg.com/e91c6ce37bd6c1a1c1b306e9c5b64a0f/6ae14c80/video/tos/cn/tos-cn-ve-15/ok9AMCIxUYGQ7IAFZfu6Ls7BePEgfNIBqBQltl/?a=201&br=205&bt=205&btag=c0000e00030000&cd=0%7C0%7C0%7C0&ch=0&cr=0&cs=0&cv=1&dr=0&ds=3&dy_q=1793146147&dy_va_biz_cert=&feature_id=cb5bceaf0f8810e794f7733747a60db6&ft=aT_7TQQqUuIf_oZmo0OW_QYaUqiXdU069VJEsvZNIbPD-Ipz&l=2026102808090708F37D16972942411B74&mime_type=video_mp4&qs=0&rc=OjM3OWdoMzQ2OjU5aTdmZ0BpMzU2d205cmZydTMzNGkzM0A1YmIxLzA2NjExMGI2LmBfYSNnbmhzMmRranFgLS1kLS9zcw%3D%3D";
 type Song = { title: string; artist: string; url: string };
 export function NeteaseMobile({ song, songs, onSelect, onBack }: { song: Song | null; songs: Song[]; onSelect: (url: string) => void; onBack: () => void }) {
   const [tab, setTab] = useState("心动");
@@ -13,6 +11,10 @@ export function NeteaseMobile({ song, songs, onSelect, onBack }: { song: Song | 
   const [heartProgress,setHeartProgress] = useState(0);
   const [heartDuration, setHeartDuration] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const localFileInput = useRef<HTMLInputElement | null>(null);
+  const [localAudioUrl, setLocalAudioUrl] = useState<string | null>(null);
+  const localAudioUrlRef = useRef<string | null>(null);
+  const [localAudioName, setLocalAudioName] = useState("");
   const [audioError, setAudioError] = useState("");
   const [playing, setPlaying] = useState(false);
   const [heartIndex, setHeartIndex] = useState(() => Math.floor(Math.random() * Math.max(songs.length, 1)));
@@ -36,7 +38,22 @@ export function NeteaseMobile({ song, songs, onSelect, onBack }: { song: Song | 
 
   const heartSong = songs[heartIndex % Math.max(songs.length, 1)];
   const currentSong = song ?? heartSong;
-  const hasTestSource = currentSong?.title === "绝对占有 相对自由";
+  const hasTestSource = currentSong?.title === "绝对占有 相对自由" && !!localAudioUrl;
+  const selectLocalAudio = (file?: File) => {
+    if (!file) return;
+    if (!file.type.startsWith("audio/") && !file.type.startsWith("video/") && !/\.(mp3|m4a|mp4|mov|wav|aac)$/i.test(file.name)) {
+      setAudioError("请选择音频或视频文件。"); return;
+    }
+    if (localAudioUrlRef.current) URL.revokeObjectURL(localAudioUrlRef.current);
+    const url = URL.createObjectURL(file);
+    localAudioUrlRef.current = url;
+    setLocalAudioUrl(url);
+    setLocalAudioName(file.name);
+    setHeartIndex(Math.max(0, songs.findIndex(item => item.title === "绝对占有 相对自由")));
+    setAudioError("");
+  };
+  useEffect(() => () => { if (localAudioUrlRef.current) URL.revokeObjectURL(localAudioUrlRef.current); }, []);
+  const localAudioPicker = <input ref={localFileInput} type="file" accept="audio/*,video/mp4,video/quicktime,.mp3,.m4a,.mp4,.mov" style={{display:"none"}} onChange={e=>{selectLocalAudio(e.target.files?.[0]);e.target.value="";}} />;
   useEffect(() => {
     const audio = new Audio();
     audio.preload = "metadata";
@@ -44,7 +61,7 @@ export function NeteaseMobile({ song, songs, onSelect, onBack }: { song: Song | 
     const updateTime = () => setHeartProgress(audio.currentTime || 0);
     const updateDuration = () => setHeartDuration(Number.isFinite(audio.duration) ? audio.duration : 0);
     const ended = () => { setPlaying(false); setHeartProgress(0); };
-    const failed = () => { setPlaying(false); setAudioError("音源无法加载，视频直链可能已过期或被限制访问。"); };
+    const failed = () => { setPlaying(false); setAudioError("无法读取所选文件，请换一个 MP3、M4A 或 MP4 文件。"); };
     audio.addEventListener("timeupdate", updateTime);
     audio.addEventListener("loadedmetadata", updateDuration);
     audio.addEventListener("durationchange", updateDuration);
@@ -60,15 +77,15 @@ export function NeteaseMobile({ song, songs, onSelect, onBack }: { song: Song | 
     setHeartProgress(0);
     setHeartDuration(0);
     setAudioError("");
-    if (hasTestSource) { audio.src = TEST_AUDIO_URL; audio.load(); }
+    if (hasTestSource && localAudioUrl) { audio.src = localAudioUrl; audio.load(); }
     else { audio.removeAttribute("src"); audio.load(); }
-  }, [currentSong?.title, hasTestSource]);
+  }, [currentSong?.title, hasTestSource, localAudioUrl]);
   const toggleAudio = async () => {
     const audio = audioRef.current;
-    if (!audio || !hasTestSource) { setAudioError("这首歌尚未接入可用音源。"); return; }
+    if (!audio || !hasTestSource) { setAudioError("请先到「我的 → 本地」选择你的视频或音频文件。"); return; }
     if (!audio.paused) { audio.pause(); setPlaying(false); return; }
     try { await audio.play(); setPlaying(true); setAudioError(""); }
-    catch { setPlaying(false); setAudioError("播放失败：音源可能已过期或不允许跨站播放。"); }
+    catch { setPlaying(false); setAudioError("播放失败：当前浏览器可能不支持该文件的音频编码。"); }
   };
   const seekAudio = (value: number) => { const audio = audioRef.current; if (audio && heartDuration > 0) audio.currentTime = value; setHeartProgress(value); };
   const active = song ?? heartSong;
@@ -77,22 +94,22 @@ export function NeteaseMobile({ song, songs, onSelect, onBack }: { song: Song | 
   const changeHeartSong = (offset: number) => { if (songs.length) setHeartIndex(i => (i + offset + songs.length) % songs.length); setHeartProgress(0); };
 
   const heartTime=(n:number)=>String(Math.floor(n/60)).padStart(2,"0")+":"+String(n%60).padStart(2,"0");
-  if (song) return <div className="nm nm-player">
+  if (song) return <div className="nm nm-player">{localAudioPicker}
     <header className="nm-player-top"><button onClick={onBack} aria-label="返回首页"><ArrowLeft /></button><div><strong>{song.title}</strong><small>{song.artist}</small></div><button onClick={() => setLiked(!liked)} aria-label="喜欢"><Heart fill={liked ? "#e5474d" : "none"} color={liked ? "#e5474d" : "#fff"} /></button></header>
     <div className="nm-turntable"><div className="nm-arm"><div className="nm-arm-base" /><div className="nm-arm-rod" /></div><div className={"nm-disc" + (playing ? " nm-spinning" : "")}><div className="nm-disc-label">{song.title === "绝对占有 相对自由" ? <img src={`${import.meta.env.BASE_URL}ed41a8a3b11b0735108e85d67b6ee58.jpg`} alt="陈粒《绝对占有 相对自由》封面" className="nm-album-cover" /> : <><Music2 size={48} /><span>{song.title}</span><small>{song.artist}</small></>}</div></div></div>
     <div className="nm-track"><strong>{song.title}</strong><span>{song.artist}</span></div>
     <div className="nm-progress"><input aria-label="播放进度" type="range" min={0} max={heartDuration || 1} step="0.1" value={heartProgress} onChange={e=>seekAudio(Number(e.target.value))} disabled={!heartDuration}/><div><span>{heartTime(heartProgress)}</span><span>{heartDuration ? heartTime(heartDuration) : "--:--"}</span></div></div>
     <div className="nm-controls"><button aria-label="上一首" onClick={() => choose(-1)}><SkipBack fill="currentColor" /></button><button className="nm-play" aria-label={playing ? "暂停" : "播放"} onClick={toggleAudio}>{playing ? <Pause fill="currentColor" /> : <Play fill="currentColor" />}</button><button aria-label="下一首" onClick={() => choose(1)}><SkipForward fill="currentColor" /></button></div>
-    <div className="nm-note">{audioError || (hasTestSource ? "正在测试外部视频音轨；音源可能过期。" : "这首歌尚未接入音源。")}</div>
+    <div className="nm-note">{audioError || (hasTestSource ? `本地文件：${localAudioName}` : "请到「我的 → 本地」导入音频或视频文件。")}</div>
     <nav className="nm-bottom"><button onClick={onBack}>首页</button><button onClick={onBack}>搜索</button><button onClick={onBack}>笔记</button><button onClick={onBack}>我的</button></nav>
   </div>;
-  return <div className="nm nm-home">
+  return <div className="nm nm-home">{localAudioPicker}
     {page === "首页" && <div className="nm-top"><Menu size={22} /><div className="nm-tabs">{["心动","推荐","音乐","播客","听书","免费听"].map((t) => <button key={t} onClick={() => { if (t === "心动") shuffleHeart(); setTab(t); }} className={tab === t ? "selected" : ""}>{t}</button>)}</div><Search size={22} /></div>}
     <main className={"nm-scroll-content" + (page === "首页" && tab === "心动" ? " nm-heart-fixed-scroll" : "")}>
     {page === "我的" && galleryOpen ? <div className="nm-gallery">{galleryPhoto===null ? <><header><button onClick={()=>setGalleryOpen(false)}>‹</button><strong>个人相册</strong><button aria-label="更多">⋮</button></header><section className="nm-gallery-today"><div className="nm-gallery-date"><b>今天</b></div><div className="nm-gallery-today-grid"><button className="nm-gallery-add" aria-label="添加照片" onClick={()=>document.getElementById("nm-gallery-upload")?.click()}>＋</button></div><input id="nm-gallery-upload" type="file" accept="image/*" style={{display:"none"}} onChange={(e)=>{const file=e.target.files?.[0];if(file)alert("已选择 "+file.name+"；当前演示网站暂不支持永久上传。")}} /></section><section className="nm-gallery-day"><div className="nm-gallery-date"><b>03</b><small>2月</small></div><button className="nm-gallery-photo" onClick={()=>setGalleryPhoto(0)}><img src={galleryImages[0]} alt="窗外夕阳" /><small>👍 60311</small></button></section><section className="nm-gallery-day"><div className="nm-gallery-date"><b>26</b><small>1月</small></div><div className="nm-gallery-grid">{[1,2,3,4,5].map((i)=><button key={i} className={"nm-gallery-photo nm-gallery-photo-"+i} onClick={()=>setGalleryPhoto(i)}><img src={galleryImages[i]} alt={"相册照片 "+(i+1)} /><small>👍 {[55118,66146,209814,50388,50271][i-1]}</small></button>)}</div></section></> : <><header className="nm-gallery-view-header"><button onClick={()=>setGalleryPhoto(null)}>×</button><strong>{galleryPhoto===0?"2023年2月3日":"2023年1月26日"}</strong><button>⋮</button></header><div className="nm-gallery-large"><img src={galleryImages[galleryPhoto]} alt={"相册照片 "+(galleryPhoto+1)} /></div><div className="nm-gallery-likes">♧ {["6.0万","5.5万","6.6万","20.9万","5.0万","5.0万"][galleryPhoto]}</div></>}</div> : page === "我的" && showProfileDetails ? <div className="nm-details"><header className="nm-details-header"><button onClick={()=>setShowProfileDetails(false)} aria-label="返回">‹</button><strong>我的资料</strong></header><div className="nm-details-avatar"><span>●</span><small>▣ 更换</small></div><div className="nm-details-fields">{[["昵称","得意黑-king"],["用户 ID","17603320364"],["性别","男"],["我的二维码","▦"],["我的村龄","3年 (2023年01月创建)"],["IP 属地","重庆"],["生日","10后 · 摩羯座"],["地区","四川省 成都市"],["大学","请选择"],["音乐标签","助眠冥想十级学者 · 最近有点抑 · 反复减肥失败 · 学生党"],["简介","在白茫的人群中做一个得意的黑.(谁把得意黑这个名字给取了 气了好久)"],["云音乐等级","Lv.5"],["乐迷团","邓紫棋乐迷"],["个人相册","6张照片"],["村民证","领取村民证"],["个人主页隐私设置",""],["账号与绑定设置",""]].map(([label,value],i)=><div key={label} onClick={()=>{if(label==="个人相册"){setGalleryOpen(true);setGalleryPhoto(null)}}} className={"nm-details-field"+([6,11,14].includes(i)?" nm-details-divider":"")}><span>{label}</span><span className="nm-details-value">{value}{!["用户 ID","我的村龄","IP 属地"].includes(label)&&<b>›</b>}</span></div>)}</div></div> : page === "我的" ? <div className="nm-profile" style={{ flex: 1, minHeight: 0, overflowY: "auto", background: "#101014" }}>
       <div className="nm-profile-head" style={{ background: "linear-gradient(180deg,#35180f,#1c0c0b)", padding: "18px 14px 22px", textAlign: "center" }}><div className="nm-profile-tools" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, color: "#fff" }}><Menu size={21}/><span>＋ 添加状态</span><Search size={22}/><span>⋮</span></div><div className="nm-profile-avatar" style={{ width: 88, height: 88, borderRadius: "50%", background: "#f7e9eb", color: "#e9bfc3", display: "grid", placeItems: "center", margin: "28px auto 18px", fontSize: 55, border: "2px solid #fff" }}><span>●</span></div><h2 className="nm-profile-name" onClick={()=>setShowProfileDetails(true)}>得意黑-king <span className="nm-profile-vip">◉ 陆</span></h2><p className="nm-profile-bio">在白茫的人群中做一个得意的黑.(谁把得意黑这个名字给取了 气了好久)</p><p className="nm-profile-badges">♂ · ◈ 4枚徽章 · ♡ 邓紫棋乐迷 · 助眠冥想十级学者 · IP:重庆</p><div className="nm-profile-stats" style={{ display: "flex", justifyContent: "center", gap: 22, margin: "20px 0", fontSize: 14 }}><span>7 关注</span><span>37.4万 粉丝</span><span>Lv.5</span><span>1702 小时</span></div><div className="nm-profile-shortcuts">{[["◷","最近"],["▣","本地"],["◉","会员"],["♟","装扮"],["▦",""]].map(([ico,name])=><button key={name||"more"} onClick={()=>setProfileList(name||"更多")}><span>{ico}</span>{name}</button>)}</div><div className="nm-profile-promo" onClick={()=>setProfileList("会员")}>◉ VIP·臻 双11送金片！全年底价 <span>›</span></div></div>
       <div className="nm-profile-tabs" style={{ display: "flex", justifyContent: "space-around", padding: "12px 0", borderBottom: "1px solid #29292b" }}>{["音乐","播客","笔记"].map(t=><button key={t} className={profileTab===t?"selected":""} onClick={()=>{setProfileTab(t);setProfileList(null)}}>{t}</button>)}</div>
-      {profileList ? <div className="nm-profile-playlists" style={{ padding: "14px 16px" }}><button className="nm-profile-return" onClick={()=>setProfileList(null)}>‹ 返回</button><h3>{profileList}</h3>{songs.map((entry,i)=><button className="nm-profile-playlist" style={{ display: "flex", alignItems: "center", gap: 14, width: "100%", padding: "10px 0", textAlign: "left" }} key={entry.url} onClick={()=>onSelect(entry.url)}><span className={"nm-profile-art nm-art-"+(i%4)}>♫</span><span>{entry.title}<small>{entry.artist}</small></span></button>)}</div> : profileTab==="音乐" ? <div className="nm-profile-playlists nm-library" style={{ padding: "0 14px 18px" }}>
+      {profileList ? <div className="nm-profile-playlists" style={{ padding: "14px 16px" }}><button className="nm-profile-return" onClick={()=>setProfileList(null)}>‹ 返回</button><h3>{profileList}</h3>{profileList === "本地" && <div style={{padding:"14px 0",lineHeight:1.8}}><p style={{fontSize:13}}>选择手机或电脑上的视频、MP3、M4A，播放其中的声音。文件只在当前浏览器中读取，不会上传到网站。</p><button style={{padding:"12px 16px",borderRadius:12,background:"#e94058",color:"white",marginTop:10}} onClick={()=>localFileInput.current?.click()}>＋ 导入本地音频或视频</button><p style={{fontSize:12,marginTop:10}}>{localAudioName ? `已选择：${localAudioName}（对应《绝对占有 相对自由》）` : "尚未导入文件；刷新页面后需要重新选择。"}</p></div>}{songs.map((entry,i)=><button className="nm-profile-playlist" style={{ display: "flex", alignItems: "center", gap: 14, width: "100%", padding: "10px 0", textAlign: "left" }} key={entry.url} onClick={()=>onSelect(entry.url)}><span className={"nm-profile-art nm-art-"+(i%4)}>♫</span><span>{entry.title}<small>{entry.artist}</small></span></button>)}</div> : profileTab==="音乐" ? <div className="nm-profile-playlists nm-library" style={{ padding: "0 14px 18px" }}>
         <div className="nm-library-filters"><button className={playlistFilter==="近期"?"active":""} onClick={()=>setPlaylistFilter("近期")}>近期</button><button className={playlistFilter==="创建"?"active":""} onClick={()=>setPlaylistFilter("创建")}>创建 <sup>3</sup></button><button className={playlistFilter==="收藏"?"active":""} onClick={()=>setPlaylistFilter("收藏")}>收藏 <sup>3</sup></button><span className="nm-library-spacer"/><button aria-label="导入外部歌单" onClick={()=>setProfileList("导入外部歌单")}>⇥</button><button aria-label="更多" onClick={()=>setProfileList("更多")}>⋮</button></div>
         {playlistFilter==="近期" ? <>          {[[ "我喜欢的音乐","17首 · 1次播放","heart"],["听歌排行","累计听歌 409 首","bars"]].map(([name,detail,art])=><button key={name} className="nm-profile-playlist" onClick={()=>setProfileList(name)}><span className={"nm-profile-art nm-art-"+art}>{art==="heart"?"♥":art==="bars"?"▥":"♫"}</span><span className="nm-library-description">{name}<small>{detail}</small></span>{art==="heart"?<span className="nm-library-action">♡ 心动模式</span>:art==="bars"?<span className="nm-library-action">↑ 置顶</span>:null}</button>)}
           {[[ "今天从《Bet On Me (Organic Version)》听起","35首 · 253.6亿次播放 · 云音乐私人雷达","saved1"],["怪核 / 梦核 / 阈限空间 / 超现实美学","72首 · 512.3万次播放 · 偷偷的吸了口气","saved2"]].map(([name,detail,art])=><button key={name} className="nm-profile-playlist" onClick={()=>setProfileList(name)}><span className={"nm-profile-art nm-art-"+art}>♫</span><span className="nm-library-description">{name}<small>{detail}</small></span></button>)}
