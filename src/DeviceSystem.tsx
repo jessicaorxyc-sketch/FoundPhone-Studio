@@ -314,10 +314,14 @@ export function DeviceLock({
 export function ControlCenter({
   battery = 94,
   network,
+  appearance,
+  onAppearanceChange,
   close,
 }: {
   battery?: number;
   network: string;
+  appearance: "light" | "dark" | "auto";
+  onAppearanceChange: (mode: "light" | "dark" | "auto") => void;
   close: () => void;
 }) {
   const [rotation, setRotation] = useState(true),
@@ -442,6 +446,7 @@ export function ControlCenter({
           <span>专注模式</span>
           <ChevronDown size={14} />
         </button>
+        <button className="cc-focus" aria-label="切换深色与浅色模式" onClick={() => onAppearanceChange(appearance === "dark" ? "light" : "dark")}><span style={{fontSize:23}}>{appearance === "dark" ? "☀" : "☾"}</span><span>{appearance === "dark" ? "浅色模式" : "深色模式"}</span></button>
         <button className="cc-home" onClick={() => setTool("家庭")}>
           <House size={38} />
           <span>未设置家庭</span>
