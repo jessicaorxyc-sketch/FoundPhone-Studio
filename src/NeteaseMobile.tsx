@@ -11,7 +11,7 @@ export function NeteaseMobile({ song, songs, onSelect, onBack }: { song: Song | 
   const [heartProgress,setHeartProgress] = useState(0);
   const [heartDuration, setHeartDuration] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const publicAudioUrl = (import.meta.env.VITE_CHENLI_AUDIO_URL as string | undefined)?.trim() || "";
+  const publicAudioUrl = `${import.meta.env.BASE_URL}music/chenli-jueduizhanyou.mp3`;
   const [audioError, setAudioError] = useState("");
   const [playing, setPlaying] = useState(false);
   const [heartIndex, setHeartIndex] = useState(() => Math.floor(Math.random() * Math.max(songs.length, 1)));
@@ -35,7 +35,7 @@ export function NeteaseMobile({ song, songs, onSelect, onBack }: { song: Song | 
 
   const heartSong = songs[heartIndex % Math.max(songs.length, 1)];
   const currentSong = song ?? heartSong;
-  const hasTestSource = currentSong?.title === "绝对占有 相对自由" && !!publicAudioUrl;
+  const hasTestSource = currentSong?.title === "绝对占有 相对自由";
   useEffect(() => {
     const audio = new Audio();
     audio.preload = "metadata";
@@ -64,7 +64,7 @@ export function NeteaseMobile({ song, songs, onSelect, onBack }: { song: Song | 
   }, [currentSong?.title, hasTestSource, publicAudioUrl]);
   const toggleAudio = async () => {
     const audio = audioRef.current;
-    if (!audio || !hasTestSource) { setAudioError("这首歌尚未配置可公开播放的授权音源。"); return; }
+    if (!audio || !hasTestSource) { setAudioError("音频文件尚未上传到网站资源目录。"); return; }
     if (!audio.paused) { audio.pause(); setPlaying(false); return; }
     try { await audio.play(); setPlaying(true); setAudioError(""); }
     catch { setPlaying(false); setAudioError("播放失败：请检查音源地址及浏览器兼容性。"); }
@@ -82,7 +82,7 @@ export function NeteaseMobile({ song, songs, onSelect, onBack }: { song: Song | 
     <div className="nm-track"><strong>{song.title}</strong><span>{song.artist}</span></div>
     <div className="nm-progress"><input aria-label="播放进度" type="range" min={0} max={heartDuration || 1} step="0.1" value={heartProgress} onChange={e=>seekAudio(Number(e.target.value))} disabled={!heartDuration}/><div><span>{heartTime(heartProgress)}</span><span>{heartDuration ? heartTime(heartDuration) : "--:--"}</span></div></div>
     <div className="nm-controls"><button aria-label="上一首" onClick={() => choose(-1)}><SkipBack fill="currentColor" /></button><button className="nm-play" aria-label={playing ? "暂停" : "播放"} onClick={toggleAudio}>{playing ? <Pause fill="currentColor" /> : <Play fill="currentColor" />}</button><button aria-label="下一首" onClick={() => choose(1)}><SkipForward fill="currentColor" /></button></div>
-    <div className="nm-note">{audioError || (hasTestSource ? "已配置在线播放音源。" : "当前歌曲尚未配置授权音源。")}</div>
+    <div className="nm-note">{audioError || (hasTestSource ? "已配置在线播放音源。" : "当前歌曲尚未接入音源。")}</div>
     <nav className="nm-bottom"><button onClick={onBack}>首页</button><button onClick={onBack}>搜索</button><button onClick={onBack}>笔记</button><button onClick={onBack}>我的</button></nav>
   </div>;
   return <div className="nm nm-home">
