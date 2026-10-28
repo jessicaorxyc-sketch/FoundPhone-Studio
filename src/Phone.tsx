@@ -155,6 +155,12 @@ function PhoneRuntime({
   const [heartTargetUrl, setHeartTargetUrl] = useState<string | null>(null);
   const [activeNetEaseSong, setActiveNetEaseSong] = useState<string | null>(null);
   const [neteasePlaying, setNeteasePlaying] = useState(false);
+  const [islandExpanded, setIslandExpanded] = useState(false);
+  const [islandTime, setIslandTime] = useState({current:0,duration:0});
+  const islandPress = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const islandLongPress = useRef(false);
+  const islandAction = (action: string) => window.dispatchEvent(new CustomEvent("foundphone:netease-control",{detail:action}));
+  const islandFormat = (n:number) => { const v=Math.max(0,Math.floor(n));return `${Math.floor(v/60)}:${String(v%60).padStart(2,"0")}`; };
   const [quickCamera, setQuickCamera] = useState(false);
   const [keyboard, setKeyboard] = useState(false);
   const [recent, setRecent] = useState<string[]>([]);
@@ -424,7 +430,7 @@ function PhoneRuntime({
               <StatusGlyph kind="silent" />
             </button>
             <div className="dynamic-island" />
-            {neteasePlaying && app !== "netease" && !locked && <button type="button" onClick={() => { setApp("netease"); setPanel(""); }} aria-label="返回网易云音乐播放界面" title="正在播放 · 点击返回网易云音乐" style={{position:"absolute",top:8,left:"50%",transform:"translateX(-50%)",zIndex:90,width:138,height:33,border:0,borderRadius:24,background:"#070707",color:"#fff",display:"flex",alignItems:"center",justifyContent:"space-around",padding:"0 12px",cursor:"pointer"}}><span style={{fontSize:14}}>♫</span><span style={{fontSize:10,whiteSpace:"nowrap"}}>正在播放</span><span style={{fontSize:12}}>▂▅▃▆</span></button>}
+{neteasePlaying && app !== "netease" && !locked && <div className={"music-island"+(islandExpanded?" expanded":"")} onTouchStart={() => {islandLongPress.current=false;islandPress.current=setTimeout(()=>{islandLongPress.current=true;setIslandExpanded(true)},480)}} onTouchEnd={()=>{if(islandPress.current)clearTimeout(islandPress.current)}} onContextMenu={e=>{e.preventDefault();setIslandExpanded(true)}} onClick={()=>{if(islandLongPress.current){islandLongPress.current=false;return;}if(!islandExpanded){setApp("netease");setPanel("");}}} role="group" aria-label="音乐灵动岛"><div className="music-island-compact"><img src={`${import.meta.env.BASE_URL}ed41a8a3b11b0735108e85d67b6ee58.jpg`} alt="歌曲封面"/><div className="music-island-wave"><i/><i/><i/><i/><i/></div></div>{islandExpanded&&<div className="music-island-panel" onClick={e=>e.stopPropagation()}><div className="music-island-song"><img src={`${import.meta.env.BASE_URL}ed41a8a3b11b0735108e85d67b6ee58.jpg`} alt="专辑封面"/><div><strong>绝对占有 相对自由</strong><span>陈粒</span></div><button onClick={()=>setIslandExpanded(false)} aria-label="收起">⌃</button></div><div className="music-island-progress"><span>{islandFormat(islandTime.current)}</span><input aria-label="歌曲进度" type="range" min={0} max={islandTime.duration||1} value={islandTime.current} onChange={e=>islandAction("seek:"+e.target.value)}/><span>-{islandFormat(islandTime.duration-islandTime.current)}</span></div><div className="music-island-actions"><button onClick={()=>islandAction("previous")} aria-label="上一首">◀◀</button><button onClick={()=>islandAction("toggle")} aria-label="暂停或播放">Ⅱ</button><button onClick={()=>islandAction("next")} aria-label="下一首">▶▶</button><button onClick={()=>{setIslandExpanded(false);setApp("netease");setPanel("");}} aria-label="返回网易云">↗</button></div></div>}</div>}
             <button
               className="signals"
               onClick={() => setPanel(panel === "control" ? "" : "control")}
@@ -559,7 +565,7 @@ function PhoneRuntime({
           {/* Keep the player mounted when navigating home or opening other apps. */}
           <div style={{display:app === "netease" && !locked ? "contents" : "none"}}>
             <AppWindow className="app-screen skin-netease" creator={creator} origin={launchOrigin}>
-              <NeteaseMobile song={neteaseLockSongs.find((entry) => entry.url === activeNetEaseSong) ?? null} songs={neteaseLockSongs} onSelect={(url) => { setHeartTargetUrl(null); setActiveNetEaseSong(url); }} onBack={() => setActiveNetEaseSong(null)} onPlaybackChange={setNeteasePlaying} heartTargetUrl={heartTargetUrl} />
+              <NeteaseMobile song={neteaseLockSongs.find((entry) => entry.url === activeNetEaseSong) ?? null} songs={neteaseLockSongs} onSelect={(url) => { setHeartTargetUrl(null); setActiveNetEaseSong(url); }} onBack={() => setActiveNetEaseSong(null)} onPlaybackChange={setNeteasePlaying} onAudioTime={(current,duration)=>setIslandTime({current,duration})} heartTargetUrl={heartTargetUrl} />
             </AppWindow>
           </div>
           {folder && (
