@@ -4284,3 +4284,34 @@
 .dy-camera-bottom small{font-size:10px;color:#aaa}
 .dy-camera-shot{position:absolute;inset:0;background:#111;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}.dy-camera-shot img{max-width:100%;max-height:85%;object-fit:contain}.dy-camera-shot button{background:#fff;color:#111;border-radius:20px;padding:8px 20px}
 .dy-temp-photo-view{position:absolute;inset:0;z-index:20;background:#000;display:flex;flex-direction:column}.dy-temp-photo-view button{color:white;text-align:left;padding:20px}.dy-temp-photo-view img{flex:1;min-height:0;object-fit:contain;width:100%}
+
+
+/* Follow device appearance across Douyin's friends, inbox, profile and overlays. */
+.phone-shell.dark-phone .dy-app{color-scheme:dark}
+.phone-shell.dark-phone .dy-white,
+.phone-shell.dark-phone .dy-朋友,
+.phone-shell.dark-phone .dy-消息,
+.phone-shell.dark-phone .dy-我{background:#111!important;color:#f4f4f4!important}
+.phone-shell.dark-phone .dy-heading,
+.phone-shell.dark-phone .dy-heading button,
+.phone-shell.dark-phone .dy-person,
+.phone-shell.dark-phone .dy-message,
+.phone-shell.dark-phone .dy-shortcuts button,
+.phone-shell.dark-phone .dy-profile-links button{color:#f4f4f4!important}
+.phone-shell.dark-phone .dy-person,.phone-shell.dark-phone .dy-message,.phone-shell.dark-phone .dy-chat-title,.phone-shell.dark-phone .dy-chat-send,.phone-shell.dark-phone .dy-input{border-color:#333!important}
+.phone-shell.dark-phone .dy-shortcuts{border-color:#222!important}
+.phone-shell.dark-phone .dy-朋友 .dy-bottom,
+.phone-shell.dark-phone .dy-消息 .dy-bottom,
+.phone-shell.dark-phone .dy-我 .dy-bottom{background:#181818!important;color:#aaa!important;border-color:#333!important}
+.phone-shell.dark-phone .dy-bottom .active{color:#fff!important}
+.phone-shell.dark-phone .dy-msg-avatar{background:#333;color:#eee}
+.phone-shell.dark-phone .dy-profile-stats b,.phone-shell.dark-phone .dy-profile-tabs .selected{color:#fff}
+.phone-shell.dark-phone .dy-profile-stats span,.phone-shell.dark-phone .dy-profile-tabs button{color:#aaa}
+.phone-shell.dark-phone .dy-profile-stats button,.phone-shell.dark-phone .dy-chat-send input,.phone-shell.dark-phone .dy-input input{background:#292929;color:#f4f4f4}
+.phone-shell.dark-phone .dy-profile-links{border-color:#242424}
+.phone-shell.dark-phone .dy-chat-body p{background:#254438;color:#fff}
+.phone-shell.dark-phone .dy-modal,.phone-shell.dark-phone .dy-creator-overlay,.phone-shell.dark-phone .dy-creator-info{background:#1b1b1b;color:#f5f5f5}
+.phone-shell.dark-phone .dy-modal-head,.phone-shell.dark-phone .dy-comment-list p{border-color:#333}
+.phone-shell.dark-phone .dy-creator-stats b{color:#fff}
+.phone-shell.dark-phone .dy-creator-ip,.phone-shell.dark-phone .dy-creator-actions button{background:#333;color:#eee}
+.phone-shell.dark-phone .dy-creator-tabs button.selected{color:#fff}
