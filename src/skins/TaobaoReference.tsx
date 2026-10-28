@@ -1,0 +1,42 @@
+import {useState} from "react";
+import {House,PlaySquare,MessageCircle,ShoppingCart,UserRound,Search,Camera,MapPin,Settings,Headset,ChevronRight,Heart,Package,Truck,Star,Clock,Wallet,Ticket,Plus,ScanLine,Gift} from "lucide-react";
+import type {SkinProps} from "../AppSkins";
+import "./taobao-reference.css";
+
+type Tab="首页"|"视频"|"消息"|"购物车"|"我的淘宝";
+const goods=[
+ {name:"豪饮酸奶x奥莉蛙 原创设计王檀杰",detail:"双层印花磨砂 · iP17ProMax",price:58,emoji:"📱",shop:"豪饮酸奶"},
+ {name:"Oliwa原创设计手机磁吸支架",detail:"磁吸支架 · 原创周边",price:39,emoji:"🟢",shop:"豪饮酸奶"},
+ {name:"奥莉蛙原创设计平板保护套",detail:"10.9寸（Air4/5/6/7/8）",price:98,emoji:"💻",shop:"豪饮酸奶"},
+ {name:"豪饮酸奶x奥莉蛙 骨骼 原创设计",detail:"骨骼 OLED闪粉硬壳",price:59,emoji:"📱",shop:"豪饮酸奶"},
+ {name:"富山商店 x 奥莉蛙 安眠曲系列",detail:"安眠曲 法兰绒毯",price:168,emoji:"🛏️",shop:"富山商店"}
+];
+const messages=[
+ ["🚚","交易物流","暂无包裹动态更新",""],
+ ["↩️","售后保障","您购买的宝贝即将确认收货","26/09/15"],
+ ["💌","省钱日历充值膨胀95折","为你推荐迪拜巧克力夹心…","活动"],
+ ["✨","双11 AI助手","双11买什么？一张清单配齐，AI帮你挑好","26/10/15"],
+ ["🛍️","BAE1原零碎岛屿","尊敬的tb036563791，上次买的宝贝还满意…","09:44"],
+ ["🖤","KNOW8线上商店","尊敬的tb036563791，上次买的宝贝还满意…","09:44"],
+ ["🎟️","活动优惠","APM玫瑰金情侣戒指","07:29"],
+ ["🎮","互动娱乐","周末狂补 吃喝玩乐 低至1折起","星期六"],
+ ["✿","wildflower旗舰店","亲，新品已到货，速来围观！","26/10/19"]
+];
+export function TaobaoReferenceSkin(_p:SkinProps){
+ const [tab,setTab]=useState<Tab>("首页"),[section,setSection]=useState("推荐"),[search,setSearch]=useState("原创小众手机壳"),[detail,setDetail]=useState<string|null>(null),[selected,setSelected]=useState<number[]>([]),[liked,setLiked]=useState<string[]>([]),[query,setQuery]=useState(""),[notice,setNotice]=useState(""),[coupon,setCoupon]=useState(true);
+ const open=(v:string)=>setDetail(v);
+ const tabs:[Tab,typeof House][]=[["首页",House],["视频",PlaySquare],["消息",MessageCircle],["购物车",ShoppingCart],["我的淘宝",UserRound]];
+ const total=selected.reduce((sum,i)=>sum+goods[i].price,0);
+ return <div className="tb2026">
+  {detail?<><div className="tb-back"><button onClick={()=>setDetail(null)}>‹ 返回</button><strong>{detail}</strong><button onClick={()=>setNotice("已打开更多选项")}>···</button></div><div className="tb-content"><div className="tb-detail"><div className="tb-detail-art">🛍️</div><h2>{detail}</h2><p>此页面为按参考截图制作的本地演示，不连接淘宝真实账号或订单。</p><button onClick={()=>setLiked(v=>v.includes(detail)?v.filter(x=>x!==detail):[...v,detail])}><Heart size={18} fill={liked.includes(detail)?"#ff5a28":"none"}/> {liked.includes(detail)?"已收藏":"收藏"}</button><button onClick={()=>setTab("购物车")}>查看购物车</button></div></div></>:
+  <>
+  {tab==="首页"?<><div className="tb-home-head"><div className="tb-top-cats"><MapPin size={17} fill="#ff5a22" color="#ff5a22"/>{["关注","推荐","闪购","双11","国补","飞猪","穿搭"].map(x=><button className={section===x?"active":""} key={x} onClick={()=>setSection(x)}>{x}</button>)}</div><div className="tb-searchbar"><ScanLine size={19}/><input value={search} onChange={e=>setSearch(e.target.value)}/><Camera size={20}/><button onClick={()=>{setQuery(search);open("搜索："+search)}}>搜索</button></div></div><div className="tb-content"><div className="tb-shortcuts">{["红包签到","试用领取","淘工厂","领淘金币","芭芭农场","天猫国际","活动日历","海外集运","淘票票","分类"].map((v,i)=><button onClick={()=>open(v)} key={v}><span style={{background:["#f55","#ff3b79","#ff432d","#f33","#26bd78","#a74cfa","#f95a70","#36b9e6","#f64d4d","#a52ce0"][i]}}>{["¥","U","◡","20","♣","✈","▣","✈","◉","☰"][i]}</span>{v}</button>)}</div><div className="tb-promos">{["双11 淘宝直播","双11 百亿补贴","双11 淘宝秒杀"].map((v,i)=><button key={v} onClick={()=>open(v)}><b>{v}</b><span>{["🍫","🍬","👟"][i]}</span><strong>{["直播爆品","¥17.9 补贴价","¥256.2 秒杀价"][i]}</strong></button>)}</div><div className="tb-sale"><h3>双11开门红 <small>至高1元抢大额8折券 享折上折</small></h3><div>{["370元 消费券","🍰","📱","👟"].map((v,i)=><button onClick={()=>open("双11优惠")} key={i}><span>{v}</span><small>券后价</small></button>)}</div></div><div className="tb-feed">{goods.map((g,i)=><button key={i} onClick={()=>open(g.name)}><div>{g.emoji}</div><strong>{g.name}</strong><b>¥{g.price}</b></button>)}</div></div></>:null}
+  {tab==="消息"?<><div className="tb-msg-header"><h2>消息 <small>(4)</small></h2><button onClick={()=>setNotice("已标记为已读")}>♧ 清除未读</button><Search size={22} onClick={()=>open("搜索消息")}/><Plus size={23} onClick={()=>open("新建消息")}/></div><div className="tb-content tb-message-list">{messages.map(([emoji,title,body,time],i)=><button className={"tb-message "+(i===2?"promo":"")} key={i} onClick={()=>open(title)}><span className="tb-message-icon">{emoji}</span><span className="tb-message-text"><strong>{title}</strong><small>{body}</small></span><span className="tb-message-time">{time}</span></button>)}<h3>两周前的消息</h3></div></>:null}
+  {tab==="购物车"?<><div className="tb-cart-header"><h2>购物车 <small>(209)</small></h2><button onClick={()=>open("搜索购物车")}><Search size={22}/></button><button onClick={()=>setNotice("对比模式")}>对比</button><button onClick={()=>setNotice("管理购物车")}>管理</button></div><div className="tb-cart-tools">🎟️ 消费券　⚡ 官方立减　💴 家电数码券　🔻降价　筛选</div><div className="tb-cart-coupon">¥ 您有 <b>6张共370元</b> 消费券待使用，仅剩 <b>02:14:10</b></div><div className="tb-content tb-cart-list">{["豪饮酸奶","富山商店"].map(shop=><section className="tb-shop" key={shop}><h3>◯ <em>淘宝</em> {shop} ›</h3>{goods.map((g,i)=>g.shop!==shop?null:<div className="tb-cart-product" key={i}><button className={"tb-check "+(selected.includes(i)?"checked":"")} onClick={()=>setSelected(v=>v.includes(i)?v.filter(x=>x!==i):[...v,i])}>{selected.includes(i)?"✓":"◯"}</button><button className="tb-product-image" onClick={()=>open(g.name)}>{g.emoji}</button><button className="tb-product-info" onClick={()=>open(g.name)}><strong>{g.name}</strong><small>{g.detail} ›</small><span>不支持7天无理由退货</span><b>¥{g.price}</b></button><small>×1</small></div>)}</section>)}</div><div className="tb-checkout"><button onClick={()=>setSelected(selected.length===goods.length?[]:goods.map((_,i)=>i))}>◯ 全选</button><span>合计: <b>¥{total}</b></span><button onClick={()=>setNotice("这是模拟购物车，无法真实结算")}>结算</button></div></>:null}
+  {tab==="我的淘宝"?<div className="tb-content tb-mine"><div className="tb-profile"><div className="tb-avatar">🐤</div><div><h2>jesicas</h2><small>黄金会员　│　关注店铺</small></div><div className="tb-profile-actions"><button onClick={()=>open("地址")}><MapPin/>地址</button><button onClick={()=>open("官方客服")}><Headset/>客服</button><button onClick={()=>open("设置")}><Settings/>设置</button></div></div><div className="tb-member"><h3>9月共省5.0元　› <small>会员中心　　省钱卡 ¥120</small></h3><div>{["红包","优惠券","淘金币抵","天猫积分","充值金"].map((x,i)=><button key={x} onClick={()=>open(x)}><span>{x}</span><b>{["¥2120","2张","领金币","216","¥0.00"][i]}</b></button>)}</div><p>🧧 10元红包待使用，1天后失效 <button onClick={()=>open("红包")}>去使用</button></p></div><div className="tb-member tb-icons">{["快递","收藏","关注店铺","足迹"].map((x,i)=><button key={x} onClick={()=>open(x)}>{[<Package/>,<Star/>,<ShoppingCart/>,<Clock/>][i]}{x}</button>)}</div><div className="tb-member tb-orders"><h3>我的订单 <button onClick={()=>open("全部订单")}>全部 ›</button></h3><div>{["待付款","待发货","待收货","待评价","退款/售后"].map((x,i)=><button onClick={()=>open(x)} key={x}>{[<Wallet/>,<Package/>,<Truck/>,<MessageCircle/>,<Ticket/>][i]}{x}</button>)}</div></div><div className="tb-member tb-icons">{["芭芭农场","领淘金币","红包签到","淘宝闪购","试用领取"].map(x=><button key={x} onClick={()=>open(x)}><Gift/>{x}</button>)}</div><div className="tb-coupon-tiles"><h3>双11开门红 <small>领券中心</small></h3><div>{["¥370","¥280","¥10","¥100"].map(x=><button key={x} onClick={()=>open("优惠券 "+x)}><strong>{x}</strong><small>去领取</small></button>)}</div></div><h3>猜你喜欢　我的收藏　我的评价</h3></div>:null}
+  {tab==="视频"?<div className="tb-content tb-video"><h2>淘宝视频</h2><div className="tb-video-hero">▶</div><p>发现好物 · 视频推荐</p><button onClick={()=>open("视频详情")}>查看视频</button></div>:null}
+  <nav className="tb-nav">{tabs.map(([name,Icon])=><button className={tab===name?"active":""} key={name} onClick={()=>{setTab(name);setDetail(null)}}><Icon size={24} strokeWidth={tab===name?2.6:1.9}/><span>{name}</span></button>)}</nav>
+  </>}
+  {notice?<button className="tb-toast" onClick={()=>setNotice("")}>{notice}　×</button>:null}
+ </div>
+}
