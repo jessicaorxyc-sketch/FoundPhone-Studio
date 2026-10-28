@@ -356,7 +356,8 @@ function PhoneRuntime({
     <div
       ref={shell}
       style={{ "--phone-scale": deviceScale } as CSSProperties}
-      className={`phone-shell ios18 ${appearanceDark ? "dark-phone" : "light-phone"}`}\n      data-appearance={appearanceDark ? "dark" : "light"}
+      className={`phone-shell ios18 ${appearanceDark ? "dark-phone" : "light-phone"}`}
+      data-appearance={appearanceDark ? "dark" : "light"}
     >
       <KeyboardContext.Provider value={setKeyboard}>
         <div
