@@ -282,3 +282,24 @@
 /* Remove browser-native rounded outline around the seek bar. */
 .nm .nm-heart-progress input[type="range"],.nm .nm-progress input[type="range"]{border:0!important;box-shadow:none!important;outline:none!important;border-radius:0!important;background:transparent!important;}
 .nm .nm-heart-progress input[type="range"]:focus,.nm .nm-heart-progress input[type="range"]:focus-visible,.nm .nm-progress input[type="range"]:focus,.nm .nm-progress input[type="range"]:focus-visible{outline:none!important;box-shadow:none!important;}
+
+/* The NetEase interface follows the device appearance setting. */
+.phone-shell.light-phone .nm{background:#f6f6f8;color:#24242a;}
+.phone-shell.light-phone .nm-player{background:linear-gradient(180deg,#e5e2e9 0%,#f4f2f5 58%,#faf9fb 100%);color:#27252d;}
+.phone-shell.light-phone .nm-home,
+.phone-shell.light-phone .nm-search,
+.phone-shell.light-phone .nm-mine{background:#f6f6f8;color:#24242a;}
+.phone-shell.light-phone .nm-top,
+.phone-shell.light-phone .nm-bottom{background:#fafafa;color:#29292e;}
+.phone-shell.light-phone .nm-bottom button,
+.phone-shell.light-phone .nm-tabs button{color:#777;}
+.phone-shell.light-phone .nm-bottom button.selected,
+.phone-shell.light-phone .nm-tabs button.selected{color:#17171c;}
+.phone-shell.light-phone .nm-tabs button.selected:after{background:#17171c;}
+.phone-shell.light-phone .nm-player-top small,
+.phone-shell.light-phone .nm-songlist small,
+.phone-shell.light-phone .nm-results small{color:#74717b;}
+.phone-shell.light-phone .nm-quick button{background:#e9e9ed;color:#282830;}
+.phone-shell.light-phone .nm-player input[type="range"]{accent-color:#444;}
+.phone-shell.dark-phone .nm{background:#101014;color:#f8f8f8;}
+.phone-shell.dark-phone .nm-bottom{background:#101014;color:#f8f8f8;}
