@@ -12,7 +12,7 @@ const specs:Record<AppId,{name:string;tagline:string;tabs:string[];accent:string
  kfc:{name:"肯德基",tagline:"肯德基 · 重庆",tabs:["首页","点餐","我的"],accent:"#d82536",sections:[{title:"到店自取",subtitle:"选择门店后点餐",icon:"🏪"},{title:"外送到家",subtitle:"选择配送地址",icon:"🛵"},{title:"人气套餐",subtitle:"汉堡 · 小食 · 饮品",icon:"🍔"},{title:"优惠券",subtitle:"查看优惠",icon:"🎟️"}]},
  doubao:{name:"豆包",tagline:"你的 AI 助手 · 界面演示",tabs:["对话","发现","我的"],accent:"#537af2",sections:[{title:"帮我写一段文案",subtitle:"写作与创意",icon:"✍️"},{title:"帮我制定旅行计划",subtitle:"重庆旅行",icon:"🗺️"},{title:"学习答疑",subtitle:"解释概念",icon:"📚"},{title:"图片创意",subtitle:"探索创作",icon:"🎨"}]},
  xianyu:{name:"闲鱼",tagline:"让闲置游起来",tabs:["首页","消息","我的"],accent:"#e6b900",sections:[{title:"数码",subtitle:"二手手机 · 电脑",icon:"📱"},{title:"潮流服饰",subtitle:"好物分享",icon:"👕"},{title:"家居生活",subtitle:"闲置好物",icon:"🛋️"},{title:"玩具周边",subtitle:"收藏与交换",icon:"🧸"},{title:"发布闲置",subtitle:"创建一条模拟商品",icon:"➕"}]},
- tfamily:{name:"T-FAMILY",tagline:"TF 家族 · 粉丝内容演示",tabs:["首页","动态","我的"],accent:"#e74a59",sections:[{title:"最新动态",subtitle:"动态列表",icon:"✨"},{title:"成员",subtitle:"成员资料",icon:"👥"},{title:"视频",subtitle:"作品与舞台",icon:"🎬"},{title:"活动",subtitle:"活动日历",icon:"🎫"}]}
+ tfamily:{name:"T-FAMILY",tagline:"TF 家族 · 粉丝内容演示",tabs:["首页","家族","商城","我的"],accent:"#e74a59",sections:[{title:"家族频道",subtitle:"TF家族 · 最新物料",icon:"✨"},{title:"艺人主页",subtitle:"成员动态与资料",icon:"👥"},{title:"写真与录像",subtitle:"家族专属图文视频",icon:"🎬"},{title:"官方商城",subtitle:"周边商品展示",icon:"🛍️"},{title:"泡泡",subtitle:"艺人互动入口演示",icon:"💬"},{title:"活动",subtitle:"演唱会与会员权益",icon:"🎫"}]}
 };
 function Replica({id}: {id:AppId}) {
  const spec=specs[id];
@@ -55,7 +55,7 @@ function Replica({id}: {id:AppId}) {
    </>}
   </div>
   {notice&&<button className="china-notice" onClick={()=>setNotice("")}>{notice} ×</button>}
-  <nav className="china-bottom">{spec.tabs.map((t,i)=><button key={t} className={t===tab?"selected":""} onClick={()=>{setTab(t);setPage(null);setQuery("");setNotice("")}}><span>{["⌂","◉","♙"][i]}</span>{t}</button>)}</nav>
+  <nav className="china-bottom">{spec.tabs.map((t,i)=><button key={t} className={t===tab?"selected":""} onClick={()=>{setTab(t);setPage(null);setQuery("");setNotice("")}}><span>{["⌂","◉","♙","☻"][i]}</span>{t}</button>)}</nav>
  </div>
 }
 export function DidiSkin(_p:SkinProps){return <Replica id="didi"/>}
