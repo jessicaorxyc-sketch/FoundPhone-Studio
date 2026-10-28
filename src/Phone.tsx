@@ -157,7 +157,7 @@ function PhoneRuntime({
   const [neteasePlaying, setNeteasePlaying] = useState(false);
   const [islandSongTitle, setIslandSongTitle] = useState("绝对占有 相对自由");
   const islandTrack = neteaseLockSongs.find(item => item.title === islandSongTitle);
-  const islandCover = ({ "绝对占有 相对自由": "ed41a8a3b11b0735108e85d67b6ee58.jpg", "笨小孩": "3bd2ab3aa7a9894968c6c1a38aad29c.jpg", "虚拟": "903843fe9c3cf6ee854eea655e08d1d.jpg" } as Record<string,string>)[islandSongTitle];
+  const islandCover = ({ "绝对占有 相对自由": "ed41a8a3b11b0735108e85d67b6ee58.jpg", "笨小孩": "3bd2ab3aa7a9894968c6c1a38aad29c.jpg", "虚拟": "903843fe9c3cf6ee854eea655e08d1d.jpg", "恋人未满": "7f8dfe77b26dfc1f0d9434f3b80e356.jpg" } as Record<string,string>)[islandSongTitle];
   const [islandExpanded, setIslandExpanded] = useState(false);
   const [islandTime, setIslandTime] = useState({current:0,duration:0});
   const islandPress = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -472,12 +472,12 @@ function PhoneRuntime({
                     <div className="music-island-progress">
                       <span>{islandFormat(islandTime.current)}</span>
                       <input aria-label="歌曲进度" type="range" min={0} max={islandTime.duration || 1} value={islandTime.current} onChange={(e) => islandAction("seek:" + e.target.value)} />
-                      <span>-{islandFormat(islandTime.duration - islandTime.current)}</span>
+                      <span>{islandTime.duration ? `-${islandFormat(islandTime.duration - islandTime.current)}` : "--:--"}</span>
                     </div>
                     <div className="music-island-actions">
                       <button onClick={() => setIslandExpanded(false)} aria-label="收起">★</button>
                       <button onClick={() => islandAction("previous")} aria-label="上一首">◀◀</button>
-                      <button onClick={() => islandAction("toggle")} aria-label="暂停或播放">Ⅱ</button>
+                      <button onClick={() => islandAction("toggle")} aria-label={neteasePlaying ? "暂停" : "播放"}>{neteasePlaying ? "Ⅱ" : "▶"}</button>
                       <button onClick={() => islandAction("next")} aria-label="下一首">▶▶</button>
                       <button onClick={() => { setIslandExpanded(false); setApp("netease"); setPanel(""); }} aria-label="返回网易云">↗</button>
                     </div>
