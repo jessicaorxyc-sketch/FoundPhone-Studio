@@ -155,6 +155,9 @@ function PhoneRuntime({
   const [heartTargetUrl, setHeartTargetUrl] = useState<string | null>(null);
   const [activeNetEaseSong, setActiveNetEaseSong] = useState<string | null>(null);
   const [neteasePlaying, setNeteasePlaying] = useState(false);
+  const [islandSongTitle, setIslandSongTitle] = useState("绝对占有 相对自由");
+  const islandTrack = neteaseLockSongs.find(item => item.title === islandSongTitle);
+  const islandCover = ({ "绝对占有 相对自由": "ed41a8a3b11b0735108e85d67b6ee58.jpg", "笨小孩": "3bd2ab3aa7a9894968c6c1a38aad29c.jpg", "虚拟": "903843fe9c3cf6ee854eea655e08d1d.jpg" } as Record<string,string>)[islandSongTitle];
   const [islandExpanded, setIslandExpanded] = useState(false);
   const [islandTime, setIslandTime] = useState({current:0,duration:0});
   const islandPress = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -462,8 +465,8 @@ function PhoneRuntime({
                 islandExpanded ? (
                   <div className="music-island-panel" onClick={(e) => { if ((e.target as HTMLElement).closest("button,input")) { e.stopPropagation(); } }} onPointerDown={(e) => e.stopPropagation()}>
                     <div className="music-island-song">
-                      <img src={`${import.meta.env.BASE_URL}ed41a8a3b11b0735108e85d67b6ee58.jpg`} alt="专辑封面" />
-                      <div><strong>绝对占有 相对自由</strong><span>陈粒</span></div>
+                      <img src={islandCover ? `${import.meta.env.BASE_URL}${islandCover}` : `${import.meta.env.BASE_URL}ed41a8a3b11b0735108e85d67b6ee58.jpg`} alt="专辑封面" />
+                      <div><strong>{islandSongTitle}</strong><span>{islandTrack?.artist ?? ""}</span></div>
                       <span className="music-island-wave"><i/><i/><i/><i/><i/></span>
                     </div>
                     <div className="music-island-progress">
@@ -481,7 +484,7 @@ function PhoneRuntime({
                   </div>
                 ) : (
                   <div className="music-island-compact">
-                    <img src={`${import.meta.env.BASE_URL}ed41a8a3b11b0735108e85d67b6ee58.jpg`} alt="歌曲封面" />
+                    <img src={islandCover ? `${import.meta.env.BASE_URL}${islandCover}` : `${import.meta.env.BASE_URL}ed41a8a3b11b0735108e85d67b6ee58.jpg`} alt="歌曲封面" />
                     <span className="music-island-wave"><i/><i/><i/><i/><i/></span>
                   </div>
                 )
@@ -621,7 +624,7 @@ function PhoneRuntime({
           {/* Keep the player mounted when navigating home or opening other apps. */}
           <div style={{display:app === "netease" && !locked ? "contents" : "none"}}>
             <AppWindow className="app-screen skin-netease" creator={creator} origin={launchOrigin}>
-              <NeteaseMobile song={neteaseLockSongs.find((entry) => entry.url === activeNetEaseSong) ?? null} songs={neteaseLockSongs} onSelect={(url) => { setHeartTargetUrl(null); setActiveNetEaseSong(url); }} onBack={() => setActiveNetEaseSong(null)} onPlaybackChange={setNeteasePlaying} onAudioTime={(current,duration)=>setIslandTime({current,duration})} heartTargetUrl={heartTargetUrl} />
+              <NeteaseMobile song={neteaseLockSongs.find((entry) => entry.url === activeNetEaseSong) ?? null} songs={neteaseLockSongs} onSelect={(url) => { setHeartTargetUrl(null); setActiveNetEaseSong(url); }} onBack={() => setActiveNetEaseSong(null)} onPlaybackChange={setNeteasePlaying} onTrackChange={setIslandSongTitle} onAudioTime={(current,duration)=>setIslandTime({current,duration})} heartTargetUrl={heartTargetUrl} />
             </AppWindow>
           </div>
           {folder && (
