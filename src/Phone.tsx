@@ -152,6 +152,7 @@ function PhoneRuntime({
   const [locked, setLocked] = useState(!creator);
   const [pinOpen, setPinOpen] = useState(false);
   const [pendingSongUrl, setPendingSongUrl] = useState<string | null>(null);
+  const [heartTargetUrl, setHeartTargetUrl] = useState<string | null>(null);
   const [activeNetEaseSong, setActiveNetEaseSong] = useState<string | null>(null);
   const [neteasePlaying, setNeteasePlaying] = useState(false);
   const [quickCamera, setQuickCamera] = useState(false);
@@ -302,7 +303,8 @@ function PhoneRuntime({
       setPinOpen(false);
       if (pendingSongUrl) {
         setApp("netease");
-        setActiveNetEaseSong(pendingSongUrl);
+        setActiveNetEaseSong(null);
+        setHeartTargetUrl(pendingSongUrl);
         setPendingSongUrl(null);
       }
       event("password", pin);
@@ -555,7 +557,7 @@ function PhoneRuntime({
           {/* Keep the player mounted when navigating home or opening other apps. */}
           <div style={{display:app === "netease" && !locked ? "contents" : "none"}}>
             <AppWindow className="app-screen skin-netease" creator={creator} origin={launchOrigin}>
-              <NeteaseMobile song={neteaseLockSongs.find((entry) => entry.url === activeNetEaseSong) ?? null} songs={neteaseLockSongs} onSelect={(url) => setActiveNetEaseSong(url)} onBack={() => setActiveNetEaseSong(null)} onPlaybackChange={setNeteasePlaying} />
+              <NeteaseMobile song={neteaseLockSongs.find((entry) => entry.url === activeNetEaseSong) ?? null} songs={neteaseLockSongs} onSelect={(url) => { setHeartTargetUrl(null); setActiveNetEaseSong(url); }} onBack={() => setActiveNetEaseSong(null)} onPlaybackChange={setNeteasePlaying} heartTargetUrl={heartTargetUrl} />
             </AppWindow>
           </div>
           {folder && (
