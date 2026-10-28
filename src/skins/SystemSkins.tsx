@@ -802,40 +802,17 @@ function LocationMap({
   onItem: (i: Item) => void;
   find?: boolean;
 }) {
+  // Simulated phone location: Chongqing No. 11 Middle School, Tanzishi campus.
+  // Coordinates refer to the school's public POI, not the viewer's device.
+  const school = {lat:29.582444, lon:106.599951};
+  const bbox = find ? "106.588,29.575,106.612,29.590" : "106.44,29.47,106.70,29.67";
+  const src = "https://www.openstreetmap.org/export/embed.html?bbox=" + encodeURIComponent(bbox) + "&layer=mapnik" + (find ? "&marker=" + school.lat + "%2C" + school.lon : "");
   return (
-    <div className={`fiction-map ${find ? "find-map" : ""}`}>
-      <svg viewBox="0 0 300 300" aria-label="原创虚构地图">
-        <rect width="300" height="300" fill="#e4e5d8" />
-        {[35, 100, 190, 260].map((n) => (
-          <path
-            key={n}
-            d={`M0 ${n} H300 M${n} 0 V300`}
-            stroke="#fff"
-            strokeWidth="11"
-          />
-        ))}
-        <path
-          d="M20 0 Q190 110 120 300"
-          stroke="#b6d8df"
-          strokeWidth="24"
-          fill="none"
-        />
-        <rect x="205" y="112" width="42" height="65" rx="7" fill="#bdcfac" />
-      </svg>
-      {items.map((i, n) => (
-        <button
-          key={i.id}
-          aria-label={`地图位置${i.title}`}
-          className="map-pin"
-          style={{
-            left: `${Math.max(5, Math.min(90, Number(meta(i, "x", String(20 + ((n * 17) % 65))))))}%`,
-            top: `${Math.max(8, Math.min(80, Number(meta(i, "y", String(25 + ((n * 13) % 50))))))}%`,
-          }}
-          onClick={() => onItem(i)}
-        >
-          {find ? <Avatar name={i.title} /> : <MapPin size={24} />}
-        </button>
-      ))}
+    <div className={`fiction-map chongqing-map ${find ? "find-map" : ""}`}>
+      <iframe title={find ? "重庆十一中附近地图" : "重庆市地图"} src={src} loading="lazy" referrerPolicy="no-referrer" />
+      <div className="chongqing-map-caption">{find ? "模拟位置 · 重庆十一中附近" : "重庆市 · 地图"}</div>
+      {find && <div className="chongqing-find-location">位置设定：重庆市南岸区 · 弹子石 · 重庆十一中附近</div>}
+      {items.length > 0 && <div className="chongqing-map-items">{items.slice(0,2).map(i=><button key={i.id} onClick={()=>onItem(i)}>{i.title}</button>)}</div>}
     </div>
   );
 }
@@ -846,7 +823,7 @@ export function MapsSkin(p: Props) {
       <Header p={p} />
       <LocationMap items={items} onItem={p.onItem} />
       <div className="map-sheet">
-        <SearchBox value={q} set={setQ} placeholder="搜索虚构地点" />
+        <SearchBox value={q} set={setQ} placeholder="搜索重庆地点" />
         <div className="map-places">
           {items.map((i) => (
             <Row key={i.id} item={i} onItem={p.onItem} leading={<MapPin />} />
