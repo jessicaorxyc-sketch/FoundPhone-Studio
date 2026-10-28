@@ -152,6 +152,11 @@ function PhoneRuntime({
   const [app, setApp] = useState("");
   const [homeRequest, setHomeRequest] = useState(0);
   const [locked, setLocked] = useState(true);
+  const [globalAppearance, setGlobalAppearance] = useState<"light" | "dark" | "auto">(() => (localStorage.getItem("foundphone-appearance") as "light" | "dark" | "auto") || "auto");
+  const [systemDark, setSystemDark] = useState(() => window.matchMedia("(prefers-color-scheme: dark)").matches);
+  useEffect(() => { const media = window.matchMedia("(prefers-color-scheme: dark)"); const change = () => setSystemDark(media.matches); media.addEventListener("change", change); return () => media.removeEventListener("change", change); }, []);
+  const appearanceDark = globalAppearance === "dark" || (globalAppearance === "auto" && systemDark);
+  const chooseAppearance = (next: "light" | "dark" | "auto") => { setGlobalAppearance(next); localStorage.setItem("foundphone-appearance", next); };
   const [pinOpen, setPinOpen] = useState(false);
   const [pendingSongUrl, setPendingSongUrl] = useState<string | null>(null);
   const [heartTargetUrl, setHeartTargetUrl] = useState<string | null>(null);
@@ -351,7 +356,7 @@ function PhoneRuntime({
     <div
       ref={shell}
       style={{ "--phone-scale": deviceScale } as CSSProperties}
-      className={`phone-shell ios18 ${work.phone.theme === "dark" ? "dark-phone" : ""}`}
+      className={`phone-shell ios18 ${appearanceDark ? "dark-phone" : "light-phone"}`}\n      data-appearance={appearanceDark ? "dark" : "light"}
     >
       <KeyboardContext.Provider value={setKeyboard}>
         <div
@@ -1168,13 +1173,13 @@ function AppContent({
         </button>
       </div>
       {app.id === "settings" && !detail ? (
-        <NativeSettings
+        <><div style={{padding:"14px 18px",background:appearanceDark?"#202024":"#f2f2f7",color:appearanceDark?"white":"#111"}}><div style={{fontWeight:600,marginBottom:8}}>显示与亮度 · 全局外观</div><div style={{display:"flex",gap:6}}>{(["light","dark","auto"] as const).map(mode=><button key={mode} onClick={()=>chooseAppearance(mode)} style={{flex:1,border:globalAppearance===mode?"2px solid #007aff":"1px solid #999",borderRadius:9,padding:"10px 4px",background:globalAppearance===mode?"#007aff":"transparent",color:globalAppearance===mode?"white":"inherit"}}>{mode==="light"?"浅色":mode==="dark"?"深色":"自动"}</button>)}</div></div><NativeSettings
           work={work}
           items={items}
           creator={creator}
           onItem={read}
           onSettings={onSettings}
-        />
+        /></>
       ) : app.id === "calculator" && !detail ? (
         <NativeCalculator
           items={shown}
