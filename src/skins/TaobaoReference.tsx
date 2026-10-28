@@ -28,7 +28,6 @@ export function TaobaoReferenceSkin(_p:SkinProps){
  const [address,setAddress]=useState("重庆市南岸区 · 模拟收货地址");
  const [shipping,setShipping]=useState("普通快递");
  const [couponChoice,setCouponChoice]=useState("不使用优惠券");
- const [quantity,setQuantity]=useState(1);
  const [buyItems,setBuyItems]=useState<number[]>([]);
  const [orders,setOrders]=useState<{id:string;items:number[];amount:number;status:string;address:string}[]>([]);
  const [orderStatus,setOrderStatus]=useState("全部");
