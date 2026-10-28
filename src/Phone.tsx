@@ -460,7 +460,7 @@ function PhoneRuntime({
             >
               {neteasePlaying && app !== "netease" && !locked && (
                 islandExpanded ? (
-                  <div className="music-island-panel" onClick={(e) => e.stopPropagation()} onPointerDown={(e) => e.stopPropagation()}>
+                  <div className="music-island-panel" onClick={(e) => { if ((e.target as HTMLElement).closest("button,input")) { e.stopPropagation(); } }} onPointerDown={(e) => e.stopPropagation()}>
                     <div className="music-island-song">
                       <img src={`${import.meta.env.BASE_URL}ed41a8a3b11b0735108e85d67b6ee58.jpg`} alt="专辑封面" />
                       <div><strong>绝对占有 相对自由</strong><span>陈粒</span></div>
