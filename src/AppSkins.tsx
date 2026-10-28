@@ -163,6 +163,15 @@ export function WeChatSkin(p: SkinProps) {
     "readThreads",
     [],
   );
+  const [wxDraft,setWxDraft] = useState("");
+  const [wxSent,setWxSent] = useSkinState<Record<string, {body:string;time:string}[]>>(p,"wxSentMessages",{});
+  const sendWxMessage = () => {
+    const body=wxDraft.trim();
+    if(!body || !p.thread) return;
+    const time=new Date().toLocaleTimeString("zh-CN",{hour:"2-digit",minute:"2-digit",hour12:false});
+    setWxSent(prev=>({...prev,[p.thread!]:[...(prev[p.thread!]||[]),{body,time}]}));
+    setWxDraft("");
+  };
   const isTestChat = (title: string) => title === "测试会话" || title === "穆兄哥";
   const displayChatName = (title: string) => isTestChat(title) ? "穆兄哥" : title;
   const conversations = [
@@ -379,12 +388,17 @@ export function WeChatSkin(p: SkinProps) {
       ) : p.thread ? (
         <>
           <MessageList
-            items={p.items.filter((i) => i.title === p.thread).map((i) => isTestChat(p.thread) ? {...i, body:"生气了？", outgoing:false, sender:"穆兄哥", avatar:`${import.meta.env.BASE_URL}fa05a67256ead0c941419d34989dd42.jpg`} : i)}
+            items={[...p.items.filter((i) => i.title === p.thread).map((i) => isTestChat(p.thread) ? {...i, body:"生气了？", outgoing:false, sender:"穆兄哥", avatar:`${import.meta.env.BASE_URL}fa05a67256ead0c941419d34989dd42.jpg`} : i),...(wxSent[p.thread]||[]).map((m,i)=>({id:"wx-sent-"+i,title:p.thread!,sender:"我",avatar:"",body:m.body,time:m.time,outgoing:true,kind:"text" as const}))]}
             creator={p.creator}
             onItem={p.onItem}
             onRead={p.onRead}
           />
-          <Compose creator={p.creator} onAdd={p.onAdd} />
+          <form className="skin-compose wx-keyboard-compose" onSubmit={e=>{e.preventDefault();sendWxMessage()}}>
+            <button type="button" aria-label="语音输入" onClick={()=>{}}><Mic size={20}/></button>
+            <input className="native-compose-field" aria-label="输入微信消息" placeholder="发送消息" value={wxDraft} onChange={e=>setWxDraft(e.target.value)} autoComplete="off" enterKeyHint="send"/>
+            <button type="button" aria-label="表情"><Smile size={21}/></button>
+            {wxDraft.trim()?<button type="submit" className="wx-send-button">发送</button>:<button type="button" aria-label="更多功能"><Plus size={22}/></button>}
+          </form>
         </>
       ) : moments ? (
         <div className="wx-moments wx-moments-profile">
