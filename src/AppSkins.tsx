@@ -171,11 +171,8 @@ export function WeChatSkin(p: SkinProps) {
         .map((i) => i.title),
     ),
   ];
-  const contacts = [
-    ...new Set(p.items.map((i) => i.sender).filter((s) => s !== "我")),
-  ];
   const wxDemoChats = [{title:"AAA丞哥",body:"[图片]",time:"23:25",avatar:"🍔"},{title:"铮儿 9.8",body:"[动态贴图]",time:"20:21",avatar:"✦"},{title:"已读不回 Rachel-1.4",body:"[动态贴图]",time:"13:00",avatar:"🌸"},{title:"Mu、瑶瑶蛋 Emily-1.4、AAA丞哥、穆…",body:"只要是她认不得就行",time:"7月2日",avatar:"👥"},{title:"官方账号",body:"[3则] 快讯",time:"23:23",avatar:"📘"},{title:"谁是凶手",body:"我天真了！告退！",time:"23:12",avatar:"🎭"},{title:"瑶瑶蛋 Emily-1.4",body:"[动态贴图]",time:"23:12",avatar:"🌷"},{title:"瓦群 一起上红豆🫘",body:"[27则] 初：[动态贴图] 你行",time:"23:08",avatar:"👥"},{title:"i冰蛋挞",body:"",time:"23:02",avatar:"🐻"}];
-  const wxDemoContacts = ["新的朋友","仅聊天的朋友","群组","标签","官方账号","服务账号","WeCom 联系人","企业微信通知","AAA珀艺亚克力定制","AA温州尚意工艺品有限公司","onoo小猫^_^🐭*"];
+  const wxDemoContacts = ["新的朋友","仅聊天的朋友","群组","标签","官方账号","服务账号","WeCom 联系人","企业微信通知"];
   const posts = p.items.filter(
     (i) => i.folder === "朋友圈" || i.kind === "post",
   );
@@ -190,6 +187,20 @@ export function WeChatSkin(p: SkinProps) {
     >
       <style>{`\n.wechat-ui[data-wx-theme="light"]{background:#f5f5f5;color:#191919}.wechat-ui[data-wx-theme="light"] .wx-nav{background:#f7f7f7;color:#191919}.wechat-ui[data-wx-theme="light"] .skin-scroll{background:#f5f5f5}.wechat-ui[data-wx-theme="light"] .wx-search{background:#e8e8e8;color:#777}.wechat-ui[data-wx-theme="light"] .wx-search input{color:#222}.wechat-ui[data-wx-theme="light"] .wx-chat-row,.wechat-ui[data-wx-theme="light"] .wx-contact,.wechat-ui[data-wx-theme="light"] .wx-discovery{background:#fff;color:#191919;border-color:#e9e9e9}.wechat-ui[data-wx-theme="light"] .wx-profile{background:#fff}.wechat-ui[data-wx-theme="light"] .wx-profile-menu{background:#f5f5f5}.wechat-ui[data-wx-theme="light"] .wx-bottom{background:#fafafa;border-color:#e7e7e7}.wechat-ui[data-wx-theme="light"] .wx-bottom button{color:#666}.wechat-ui[data-wx-theme="light"] .wx-bottom button.selected{color:#07c160}.wechat-ui[data-wx-theme="light"] .wx-chat-row time{color:#aaa}.wechat-ui[data-wx-theme="light"] .wx-chat-row p{color:#999}\n
 .wechat-ui{background:#111;color:#f5f5f5}.wechat-ui .wx-nav{background:#111;color:#eee;border-bottom:0}.wechat-ui .skin-scroll{background:#111}.wechat-ui .wx-search{display:flex;align-items:center;background:#202020;color:#777;margin:10px 12px;padding:10px 12px;border-radius:8px}.wechat-ui .wx-search input{background:transparent;color:white;border:0;outline:0;width:100%}.wechat-ui .wx-chat-row,.wechat-ui .wx-contact{background:#202020;color:#eee;border-bottom:1px solid #303030;min-height:73px}.wechat-ui .wx-chat-row p{color:#858585}.wechat-ui .wx-chat-row time{color:#646464}.wechat-ui .wx-bottom{background:#1d1d1d;border-top:1px solid #303030}.wechat-ui .wx-bottom button{color:#b8b8b8}.wechat-ui .wx-bottom button.selected{color:#07c160}.wechat-ui .wx-profile{background:#181818;padding:45px 20px 34px}.wechat-ui .wx-profile h2{font-size:23px}.wechat-ui .wx-profile small{color:#999}.wechat-ui .wx-profile-menu{background:#111}.wechat-ui .wx-discovery{background:#202020;color:#ddd;border-bottom:1px solid #303030;min-height:59px}.wechat-ui .wx-contact{display:flex;align-items:center;gap:14px;padding:10px 16px}.wechat-ui .wx-reference-icon{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:5px;background:#168be1;color:white;font-size:24px}.wechat-ui .wx-contact:nth-of-type(1) .wx-reference-icon,.wechat-ui .wx-contact:nth-of-type(2) .wx-reference-icon{background:#fa9b32}.wechat-ui .wx-contact:nth-of-type(3) .wx-reference-icon{background:#07c160}
+
+.wechat-ui .wx-contact{box-sizing:border-box;width:100%;display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:flex-start!important;text-align:left!important;gap:14px!important;padding:0 18px!important;min-height:57px!important;height:57px!important;border-radius:0!important;margin:0!important;font-size:15px!important;line-height:1.4!important;}
+.wechat-ui .wx-contact .wx-reference-icon{flex:0 0 38px;width:38px;height:38px;margin:0!important;}
+.wechat-ui .wx-contact:nth-of-type(-n+2) .wx-reference-icon{background:#f99a32}
+.wechat-ui .wx-contact:nth-of-type(3) .wx-reference-icon{background:#08b969}
+.wechat-ui .wx-contact:nth-of-type(n+4) .wx-reference-icon{background:#168be1}
+.wechat-ui .wx-profile{display:flex;align-items:center;gap:16px;min-height:145px;box-sizing:border-box;}
+.wechat-ui .wx-profile h2{color:inherit!important;opacity:1!important;margin:0 0 8px!important;}
+.wechat-ui .wx-profile>div{min-width:0;}
+.wechat-ui .wx-discovery{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:0 18px;box-sizing:border-box;}
+.wechat-ui .wx-discovery span:last-child{margin-left:auto;}
+.wechat-ui[data-wx-theme="light"] .wx-profile,.wechat-ui[data-wx-theme="light"] .wx-profile h2{color:#191919!important;}
+.wechat-ui[data-wx-theme="light"] .wx-contact{background:#fff;color:#191919;border-color:#ededed;}
+.wechat-ui[data-wx-theme="light"] .wx-discovery{background:#fff;color:#191919;border-color:#ededed;}
 `}</style>
       <div className="app-nav wx-nav">
         <button
@@ -379,7 +390,7 @@ export function WeChatSkin(p: SkinProps) {
           ) : tab === "通讯录" ? (
             <>
               <label className="wx-search"><Search size={15}/><input placeholder="搜索" value={query} onChange={e=>setQuery(e.target.value)}/></label>
-              {[...wxDemoContacts,...contacts.filter(c=>!wxDemoContacts.includes(c))].filter(c=>c.includes(query)).map((c) => (
+              {wxDemoContacts.filter(c=>c.includes(query)).map((c) => (
                 <button
                   key={c}
                   className="wx-contact"
