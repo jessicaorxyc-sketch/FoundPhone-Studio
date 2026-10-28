@@ -205,3 +205,55 @@
 }
 .nm-heart-fixed-scroll .nm-heart-stats button{padding:0!important}
 .nm-heart-fixed-scroll .nm-heart-progress{margin-top:17px!important}
+
+/* Proportions measured against the supplied NetEase heart-mode reference.
+   Keep vinyl comfortably inside the viewport and give the metadata/control
+   region its own breathing room. */
+.nm-heart-fixed-scroll .nm-heart-screen{
+  padding:8px 18px 20px!important;
+  justify-content:flex-start!important;
+}
+.nm-heart-fixed-scroll .nm-heart-turntable{
+  flex:1 1 auto!important;
+  min-height:0!important;
+  width:100%!important;
+  padding-top:32px!important;
+  padding-bottom:10px!important;
+}
+.nm-heart-fixed-scroll .nm-heart-disc{
+  width:min(74%,285px)!important;
+  max-width:285px!important;
+  border-width:14px!important;
+  box-shadow:0 0 0 5px #303039,0 0 0 9px #383740!important;
+}
+.nm-heart-fixed-scroll .nm-heart-tonearm{
+  top:6%!important;
+  left:52%!important;
+  width:31%!important;
+  height:25%!important;
+}
+.nm-heart-fixed-scroll .nm-heart-tonearm-pivot{
+  width:25px!important;height:25px!important;
+  border-width:6px!important;
+  box-shadow:0 0 0 6px #29282e!important;
+}
+.nm-heart-fixed-scroll .nm-heart-tonearm-shaft{
+  top:20px!important;left:17px!important;
+  height:8px!important;width:91%!important;
+}
+.nm-heart-fixed-scroll .nm-heart-tonearm-head{
+  width:29px!important;height:15px!important;
+}
+.nm-heart-fixed-scroll .nm-heart-track{
+  flex:0 0 auto!important;
+  margin-top:6px!important;
+  padding:0 0 0!important;
+}
+.nm-heart-fixed-scroll .nm-heart-progress{
+  flex:0 0 auto!important;
+  margin-top:28px!important;
+}
+.nm-heart-fixed-scroll .nm-heart-controls{
+  flex:0 0 76px!important;
+  margin:28px 0 16px!important;
+}
