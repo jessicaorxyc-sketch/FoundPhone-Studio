@@ -4315,3 +4315,21 @@
 .phone-shell.dark-phone .dy-creator-stats b{color:#fff}
 .phone-shell.dark-phone .dy-creator-ip,.phone-shell.dark-phone .dy-creator-actions button{background:#333;color:#eee}
 .phone-shell.dark-phone .dy-creator-tabs button.selected{color:#fff}
+
+
+/* Global appearance contract for shared catalog screens (all nested routes).
+   Media/camera/video surfaces retain their intentional black playback canvas. */
+.phone-shell.dark-phone .catalog-skin:not(.dy-app){color-scheme:dark;background:#101014;color:#f4f4f7}
+.phone-shell.light-phone .catalog-skin:not(.dy-app){color-scheme:light;background:#fff;color:#18181b}
+.phone-shell.dark-phone .catalog-skin:not(.dy-app) :is(.catalog-nav,.catalog-tabs,.catalog-composer){background:#1c1c22;color:#f4f4f7;border-color:#35353b}
+.phone-shell.light-phone .catalog-skin:not(.dy-app) :is(.catalog-nav,.catalog-tabs,.catalog-composer){background:#fafafa;color:#18181b;border-color:#e8e8eb}
+.phone-shell.dark-phone .catalog-skin:not(.dy-app) :is(.catalog-search,.native-section){background:#29292f;color:#b8b8c1}
+.phone-shell.light-phone .catalog-skin:not(.dy-app) :is(.catalog-search,.native-section){background:#ededf0;color:#747480}
+.phone-shell.dark-phone .catalog-skin:not(.dy-app) :is(input,textarea,select){color-scheme:dark}
+.phone-shell.light-phone .catalog-skin:not(.dy-app) :is(input,textarea,select){color-scheme:light}
+.phone-shell.dark-phone .catalog-skin:not(.dy-app) :is(.catalog-row,.catalog-chat){border-color:#34343a;color:#f4f4f7}
+.phone-shell.light-phone .catalog-skin:not(.dy-app) :is(.catalog-row,.catalog-chat){border-color:#e9e9ed;color:#18181b}
+/* Douyin's playback canvas stays black; its light-mode auxiliary pages must not inherit dark styling. */
+.phone-shell.light-phone .dy-app:is(.dy-朋友,.dy-消息,.dy-我),
+.phone-shell.light-phone .dy-white{color-scheme:light;background:#fff;color:#191919}
+.phone-shell.light-phone .dy-app :is(.dy-modal,.dy-creator-overlay,.dy-creator-info){color-scheme:light}
