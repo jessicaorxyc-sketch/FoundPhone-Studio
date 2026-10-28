@@ -300,7 +300,7 @@ function PhoneRuntime({
     for (const id of appSnapshots.current.keys())
       if (!recent.includes(id) && id !== app) appSnapshots.current.delete(id);
   };
-  const disabledPhoneApps = new Set(["music","wallet","forum","whatsapp","instagram","tiktok","twitter","telegram","discord","youtube","line","snapchat","facebook","messenger","reddit","spotify","netflix","pinterest","threads","kakaotalk"]);
+  const disabledPhoneApps = new Set(["music","wallet","forum","whatsapp","instagram","tiktok","twitter","telegram","discord","youtube","line","snapchat","facebook","messenger","reddit","spotify","netflix","pinterest","threads","kakaotalk","kakao"]);
   const open = (id: string) => {
     if (disabledPhoneApps.has(id) || !work.apps.some((a) => a.id === id && a.installed)) return;
     if (id === "netease") setActiveNetEaseSong(null);
