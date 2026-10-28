@@ -271,3 +271,10 @@
 .nm .nm-heart-label:has(> img){padding:0!important;overflow:hidden;background:transparent!important;gap:0!important;}
 .nm .nm-disc-label > .nm-album-cover,
 .nm .nm-heart-label > img{display:block;width:100%!important;height:100%!important;min-width:100%;min-height:100%;object-fit:cover!important;object-position:center;border-radius:50%;flex-shrink:0;}
+
+/* Align the range thumb to the true start/end rather than its default inset. */
+.nm-heart-progress input[type="range"],.nm-progress input[type="range"]{appearance:none;-webkit-appearance:none;background:transparent;height:18px!important;outline:none;}
+.nm-heart-progress input[type="range"]::-webkit-slider-runnable-track,.nm-progress input[type="range"]::-webkit-slider-runnable-track{height:3px;background:#8e8d94;border-radius:3px;}
+.nm-heart-progress input[type="range"]::-webkit-slider-thumb,.nm-progress input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:#f5eff7;border:0;margin-top:-5.5px;}
+.nm-heart-progress input[type="range"]::-moz-range-track,.nm-progress input[type="range"]::-moz-range-track{height:3px;background:#8e8d94;border-radius:3px;}
+.nm-heart-progress input[type="range"]::-moz-range-thumb,.nm-progress input[type="range"]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#f5eff7;border:0;}
