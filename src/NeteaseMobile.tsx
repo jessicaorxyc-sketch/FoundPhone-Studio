@@ -3,7 +3,7 @@ import { ArrowLeft, Heart, ListMusic, Menu, Music2, Pause, Play, Search, SkipBac
 import "./netease-mobile.css";
 
 type Song = { title: string; artist: string; url: string };
-export function NeteaseMobile({ song, songs, onSelect, onBack }: { song: Song | null; songs: Song[]; onSelect: (url: string) => void; onBack: () => void }) {
+export function NeteaseMobile({ song, songs, onSelect, onBack, onPlaybackChange }: { song: Song | null; songs: Song[]; onSelect: (url: string) => void; onBack: () => void; onPlaybackChange?: (playing: boolean) => void }) {
   const [tab, setTab] = useState("心动");
 
   const [liked, setLiked] = useState(false);
@@ -14,6 +14,7 @@ export function NeteaseMobile({ song, songs, onSelect, onBack }: { song: Song | 
   const publicAudioUrl = `${import.meta.env.BASE_URL}8191158f23902d23e630745c82af8e1e.mp3`;
   const [audioError, setAudioError] = useState("");
   const [playing, setPlaying] = useState(false);
+  useEffect(() => { onPlaybackChange?.(playing); }, [playing, onPlaybackChange]);
   const [heartIndex, setHeartIndex] = useState(() => Math.floor(Math.random() * Math.max(songs.length, 1)));
   const [queueOpen, setQueueOpen] = useState(false);
   const [queueHistory, setQueueHistory] = useState(false);
@@ -75,7 +76,7 @@ export function NeteaseMobile({ song, songs, onSelect, onBack }: { song: Song | 
   const choose = (offset: number) => onSelect(songs[(index + offset + songs.length) % songs.length].url);
   const changeHeartSong = (offset: number) => { if (songs.length) setHeartIndex(i => (i + offset + songs.length) % songs.length); setHeartProgress(0); };
 
-  const heartTime=(n:number)=>String(Math.floor(n/60)).padStart(2,"0")+":"+String(n%60).padStart(2,"0");
+  const heartTime=(n:number)=>{ const total=Math.max(0,Math.floor(Number.isFinite(n)?n:0)); return `${String(Math.floor(total/60)).padStart(2,"0")}:${String(total%60).padStart(2,"0")}`; };
   if (song) return <div className="nm nm-player">
     <header className="nm-player-top"><button onClick={onBack} aria-label="返回首页"><ArrowLeft /></button><div><strong>{song.title}</strong><small>{song.artist}</small></div><button onClick={() => setLiked(!liked)} aria-label="喜欢"><Heart fill={liked ? "#e5474d" : "none"} color={liked ? "#e5474d" : "#fff"} /></button></header>
     <div className="nm-turntable"><div className="nm-arm"><div className="nm-arm-base" /><div className="nm-arm-rod" /></div><div className={"nm-disc" + (playing ? " nm-spinning" : "")}><div className="nm-disc-label">{song.title === "绝对占有 相对自由" ? <img src={`${import.meta.env.BASE_URL}ed41a8a3b11b0735108e85d67b6ee58.jpg`} alt="陈粒《绝对占有 相对自由》封面" className="nm-album-cover" /> : <><Music2 size={48} /><span>{song.title}</span><small>{song.artist}</small></>}</div></div></div>
