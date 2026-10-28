@@ -156,7 +156,7 @@ export function WeChatSkin(p: SkinProps) {
     [query, setQuery] = useState(""),
     [moments, setMoments] = useState(false),
     [menu, setMenu] = useState(false),
-    [searchOpen, setSearchOpen] = useState(false),
+    [_searchOpen, setSearchOpen] = useState(false),
     [utility, setUtility] = useState("");
   const [readThreads, setReadThreads] = useSkinState<string[]>(
     p,
@@ -279,7 +279,7 @@ export function WeChatSkin(p: SkinProps) {
                 <span>›</span>
               </button>
             ))}
-          {utility === "设置" && <button className="wx-discovery" onClick={() => setWxTheme(wxTheme === "dark" ? "light" : "dark")}>外观模式：{wxTheme === "dark" ? "深色" : "浅色"}　点击切换</button>}
+          {utility === "设置" && <button className="wx-discovery" onClick={() => setWxTheme(wxTheme === "dark" ? "light" : "dark")}>外观模式：{wxTheme === "dark" ? "深色" : "浅色"} 点击切换</button>}
           {!p.items.some((i) => i.folder === utility) &&
             utility !== "聊天信息" && <p className="skin-empty">暂无内容</p>}
         </div>
