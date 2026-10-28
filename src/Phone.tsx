@@ -429,8 +429,64 @@ function PhoneRuntime({
               {displayTime}
               <StatusGlyph kind="silent" />
             </button>
-            <div className="dynamic-island" />
-{neteasePlaying && app !== "netease" && !locked && <div className={"music-island"+(islandExpanded?" expanded":"")} onTouchStart={() => {islandLongPress.current=false;islandPress.current=setTimeout(()=>{islandLongPress.current=true;setIslandExpanded(true)},480)}} onTouchEnd={()=>{if(islandPress.current)clearTimeout(islandPress.current)}} onContextMenu={e=>{e.preventDefault();setIslandExpanded(true)}} onClick={()=>{if(islandLongPress.current){islandLongPress.current=false;return;}if(!islandExpanded){setApp("netease");setPanel("");}}} role="group" aria-label="音乐灵动岛"><div className="music-island-compact"><img src={`${import.meta.env.BASE_URL}ed41a8a3b11b0735108e85d67b6ee58.jpg`} alt="歌曲封面"/><div className="music-island-wave"><i/><i/><i/><i/><i/></div></div>{islandExpanded&&<div className="music-island-panel" onClick={e=>e.stopPropagation()}><div className="music-island-song"><img src={`${import.meta.env.BASE_URL}ed41a8a3b11b0735108e85d67b6ee58.jpg`} alt="专辑封面"/><div><strong>绝对占有 相对自由</strong><span>陈粒</span></div><button onClick={()=>setIslandExpanded(false)} aria-label="收起">⌃</button></div><div className="music-island-progress"><span>{islandFormat(islandTime.current)}</span><input aria-label="歌曲进度" type="range" min={0} max={islandTime.duration||1} value={islandTime.current} onChange={e=>islandAction("seek:"+e.target.value)}/><span>-{islandFormat(islandTime.duration-islandTime.current)}</span></div><div className="music-island-actions"><button onClick={()=>islandAction("previous")} aria-label="上一首">◀◀</button><button onClick={()=>islandAction("toggle")} aria-label="暂停或播放">Ⅱ</button><button onClick={()=>islandAction("next")} aria-label="下一首">▶▶</button><button onClick={()=>{setIslandExpanded(false);setApp("netease");setPanel("");}} aria-label="返回网易云">↗</button></div></div>}</div>}
+            <div
+              className={`dynamic-island${neteasePlaying && app !== "netease" && !locked ? " music-island" : ""}${islandExpanded && neteasePlaying && app !== "netease" ? " expanded" : ""}`}
+              role={neteasePlaying && app !== "netease" ? "button" : undefined}
+              tabIndex={neteasePlaying && app !== "netease" ? 0 : undefined}
+              aria-label={neteasePlaying && app !== "netease" ? "音乐灵动岛：点击返回网易云，长按展开" : undefined}
+              onPointerDown={(e) => {
+                if (!neteasePlaying || app === "netease" || locked) return;
+                if (e.button !== 0) return;
+                islandLongPress.current = false;
+                if (islandPress.current) clearTimeout(islandPress.current);
+                islandPress.current = setTimeout(() => {
+                  islandLongPress.current = true;
+                  setIslandExpanded(true);
+                }, 450);
+              }}
+              onPointerUp={() => { if (islandPress.current) clearTimeout(islandPress.current); }}
+              onPointerCancel={() => { if (islandPress.current) clearTimeout(islandPress.current); }}
+              onPointerLeave={() => { if (islandPress.current) clearTimeout(islandPress.current); }}
+              onContextMenu={(e) => { if (neteasePlaying && app !== "netease") { e.preventDefault(); islandLongPress.current = true; setIslandExpanded(true); } }}
+              onClick={() => {
+                if (!neteasePlaying || app === "netease" || locked) return;
+                if (islandLongPress.current) { islandLongPress.current = false; return; }
+                if (islandExpanded) return;
+                setIslandExpanded(false);
+                setApp("netease");
+                setPanel("");
+              }}
+              onKeyDown={(e) => { if (e.key === "Enter" && neteasePlaying && app !== "netease") { setIslandExpanded(false); setApp("netease"); setPanel(""); } }}
+            >
+              {neteasePlaying && app !== "netease" && !locked && (
+                islandExpanded ? (
+                  <div className="music-island-panel" onClick={(e) => e.stopPropagation()} onPointerDown={(e) => e.stopPropagation()}>
+                    <div className="music-island-song">
+                      <img src={`${import.meta.env.BASE_URL}ed41a8a3b11b0735108e85d67b6ee58.jpg`} alt="专辑封面" />
+                      <div><strong>绝对占有 相对自由</strong><span>陈粒</span></div>
+                      <span className="music-island-wave"><i/><i/><i/><i/><i/></span>
+                    </div>
+                    <div className="music-island-progress">
+                      <span>{islandFormat(islandTime.current)}</span>
+                      <input aria-label="歌曲进度" type="range" min={0} max={islandTime.duration || 1} value={islandTime.current} onChange={(e) => islandAction("seek:" + e.target.value)} />
+                      <span>-{islandFormat(islandTime.duration - islandTime.current)}</span>
+                    </div>
+                    <div className="music-island-actions">
+                      <button onClick={() => setIslandExpanded(false)} aria-label="收起">★</button>
+                      <button onClick={() => islandAction("previous")} aria-label="上一首">◀◀</button>
+                      <button onClick={() => islandAction("toggle")} aria-label="暂停或播放">Ⅱ</button>
+                      <button onClick={() => islandAction("next")} aria-label="下一首">▶▶</button>
+                      <button onClick={() => { setIslandExpanded(false); setApp("netease"); setPanel(""); }} aria-label="返回网易云">↗</button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="music-island-compact">
+                    <img src={`${import.meta.env.BASE_URL}ed41a8a3b11b0735108e85d67b6ee58.jpg`} alt="歌曲封面" />
+                    <span className="music-island-wave"><i/><i/><i/><i/><i/></span>
+                  </div>
+                )
+              )}
+            </div>
             <button
               className="signals"
               onClick={() => setPanel(panel === "control" ? "" : "control")}
