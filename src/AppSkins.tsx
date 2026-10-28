@@ -59,8 +59,8 @@ function Avatar({
 }) {
   return (
     <span className={`skin-avatar ${round ? "round" : ""}`}>
-      {safeMedia(src)?.startsWith("data:image/") ? (
-        <img src={safeMedia(src)} alt="" />
+      {(src.startsWith(import.meta.env.BASE_URL) || safeMedia(src)?.startsWith("data:image/")) ? (
+        <img src={src.startsWith(import.meta.env.BASE_URL) ? src : safeMedia(src)} alt="" />
       ) : (
         name.slice(0, 1)
       )}
@@ -368,7 +368,7 @@ export function WeChatSkin(p: SkinProps) {
       ) : p.thread ? (
         <>
           <MessageList
-            items={p.items.filter((i) => i.title === p.thread).map((i) => isTestChat(p.thread) ? {...i, body:"生气了？", outgoing:false, sender:"穆兄哥"} : i)}
+            items={p.items.filter((i) => i.title === p.thread).map((i) => isTestChat(p.thread) ? {...i, body:"生气了？", outgoing:false, sender:"穆兄哥", avatar:`${import.meta.env.BASE_URL}fa05a67256ead0c941419d34989dd42.jpg`} : i)}
             creator={p.creator}
             onItem={p.onItem}
             onRead={p.onRead}
@@ -377,7 +377,7 @@ export function WeChatSkin(p: SkinProps) {
         </>
       ) : moments ? (
         <div className="wx-moments">
-          <div className="wx-moment-cover">
+          <div className="wx-moment-cover" style={{backgroundImage:`url("${import.meta.env.BASE_URL}a4c05036075eff0dc23ea7cd75045b4.jpg")`,backgroundSize:"cover",backgroundPosition:"center"}}>
             <Camera size={32} />
             <span>朋友圈</span>
           </div>
@@ -440,7 +440,7 @@ export function WeChatSkin(p: SkinProps) {
                       }}
                     >
                       <span className="wx-chat-avatar">
-                        <Avatar name={t} src={last.avatar} />
+                        <Avatar name={t} src={isTestChat(t) ? `${import.meta.env.BASE_URL}fa05a67256ead0c941419d34989dd42.jpg` : last.avatar} />
                         {!readThreads.includes(t) &&
                           (isTestChat(t) || list.some((i) => !i.read)) && (
                             <b className="wx-unread">
@@ -506,7 +506,7 @@ export function WeChatSkin(p: SkinProps) {
           ) : (
             <>
               <div className="wx-profile">
-                <Avatar name="king" />
+                <Avatar name="king" src={`${import.meta.env.BASE_URL}1df1f541878f9be0616bd17d63fee05.jpg`} />
                 <div>
                   <h2>king</h2>
                   <small>微信 ID：reflection27</small>
