@@ -229,6 +229,31 @@ export function WeChatSkin(p: SkinProps) {
 .phone-shell.light-phone .wechat-ui .wx-profile{background:#fff!important;color:#191919!important;}
 .phone-shell.light-phone .wechat-ui .wx-profile h2,
 .phone-shell.light-phone .wechat-ui .wx-chat-row strong{color:#191919!important;}
+
+/* Consistent iPhone-wide WeChat themes; no app-level switch. */
+.phone-shell.dark-phone .wechat-ui .skin-messages{background:#111!important;color:#e9e9e9!important;}
+.phone-shell.dark-phone .wechat-ui .skin-date{color:#858585!important;}
+.phone-shell.dark-phone .wechat-ui .skin-bubble{background:#303030!important;color:#f4f4f4!important;border-color:#303030!important;}
+.phone-shell.dark-phone .wechat-ui .skin-message.outgoing .skin-bubble{background:#285d3d!important;color:#f4f4f4!important;}
+.phone-shell.dark-phone .wechat-ui .skin-compose{background:#202020!important;color:#f4f4f4!important;border-color:#303030!important;}
+.phone-shell.dark-phone .wechat-ui .native-compose-field{background:#303030!important;color:#fff!important;}
+.phone-shell.dark-phone .wechat-ui .skin-compose svg{color:#aaa!important;}
+.phone-shell.dark-phone .wechat-ui .wx-chat-row,
+.phone-shell.dark-phone .wechat-ui .wx-discovery,
+.phone-shell.dark-phone .wechat-ui .wx-contact{border-bottom:1px solid #303030!important;box-shadow:none!important;}
+.phone-shell.dark-phone .wechat-ui .wx-profile-menu .wx-discovery{border-bottom:1px solid #303030!important;}
+.phone-shell.dark-phone .wechat-ui .wx-profile-menu{background:#111!important;}
+.phone-shell.dark-phone .wechat-ui .wx-bottom{border-top:1px solid #303030!important;}
+.phone-shell.light-phone .wechat-ui .skin-messages{background:#ededed!important;color:#191919!important;}
+.phone-shell.light-phone .wechat-ui .skin-bubble{background:#fff!important;color:#191919!important;}
+.phone-shell.light-phone .wechat-ui .skin-message.outgoing .skin-bubble{background:#95ec69!important;color:#191919!important;}
+.phone-shell.light-phone .wechat-ui .skin-compose{background:#f6f6f6!important;color:#191919!important;}
+.phone-shell.light-phone .wechat-ui .native-compose-field{background:#fff!important;color:#191919!important;}
+.phone-shell.light-phone .wechat-ui .wx-search{background:#e7e7e7!important;color:#888!important;}
+.phone-shell.light-phone .wechat-ui .wx-search input{color:#191919!important;}
+.phone-shell.light-phone .wechat-ui .wx-chat-row,
+.phone-shell.light-phone .wechat-ui .wx-contact,
+.phone-shell.light-phone .wechat-ui .wx-discovery{border-bottom:1px solid #ededed!important;box-shadow:none!important;}
 `}</style>
       <div className="app-nav wx-nav">
         <button
