@@ -424,7 +424,7 @@ function PhoneRuntime({
               <StatusGlyph kind="silent" />
             </button>
             <div className="dynamic-island" />
-            {neteasePlaying && app !== "netease" && !locked && <button type="button" onClick={() => { setApp("netease"); setPanel(""); }} aria-label="返回网易云音乐播放界面" title="正在播放 · 点击返回网易云音乐" style={{position:"absolute",top:8,left:"50%",transform:"translateX(-50%)",zIndex:90,width:138,height:33,border:0,borderRadius:24,background:"#070707",color:"#fff",display:"flex",alignItems:"center",justifyContent:"space-around",padding:"0 12px",cursor:"pointer"}}><span style={{fontSize:14}}>♫</span><span style={{fontSize:10,whiteSpace:"nowrap"}}>正在播放</span><span style={{fontSize:12}}>▂▅▃▆</span></button>
+            {neteasePlaying && app !== "netease" && !locked && <button type="button" onClick={() => { setApp("netease"); setPanel(""); }} aria-label="返回网易云音乐播放界面" title="正在播放 · 点击返回网易云音乐" style={{position:"absolute",top:8,left:"50%",transform:"translateX(-50%)",zIndex:90,width:138,height:33,border:0,borderRadius:24,background:"#070707",color:"#fff",display:"flex",alignItems:"center",justifyContent:"space-around",padding:"0 12px",cursor:"pointer"}}><span style={{fontSize:14}}>♫</span><span style={{fontSize:10,whiteSpace:"nowrap"}}>正在播放</span><span style={{fontSize:12}}>▂▅▃▆</span></button>}
             <button
               className="signals"
               onClick={() => setPanel(panel === "control" ? "" : "control")}
