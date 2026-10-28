@@ -3,7 +3,7 @@ import { ArrowLeft, Heart, ListMusic, Menu, Music2, Pause, Play, Search, SkipBac
 import "./netease-mobile.css";
 
 type Song = { title: string; artist: string; url: string };
-export function NeteaseMobile({ song, songs, onSelect, onBack, onPlaybackChange, onAudioTime, heartTargetUrl }: { song: Song | null; songs: Song[]; onSelect: (url: string) => void; onBack: () => void; onPlaybackChange?: (playing: boolean) => void; onAudioTime?: (current:number,duration:number)=>void; heartTargetUrl?: string | null }) {
+export function NeteaseMobile({ song, songs, onSelect, onBack, onPlaybackChange, onTrackChange, onAudioTime, heartTargetUrl }: { song: Song | null; songs: Song[]; onSelect: (url: string) => void; onBack: () => void; onPlaybackChange?: (playing: boolean) => void; onTrackChange?: (title: string) => void; onAudioTime?: (current:number,duration:number)=>void; heartTargetUrl?: string | null }) {
   const [tab, setTab] = useState("心动");
 
   const [liked, setLiked] = useState(false);
@@ -44,6 +44,7 @@ export function NeteaseMobile({ song, songs, onSelect, onBack, onPlaybackChange,
 
   const heartSong = songs[heartIndex % Math.max(songs.length, 1)];
   const currentSong = song ?? heartSong;
+  useEffect(() => { if (currentSong) onTrackChange?.(currentSong.title); }, [currentSong?.title, onTrackChange]);
   const audioSources: Record<string, string> = {
     "绝对占有 相对自由": "8191158f23902d23e630745c82af8e1e.mp3",
     "笨小孩": "benxiaohai.mp3",
