@@ -163,6 +163,8 @@ export function WeChatSkin(p: SkinProps) {
     "readThreads",
     [],
   );
+  const isTestChat = (title: string) => title === "测试会话" || title === "穆兄哥";
+  const displayChatName = (title: string) => isTestChat(title) ? "穆兄哥" : title;
   const conversations = [
     ...new Set(
       p.items
@@ -293,7 +295,7 @@ export function WeChatSkin(p: SkinProps) {
         </button>
         <strong>
           {utility ||
-            p.thread ||
+            (p.thread ? displayChatName(p.thread) : "") ||
             (moments ? "朋友圈" : tab === "微信" ? "微信" : tab)}
         </strong>
         <button
@@ -366,7 +368,7 @@ export function WeChatSkin(p: SkinProps) {
       ) : p.thread ? (
         <>
           <MessageList
-            items={p.items.filter((i) => i.title === p.thread)}
+            items={p.items.filter((i) => i.title === p.thread).map((i) => isTestChat(p.thread) ? {...i, body:"生气了？", outgoing:false, sender:"穆兄哥"} : i)}
             creator={p.creator}
             onItem={p.onItem}
             onRead={p.onRead}
@@ -440,15 +442,15 @@ export function WeChatSkin(p: SkinProps) {
                       <span className="wx-chat-avatar">
                         <Avatar name={t} src={last.avatar} />
                         {!readThreads.includes(t) &&
-                          list.some((i) => !i.read) && (
+                          (isTestChat(t) || list.some((i) => !i.read)) && (
                             <b className="wx-unread">
-                              {list.filter((i) => !i.read).length}
+                              {isTestChat(t) ? 1 : list.filter((i) => !i.read).length}
                             </b>
                           )}
                       </span>
                       <div>
-                        <strong>{t}</strong>
-                        <p>{last.body}</p>
+                        <strong>{displayChatName(t)}</strong>
+                        <p>{isTestChat(t) ? "生气了？" : last.body}</p>
                       </div>
                       <time>{last.time.slice(-5)}</time>
                     </button>
