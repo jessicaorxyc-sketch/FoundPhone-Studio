@@ -953,3 +953,26 @@
   font-size: 12px;
 }
 
+
+
+/* Interactive compact/expanded music island */
+.music-island{position:absolute;top:7px;left:50%;transform:translateX(-50%);z-index:110;width:138px;height:34px;background:#050505;color:white;border-radius:28px;cursor:pointer;touch-action:manipulation;transition:width .22s,height .22s,border-radius .22s;box-shadow:0 2px 7px #0003;overflow:hidden}
+.music-island-compact{height:34px;display:flex;align-items:center;justify-content:space-between;padding:4px 12px 4px 7px}
+.music-island-compact img{width:24px;height:24px;object-fit:cover;border-radius:6px}
+.music-island-wave{display:flex;align-items:center;gap:3px;height:20px}
+.music-island-wave i{display:block;width:3px;height:7px;background:#c6cbd2;border-radius:3px;animation:music-island-bounce .75s ease-in-out infinite alternate}
+.music-island-wave i:nth-child(2){height:15px;animation-delay:.2s}.music-island-wave i:nth-child(3){height:10px;animation-delay:.35s}.music-island-wave i:nth-child(4){height:18px;animation-delay:.1s}.music-island-wave i:nth-child(5){height:6px;animation-delay:.4s}
+@keyframes music-island-bounce{to{transform:scaleY(.38)}}
+.music-island.expanded{width:min(92%,345px);height:176px;border-radius:31px;overflow:visible}
+.music-island.expanded .music-island-compact{display:none}
+.music-island-panel{padding:17px 18px 13px}
+.music-island-song{display:flex;gap:12px;align-items:center}
+.music-island-song img{width:48px;height:48px;object-fit:cover;border-radius:9px}
+.music-island-song div{min-width:0;flex:1;display:flex;flex-direction:column;gap:3px}
+.music-island-song strong{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.music-island-song span{font-size:11px;color:#a8a8ad}
+.music-island-song button{background:none;border:0;color:#aaa;font-size:20px}
+.music-island-progress{display:flex;align-items:center;gap:8px;margin:15px 0 10px;font-size:10px;color:#9e9ea3}
+.music-island-progress input{min-width:0;flex:1;accent-color:#eee;height:3px}
+.music-island-actions{display:flex;align-items:center;justify-content:space-around}
+.music-island-actions button{border:0;background:none;color:#fff;font-size:19px;min-width:34px;min-height:32px;cursor:pointer}
