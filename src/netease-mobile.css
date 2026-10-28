@@ -257,3 +257,11 @@
   flex:0 0 76px!important;
   margin:28px 0 16px!important;
 }
+
+/* NetEase reference-style bottom mini-player */
+.nm-mini{min-height:48px;border-radius:28px;padding:6px 10px 6px 7px;gap:8px;background:#242426}
+.nm-mini .nm-mini-cover{flex:0 0 42px!important;width:42px;height:42px;border-radius:50%;overflow:hidden;background:#171719;display:grid;place-items:center}
+.nm-mini .nm-mini-cover img{display:block;width:100%;height:100%;object-fit:cover;border-radius:50%}
+.nm-mini .nm-mini-track>span.nm-mini-song-label{font-size:13px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nm-mini .nm-mini-song-label small{display:inline;color:#9c9c9f;font-size:12px;margin:0}
+.nm-mini .nm-mini-play-button,.nm-mini .nm-mini-queue-button{flex-basis:32px!important}
