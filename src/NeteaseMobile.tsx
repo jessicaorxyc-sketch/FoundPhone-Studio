@@ -48,6 +48,7 @@ export function NeteaseMobile({ song, songs, onSelect, onBack, onPlaybackChange,
   const currentSong = song ?? heartSong;
   useEffect(() => { if (currentSong) onTrackChange?.(currentSong.title); }, [currentSong?.title, onTrackChange]);
   const audioSources: Record<string, string> = {
+    "剩下的盛夏": "2fd477eb0b4cbd1b3395d3e8a33d9427 (converted by happyscribe.com).mp3",
     "淡季动物园": "7550b3429bb0917830d9f3b4ea66bce1.mp3",
     "绝对占有 相对自由": "8191158f23902d23e630745c82af8e1e.mp3",
     "笨小孩": "benxiaohai.mp3",
@@ -60,6 +61,7 @@ export function NeteaseMobile({ song, songs, onSelect, onBack, onPlaybackChange,
     "刻在我心底的名字": "43cb7a1bcfc2f222086fbc0a70f7d009.mp3",
   };
   const albumCovers: Record<string, string> = {
+    "剩下的盛夏": "6d5b9b354f8445c9de09c61cfcd5781.jpg",
     "淡季动物园": "02f49205338d87992c07c453a500e95.jpg",
     "绝对占有 相对自由": "ed41a8a3b11b0735108e85d67b6ee58.jpg",
     "笨小孩": "3bd2ab3aa7a9894968c6c1a38aad29c.jpg",
