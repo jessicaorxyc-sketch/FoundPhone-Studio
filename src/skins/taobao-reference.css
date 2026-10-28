@@ -129,3 +129,53 @@
 .tb2026 .tb-success-method small{font-size:12px;color:#888}
 .tb2026 .tb-payment-success>button{width:90%;border-radius:28px;background:#4378f4;color:white;font-size:18px;padding:14px}
 .tb2026 .tb-payment-success>small{font-size:11px;color:#999;margin-top:18px}
+
+
+/* Bespoke My Taobao profile: soft peach, tidy hierarchy, compact actionable modules */
+.tb2026 .tb-mine-redesign{background:#f6f6f6;padding:0 10px 20px}
+.tb2026 .tb-mine-redesign button{border:0;cursor:pointer}
+.tb2026 .tb-mine-hero{background:radial-gradient(ellipse at 85% 10%,#ffe2d2 0,transparent 58%),linear-gradient(160deg,#fff8f1,#fff2eb 72%,#f6f6f6);margin:0 -10px 10px;padding:22px 12px 12px}
+.tb2026 .tb-mine-redesign .tb-profile{background:none;padding:0 0 18px;gap:12px;display:flex;align-items:center}
+.tb2026 .tb-mine-redesign .tb-avatar{width:54px;height:54px;min-width:54px;border-radius:50%;background:#f8c56b;display:grid;place-items:center;font-size:30px}
+.tb2026 .tb-mine-identity{flex:1;min-width:0}
+.tb2026 .tb-mine-identity h2{font-size:21px;margin:0 0 5px;letter-spacing:-.5px}
+.tb2026 .tb-mine-identity small{font-size:10px;color:#ab783e;white-space:nowrap}
+.tb2026 .tb-mine-identity small span{color:#96949a}
+.tb2026 .tb-mine-redesign .tb-profile-actions{display:flex;gap:10px}
+.tb2026 .tb-mine-redesign .tb-profile-actions button{display:grid;place-items:center;padding:4px;background:transparent}
+.tb2026 .tb-mine-redesign .tb-profile-actions svg{width:19px;height:19px}
+.tb2026 .tb-mine-assets{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-bottom:9px}
+.tb2026 .tb-mine-assets button{background:#ffffffc9;border-radius:12px;padding:10px 1px;display:flex;flex-direction:column;align-items:center;gap:5px;box-shadow:0 2px 10px #dcae9210}
+.tb2026 .tb-mine-assets b{font-size:19px;color:#222}
+.tb2026 .tb-mine-assets span{font-size:11px;color:#777}
+.tb2026 .tb-mine-benefit{width:100%;display:flex;align-items:center;justify-content:space-between;text-align:left;padding:13px 12px;border-radius:12px;background:linear-gradient(105deg,#fff,#ffe4d3);gap:8px}
+.tb2026 .tb-mine-benefit>span:first-child{display:flex;flex-direction:column;gap:5px;min-width:0}
+.tb2026 .tb-mine-benefit strong{font-size:15px}
+.tb2026 .tb-mine-benefit small{font-size:10px;color:#64616a}
+.tb2026 .tb-mine-benefit em{color:#ef6128;font-style:normal}
+.tb2026 .tb-benefit-action{flex:none;border-radius:18px;background:#f66b2a;color:#fff;padding:9px 10px;font-size:11px}
+.tb2026 .tb-mine-card{background:#fff;border-radius:14px;padding:14px 12px;margin:10px 0}
+.tb2026 .tb-mine-heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.tb2026 .tb-mine-heading h3{margin:0;font-size:17px}
+.tb2026 .tb-mine-heading button{background:transparent;color:#999;font-size:11px}
+.tb2026 .tb-mine-order-actions,.tb2026 .tb-mine-tools{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px}
+.tb2026 .tb-mine-order-actions button,.tb2026 .tb-mine-tools button{display:flex;align-items:center;flex-direction:column;gap:7px;background:transparent;padding:4px 0;min-width:0}
+.tb2026 .tb-mine-order-actions small,.tb2026 .tb-mine-tools small{font-size:10px;white-space:nowrap}
+.tb2026 .tb-mine-order-icon{position:relative}
+.tb2026 .tb-mine-order-icon svg{width:23px;height:23px;stroke-width:1.9}
+.tb2026 .tb-mine-order-icon i{position:absolute;right:-9px;top:-8px;border-radius:12px;background:#fa4251;color:#fff;font-size:9px;font-style:normal;padding:1px 5px}
+.tb2026 .tb-mine-recent{display:flex;width:100%;text-align:left;gap:10px;margin-top:14px;border:1px solid #f1f1f1!important;background:#fff;border-radius:11px;padding:9px}
+.tb2026 .tb-mine-recent-photo{width:58px;height:58px;flex:none;border-radius:9px;background:linear-gradient(145deg,#fff1d9,#efbd91);display:grid;place-items:center;font-size:30px}
+.tb2026 .tb-mine-recent-info{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:space-between;gap:5px}
+.tb2026 .tb-mine-recent-info strong{font-size:12px;display:flex;justify-content:space-between}
+.tb2026 .tb-mine-recent-info em{color:#f46c28;font-style:normal;font-weight:400}
+.tb2026 .tb-mine-recent-info small{color:#777;font-size:11px}
+.tb2026 .tb-mine-recent-info>span{color:#f46c28;font-size:11px}
+.tb2026 .tb-mine-empty{width:100%;background:#fafafa;color:#999;padding:14px;border-radius:10px;margin-top:12px}
+.tb2026 .tb-mine-tools button>span{width:38px;height:38px;display:grid;place-items:center;background:#fff6f2;border-radius:13px;font-size:23px}
+.tb2026 .tb-mine-recommend-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.tb2026 .tb-mine-recommend-grid button{min-width:0;background:#fff;text-align:left;display:flex;flex-direction:column;gap:5px}
+.tb2026 .tb-mine-product-art{height:130px;border-radius:11px;background:linear-gradient(140deg,#f8eee8,#e8e6e1);display:grid;place-items:center;font-size:54px}
+.tb2026 .tb-mine-recommend-grid button:nth-child(2n) .tb-mine-product-art{background:linear-gradient(140deg,#f1f3f7,#f8e9d9)}
+.tb2026 .tb-mine-product-name{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.tb2026 .tb-mine-recommend-grid strong{color:#f4652a;font-size:17px}
