@@ -151,7 +151,7 @@ function PhoneRuntime({
   const lockPasscode = creator ? work.phone.passcode : "1006";
   const [app, setApp] = useState("");
   const [homeRequest, setHomeRequest] = useState(0);
-  const [locked, setLocked] = useState(!creator);
+  const [locked, setLocked] = useState(false);
   const [pinOpen, setPinOpen] = useState(false);
   const [pendingSongUrl, setPendingSongUrl] = useState<string | null>(null);
   const [heartTargetUrl, setHeartTargetUrl] = useState<string | null>(null);
