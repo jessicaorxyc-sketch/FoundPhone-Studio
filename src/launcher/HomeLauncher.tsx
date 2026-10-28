@@ -155,7 +155,7 @@ export function HomeLauncher(p: Props) {
     } | null>(null);
   // The launcher reads its own persisted layout, not Phone.tsx's installedApps.
   // Filter disabled apps at this source so old saved layouts cannot resurrect icons.
-  const disabledIds = new Set(["music","wallet","forum","whatsapp","instagram","tiktok","twitter","telegram","discord","youtube","line","snapchat","facebook","messenger","reddit","spotify","netflix","pinterest","threads","kakaotalk"]);
+  const disabledIds = new Set(["music","wallet","forum","whatsapp","instagram","tiktok","twitter","telegram","discord","youtube","line","snapchat","facebook","messenger","reddit","spotify","netflix","pinterest","threads","kakaotalk","kakao"]);
   const activeLayout = { ...p.layout, apps: p.layout.apps.filter(a => !disabledIds.has(a.id)), order: p.layout.order.filter(id => !disabledIds.has(id)), positions: Object.fromEntries(Object.entries(p.layout.positions).filter(([id]) => !disabledIds.has(id))) };
   const pages = packHome(homeEntries(activeLayout), activeLayout.positions),
     apps = activeLayout.apps,
