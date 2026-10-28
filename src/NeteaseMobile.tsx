@@ -11,7 +11,7 @@ export function NeteaseMobile({ song, songs, onSelect, onBack }: { song: Song | 
   const [heartProgress,setHeartProgress] = useState(0);
   const [heartDuration, setHeartDuration] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const publicAudioUrl = `${import.meta.env.BASE_URL}music/chenli-jueduizhanyou.mp3`;
+  const publicAudioUrl = `${import.meta.env.BASE_URL}8191158f23902d23e630745c82af8e1e.mp3`;
   const [audioError, setAudioError] = useState("");
   const [playing, setPlaying] = useState(false);
   const [heartIndex, setHeartIndex] = useState(() => Math.floor(Math.random() * Math.max(songs.length, 1)));
