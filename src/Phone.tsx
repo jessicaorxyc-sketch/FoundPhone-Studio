@@ -471,6 +471,8 @@ function PhoneRuntime({
               <AppWindow key="clock-native" className="app-screen skin-clock" creator={creator} origin={launchOrigin}>
                 <ClockMobile />
               </AppWindow>
+            ) : app === "netease" ? (
+              <></>
             ) : app && app !== "appstore" ? (
               <AppWindow
                 key={app}
