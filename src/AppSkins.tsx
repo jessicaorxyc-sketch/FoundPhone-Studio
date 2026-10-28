@@ -174,9 +174,6 @@ export function WeChatSkin(p: SkinProps) {
   ];
   const wxDemoChats = [{title:"AAA丞哥",body:"[图片]",time:"23:25",avatar:"🍔"},{title:"铮儿 9.8",body:"[动态贴图]",time:"20:21",avatar:"✦"},{title:"已读不回 Rachel-1.4",body:"[动态贴图]",time:"13:00",avatar:"🌸"},{title:"Mu、瑶瑶蛋 Emily-1.4、AAA丞哥、穆…",body:"只要是她认不得就行",time:"7月2日",avatar:"👥"},{title:"官方账号",body:"[3则] 快讯",time:"23:23",avatar:"📘"},{title:"谁是凶手",body:"我天真了！告退！",time:"23:12",avatar:"🎭"},{title:"瑶瑶蛋 Emily-1.4",body:"[动态贴图]",time:"23:12",avatar:"🌷"},{title:"瓦群 一起上红豆🫘",body:"[27则] 初：[动态贴图] 你行",time:"23:08",avatar:"👥"},{title:"i冰蛋挞",body:"",time:"23:02",avatar:"🐻"}];
   const wxDemoContacts = ["新的朋友","仅聊天的朋友","群组","标签","官方账号","服务账号","WeCom 联系人","企业微信通知"];
-  const posts = p.items.filter(
-    (i) => i.folder === "朋友圈" || i.kind === "post",
-  );
   return (
     <div
       className="wechat-ui independent-skin"
