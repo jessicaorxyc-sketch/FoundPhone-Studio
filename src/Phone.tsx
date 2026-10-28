@@ -300,8 +300,9 @@ function PhoneRuntime({
     for (const id of appSnapshots.current.keys())
       if (!recent.includes(id) && id !== app) appSnapshots.current.delete(id);
   };
+  const disabledPhoneApps = new Set(["music","wallet","forum","whatsapp","instagram","tiktok","twitter","telegram","discord","youtube","line","snapchat","facebook","messenger","reddit","spotify","netflix","pinterest","threads","kakaotalk"]);
   const open = (id: string) => {
-    if (!work.apps.some((a) => a.id === id && a.installed)) return;
+    if (disabledPhoneApps.has(id) || !work.apps.some((a) => a.id === id && a.installed)) return;
     if (id === "netease") setActiveNetEaseSong(null);
     setApp(id);
     setKeyboard(false);
@@ -311,7 +312,7 @@ function PhoneRuntime({
     onOpen?.(id);
     event("openApp", id);
   };
-  const installedApps = work.apps.filter((a) => a.installed);
+  const installedApps = work.apps.filter((a) => a.installed && !disabledPhoneApps.has(a.id));
   const apps = installedApps.filter((a) => a.visible);
   const unlock = (pin = "") => {
     if (!lockPasscode || pin === lockPasscode) {
@@ -330,7 +331,7 @@ function PhoneRuntime({
     }
   };
   useEffect(() => {
-    if (app && !work.apps.some((a) => a.id === app && a.installed)) setApp("");
+    if (app && (disabledPhoneApps.has(app) || !work.apps.some((a) => a.id === app && a.installed))) setApp("");
   }, [app, work.apps]);
   const displayTime = useLiveClock ? liveTime : creator ? work.phone.time : s.time || work.phone.time;
   const plugin = getApp(app);
