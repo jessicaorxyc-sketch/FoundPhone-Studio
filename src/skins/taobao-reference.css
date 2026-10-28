@@ -266,3 +266,42 @@
 .phone-shell.dark-phone .tb2026 .tb-nav button.active{color:#ff8850}
 .phone-shell.dark-phone .tb2026 .tb-toast{background:#f5f3f5!important;color:#1e2028!important}
 .phone-shell.dark-phone .tb2026 .tb-toast *{color:#1e2028!important}
+
+/* Checkout: compact horizontal rows, consistent alignment and working add-on */
+.tb2026 .tb-order-flow{padding:12px 10px 100px;box-sizing:border-box}
+.tb2026 .tb-order-flow>section{display:block;margin:0 0 12px;padding:16px 14px;border-radius:15px;box-sizing:border-box;min-width:0}
+.tb2026 .tb-confirm-goods{display:block!important}
+.tb2026 .tb-confirm-product{display:flex!important;align-items:flex-start}
+.tb2026 .tb-confirm-row{display:grid!important;grid-template-columns:65px minmax(0,1fr);align-items:center;gap:10px;min-height:50px;padding:12px 0!important;margin:0!important;border-top:1px solid #f1f1f3;background:transparent!important;border-radius:0!important;font-weight:500!important;text-align:left}
+.tb2026 .tb-confirm-row select,.tb2026 .tb-confirm-row input{display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;margin:0!important;padding:5px 22px 5px 0!important;border:0!important;background:transparent!important;color:#69717e!important;text-align:right!important;font-weight:400!important;font-size:12px!important;box-sizing:border-box}
+.tb2026 .tb-confirm-row input{border-top:0!important}
+.tb2026 .tb-confirm-row input::placeholder{color:#9096a2}
+.tb2026 .tb-confirm-upsell{display:block!important}
+.tb2026 .tb-upsell-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
+.tb2026 .tb-upsell-heading h3{margin:0;font-size:14px;min-width:0;line-height:1.4}
+.tb2026 .tb-upsell-heading small{color:#7e8491;font-size:11px;font-weight:400}
+.tb2026 .tb-upsell-heading button{border:0;background:transparent;color:#858b98;font-size:12px;flex:none;padding:4px}
+.tb2026 .tb-upsell-item{display:flex!important;align-items:center;gap:10px;min-width:0;padding:9px!important;background:#f8f8fa;border-radius:11px}
+.tb2026 .tb-upsell-image{display:grid;place-items:center;width:48px;height:48px;flex:0 0 48px;border-radius:9px;background:#f5e8e0;font-size:25px}
+.tb2026 .tb-upsell-description{display:flex;flex:1;min-width:0;flex-direction:column;gap:5px}
+.tb2026 .tb-upsell-description strong{font-size:11px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tb2026 .tb-upsell-description b{color:#f26528;font-size:14px}
+.tb2026 .tb-upsell-add,.tb2026 .tb-upsell-added{border:1px solid #f36c35;border-radius:18px;padding:7px 9px;white-space:nowrap;flex:none;font-size:11px;color:#f36c35;background:#fff}
+.tb2026 .tb-upsell-added{background:#fff1e9}
+.tb2026 .tb-confirm-prices{display:block!important}
+.tb2026 .tb-confirm-prices h3{margin:0 0 8px;font-size:17px}
+.tb2026 .tb-confirm-prices>div:not(.tb-confirm-total){display:grid!important;grid-template-columns:auto 1fr auto;align-items:center;gap:6px;padding:13px 0!important;font-size:12px;min-width:0}
+.tb2026 .tb-confirm-prices>div small{margin:0!important;font-size:10px;min-width:0;color:#8b91a0}
+.tb2026 .tb-confirm-prices>div strong{margin-left:auto;white-space:nowrap;font-size:16px}
+.tb2026 .tb-confirm-prices>label{display:grid!important;grid-template-columns:1fr;gap:8px;margin:0!important;padding:12px 0!important;border-top:1px solid #f1f1f3;background:transparent!important;border-radius:0!important;text-align:left}
+.tb2026 .tb-confirm-prices>label select{display:block!important;width:100%!important;max-width:100%!important;margin:0!important;padding:7px 8px!important;border:0!important;border-radius:8px;background:#f7f7f9!important;color:#717886!important;text-align:left}
+.tb2026 .tb-confirm-prices .tb-confirm-total{display:flex!important;justify-content:space-between;align-items:center;padding:15px 0 0!important;border-top:1px solid #ececf0}
+.tb2026 .tb-confirm-prices .tb-confirm-total strong{color:#f26528;font-size:19px}
+.tb2026 .tb-flow-bottom.tb-confirm-fixed{position:sticky!important;bottom:0!important;margin:0!important;padding:8px 4px 4px!important;border-radius:0!important;background:#fff!important}
+.tb2026 .tb-confirm-fixed button{border-radius:24px!important;font-size:16px!important}
+.phone-shell.dark-phone .tb2026 .tb-order-flow>section{background:#25252b;color:#f5f4f7}
+.phone-shell.dark-phone .tb2026 .tb-confirm-row{border-color:#3b3a40}
+.phone-shell.dark-phone .tb2026 .tb-confirm-row select,.phone-shell.dark-phone .tb2026 .tb-confirm-row input{color:#c5c4ce!important}
+.phone-shell.dark-phone .tb2026 .tb-upsell-item{background:#35343a}
+.phone-shell.dark-phone .tb2026 .tb-upsell-description strong{color:#f5f4f7}
+.phone-shell.dark-phone .tb2026 .tb-confirm-prices>label select{background:#35343a!important;color:#dedde5!important}
