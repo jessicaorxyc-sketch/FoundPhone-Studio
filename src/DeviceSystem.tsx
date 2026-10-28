@@ -446,7 +446,6 @@ export function ControlCenter({
           <span>专注模式</span>
           <ChevronDown size={14} />
         </button>
-        <button className="cc-focus" aria-label="切换深色与浅色模式" onClick={() => onAppearanceChange(appearance === "dark" ? "light" : "dark")}><span style={{fontSize:23}}>{appearance === "dark" ? "☀" : "☾"}</span><span>{appearance === "dark" ? "浅色模式" : "深色模式"}</span></button>
         <button className="cc-home" onClick={() => setTool("家庭")}>
           <House size={38} />
           <span>未设置家庭</span>
@@ -467,10 +466,10 @@ export function ControlCenter({
           <button
             key={i}
             className={"cc-square cc-bottom-tool cc-bottom-" + i}
-            aria-label={["扫码", "屏幕录制", "声音识别"][i]}
-            onClick={() => setTool(["扫码", "屏幕录制", "声音识别"][i])}
+            aria-label={i === 1 ? (appearance === "dark" ? "切换浅色模式" : "切换深色模式") : ["扫码", "屏幕录制", "声音识别"][i]}
+            onClick={() => i === 1 ? onAppearanceChange(appearance === "dark" ? "light" : "dark") : setTool(["扫码", "屏幕录制", "声音识别"][i])}
           >
-            <Icon />
+            {i === 1 ? (appearance === "dark" ? <Sun /> : <Moon />) : <Icon />}
           </button>
         ))}
       </div>
