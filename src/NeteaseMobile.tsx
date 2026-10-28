@@ -3,7 +3,7 @@ import { ArrowLeft, Heart, ListMusic, Menu, Music2, Pause, Play, Search, SkipBac
 import "./netease-mobile.css";
 
 type Song = { title: string; artist: string; url: string };
-export function NeteaseMobile({ song, songs, onSelect, onBack, onPlaybackChange }: { song: Song | null; songs: Song[]; onSelect: (url: string) => void; onBack: () => void; onPlaybackChange?: (playing: boolean) => void }) {
+export function NeteaseMobile({ song, songs, onSelect, onBack, onPlaybackChange, heartTargetUrl }: { song: Song | null; songs: Song[]; onSelect: (url: string) => void; onBack: () => void; onPlaybackChange?: (playing: boolean) => void; heartTargetUrl?: string | null }) {
   const [tab, setTab] = useState("心动");
 
   const [liked, setLiked] = useState(false);
@@ -33,6 +33,15 @@ export function NeteaseMobile({ song, songs, onSelect, onBack, onPlaybackChange 
   const [playlistFilter, setPlaylistFilter] = useState("近期");
   const [extraPlaylists, setExtraPlaylists] = useState<string[]>([]);
   const shuffleHeart = () => { if (songs.length > 1) setHeartIndex(i => (i + 1 + Math.floor(Math.random() * (songs.length - 1))) % songs.length); };
+
+  useEffect(() => {
+    if (!heartTargetUrl) return;
+    const targetIndex = songs.findIndex((item) => item.url === heartTargetUrl);
+    if (targetIndex < 0) return;
+    setPage("首页");
+    setTab("心动");
+    setHeartIndex(targetIndex);
+  }, [heartTargetUrl, songs]);
 
   const heartSong = songs[heartIndex % Math.max(songs.length, 1)];
   const currentSong = song ?? heartSong;
