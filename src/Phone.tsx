@@ -159,7 +159,7 @@ function PhoneRuntime({
   const [neteasePlaying, setNeteasePlaying] = useState(false);
   const [islandSongTitle, setIslandSongTitle] = useState("绝对占有 相对自由");
   const islandTrack = neteaseLockSongs.find(item => item.title === islandSongTitle);
-  const islandCover = ({ "绝对占有 相对自由": "ed41a8a3b11b0735108e85d67b6ee58.jpg", "笨小孩": "3bd2ab3aa7a9894968c6c1a38aad29c.jpg", "虚拟": "903843fe9c3cf6ee854eea655e08d1d.jpg", "恋人未满": "7f8dfe77b26dfc1f0d9434f3b80e356.jpg", "克卜勒": "5d6d8c6fcb148aec4464867b07561d7.jpg", "多远都要在一起": "9ee2f127a0593d260b323ea319c02de.jpg", "来自天堂的魔鬼": "9ee2f127a0593d260b323ea319c02de.jpg" } as Record<string,string>)[islandSongTitle];
+  const islandCover = ({ "绝对占有 相对自由": "ed41a8a3b11b0735108e85d67b6ee58.jpg", "笨小孩": "3bd2ab3aa7a9894968c6c1a38aad29c.jpg", "虚拟": "903843fe9c3cf6ee854eea655e08d1d.jpg", "恋人未满": "7f8dfe77b26dfc1f0d9434f3b80e356.jpg", "克卜勒": "5d6d8c6fcb148aec4464867b07561d7.jpg", "多远都要在一起": "9ee2f127a0593d260b323ea319c02de.jpg", "来自天堂的魔鬼": "9ee2f127a0593d260b323ea319c02de.jpg", "恋人": "50323917569c1aebd274f8920b2a152.jpg" } as Record<string,string>)[islandSongTitle];
   const [islandExpanded, setIslandExpanded] = useState(false);
   const [islandTime, setIslandTime] = useState({current:0,duration:0});
   const islandPress = useRef<ReturnType<typeof setTimeout> | null>(null);
