@@ -430,7 +430,7 @@ export function DouyinSkin(p: Props) {
   const [index,setIndex] = useState(0);
   const [likes,setLikes] = useState<string[]>([]);
   const [saves,setSaves] = useState<string[]>([]);
-  const [following,setFollowing] = useState<string[]>([]);
+  const [following] = useState<string[]>([]);
   const [panel,setPanel] = useState<"评论"|"分享"|"搜索"|"发布"|null>(null);
   const [draft,setDraft] = useState("");
   const [comments,setComments] = useState<string[]>([]);
