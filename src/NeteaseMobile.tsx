@@ -3,7 +3,7 @@ import { ArrowLeft, Heart, ListMusic, Menu, Music2, Pause, Play, Search, SkipBac
 import "./netease-mobile.css";
 
 type Song = { title: string; artist: string; url: string };
-export function NeteaseMobile({ song, songs, onSelect, onBack, onPlaybackChange, heartTargetUrl }: { song: Song | null; songs: Song[]; onSelect: (url: string) => void; onBack: () => void; onPlaybackChange?: (playing: boolean) => void; heartTargetUrl?: string | null }) {
+export function NeteaseMobile({ song, songs, onSelect, onBack, onPlaybackChange, onAudioTime, heartTargetUrl }: { song: Song | null; songs: Song[]; onSelect: (url: string) => void; onBack: () => void; onPlaybackChange?: (playing: boolean) => void; onAudioTime?: (current:number,duration:number)=>void; heartTargetUrl?: string | null }) {
   const [tab, setTab] = useState("心动");
 
   const [liked, setLiked] = useState(false);
@@ -50,8 +50,8 @@ export function NeteaseMobile({ song, songs, onSelect, onBack, onPlaybackChange,
     const audio = new Audio();
     audio.preload = "metadata";
     audioRef.current = audio;
-    const updateTime = () => setHeartProgress(audio.currentTime || 0);
-    const updateDuration = () => setHeartDuration(Number.isFinite(audio.duration) ? audio.duration : 0);
+    const updateTime = () => {setHeartProgress(audio.currentTime || 0);onAudioTime?.(audio.currentTime||0,Number.isFinite(audio.duration)?audio.duration:0)};
+    const updateDuration = () => {setHeartDuration(Number.isFinite(audio.duration) ? audio.duration : 0);onAudioTime?.(audio.currentTime||0,Number.isFinite(audio.duration)?audio.duration:0)};
     const ended = () => { setPlaying(false); setHeartProgress(0); };
     const failed = () => { setPlaying(false); setAudioError("无法加载授权音源，请检查播放地址。"); };
     audio.addEventListener("timeupdate", updateTime);
@@ -79,6 +79,7 @@ export function NeteaseMobile({ song, songs, onSelect, onBack, onPlaybackChange,
     try { await audio.play(); setPlaying(true); setAudioError(""); }
     catch { setPlaying(false); setAudioError("播放失败：请检查音源地址及浏览器兼容性。"); }
   };
+  useEffect(()=>{const control=(event:Event)=>{const action=(event as CustomEvent<string>).detail;if(action==="toggle")void toggleAudio();else if(action==="previous")changeHeartSong(-1);else if(action==="next")changeHeartSong(1);else if(action.startsWith("seek:"))seekAudio(Number(action.slice(5)))};window.addEventListener("foundphone:netease-control",control);return()=>window.removeEventListener("foundphone:netease-control",control)});
   const seekAudio = (value: number) => { const audio = audioRef.current; if (audio && heartDuration > 0) audio.currentTime = value; setHeartProgress(value); };
   const active = song ?? heartSong;
   const index = songs.findIndex((s) => s.url === active.url);
