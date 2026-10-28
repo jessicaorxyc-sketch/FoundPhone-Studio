@@ -11,7 +11,6 @@ export function NeteaseMobile({ song, songs, onSelect, onBack, onPlaybackChange,
   const [heartProgress,setHeartProgress] = useState(0);
   const [heartDuration, setHeartDuration] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const publicAudioUrl = `${import.meta.env.BASE_URL}8191158f23902d23e630745c82af8e1e.mp3`;
   const [audioError, setAudioError] = useState("");
   const [playing, setPlaying] = useState(false);
   useEffect(() => { onPlaybackChange?.(playing); }, [playing, onPlaybackChange]);
