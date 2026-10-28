@@ -179,3 +179,45 @@
 .tb2026 .tb-mine-recommend-grid button:nth-child(2n) .tb-mine-product-art{background:linear-gradient(140deg,#f1f3f7,#f8e9d9)}
 .tb2026 .tb-mine-product-name{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 .tb2026 .tb-mine-recommend-grid strong{color:#f4652a;font-size:17px}
+
+/* Product details: original editorial layout inspired by mobile commerce conventions */
+.tb2026 .tb-pdp{position:relative;height:100%;display:flex;flex-direction:column;background:#f5f5f5;color:#191c26;overflow:hidden}
+.tb2026 .tb-pdp-scroll{overflow-y:auto;flex:1;min-height:0;scrollbar-width:none}
+.tb2026 .tb-pdp-hero{height:310px;position:relative;background:linear-gradient(145deg,#fff5ee 0%,#f3ded8 55%,#eadce5 100%);overflow:hidden}
+.tb2026 .tb-pdp-top{position:absolute;z-index:2;top:10px;left:12px;right:12px;display:flex;align-items:center;justify-content:space-between}
+.tb2026 .tb-pdp-top button{border:0;background:#ffffffd9;width:34px;height:34px;border-radius:50%;font-size:25px;color:#252530}
+.tb2026 .tb-pdp-top span{font-size:13px;font-weight:600;color:#42424c}
+.tb2026 .tb-pdp-illustration{height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:13px}
+.tb2026 .tb-pdp-illustration>span{font-size:118px;line-height:1;filter:drop-shadow(0 16px 15px #8c6b6530)}
+.tb2026 .tb-pdp-illustration small{font-size:11px;color:#9a888a;letter-spacing:.4px}
+.tb2026 .tb-pdp-count{position:absolute;right:14px;bottom:14px;background:#2a2a2a75;color:white;padding:4px 11px;border-radius:16px;font-size:11px}
+.tb2026 .tb-pdp-card{background:white;margin:9px 9px 0;padding:16px;border-radius:14px}
+.tb2026 .tb-pdp-main{margin-top:0;border-radius:0 0 14px 14px}
+.tb2026 .tb-pdp-price{color:#fa5d22;font-weight:800;font-size:35px;display:flex;align-items:baseline;gap:2px;line-height:1.2}
+.tb2026 .tb-pdp-price>span{font-size:18px}
+.tb2026 .tb-pdp-price small{margin-left:auto;font-size:11px;color:#999;font-weight:400}
+.tb2026 .tb-pdp-main h2{font-size:18px;line-height:1.4;margin:10px 0 5px}
+.tb2026 .tb-pdp-main p{font-size:12px;color:#777;margin:0 0 12px}
+.tb2026 .tb-pdp-tags{display:flex;flex-wrap:wrap;gap:7px}
+.tb2026 .tb-pdp-tags span{border:1px solid #f5d9c8;color:#b9794f;border-radius:5px;padding:4px 7px;font-size:10px}
+.tb2026 .tb-pdp-row{display:flex;gap:13px;align-items:center}
+.tb2026 .tb-pdp-row>span:first-child{font-size:12px;color:#888;flex:none}
+.tb2026 .tb-pdp-row>span:last-child{color:#bbb;margin-left:auto}
+.tb2026 .tb-pdp-row>div{display:flex;flex-direction:column;gap:5px;flex:1;min-width:0}
+.tb2026 .tb-pdp-row strong{font-size:13px}
+.tb2026 .tb-pdp-row small{font-size:11px;color:#999}
+.tb2026 .tb-pdp-row select{max-width:100%;font-size:13px;font-weight:600;background:transparent;border:0;color:#252525}
+.tb2026 .tb-pdp-store{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.tb2026 .tb-pdp-store strong{font-size:14px}
+.tb2026 .tb-pdp-store span{font-size:11px;color:#999}
+.tb2026 .tb-pdp-store button{margin-left:auto;color:#f16c36;border:1px solid #ffcfb5;border-radius:18px;background:#fff;padding:6px 10px;font-size:11px}
+.tb2026 .tb-pdp-reviews h3{margin:0 0 10px;font-size:15px}
+.tb2026 .tb-pdp-reviews h3 small{font-size:10px;color:#999;font-weight:400}
+.tb2026 .tb-pdp-reviews p{color:#888;font-size:12px;line-height:1.5}
+.tb2026 .tb-pdp-bottomspace{height:22px}
+.tb2026 .tb-pdp-actions{flex:none;display:flex;align-items:center;gap:5px;background:#fff;border-top:1px solid #eee;padding:9px 9px max(10px,env(safe-area-inset-bottom));box-sizing:border-box}
+.tb2026 .tb-pdp-actions button{border:0;background:transparent;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px;flex:none;color:#353541;min-width:39px;padding:3px}
+.tb2026 .tb-pdp-actions button small{font-size:10px}
+.tb2026 .tb-pdp-actions .tb-pdp-add,.tb2026 .tb-pdp-actions .tb-pdp-buy{min-width:0;flex:1;color:#fff;border-radius:24px;height:40px;font-weight:700;font-size:13px}
+.tb2026 .tb-pdp-actions .tb-pdp-add{background:linear-gradient(90deg,#ffb52f,#ff9422)}
+.tb2026 .tb-pdp-actions .tb-pdp-buy{background:linear-gradient(90deg,#ff7c23,#ff4c17)}
