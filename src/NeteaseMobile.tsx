@@ -56,6 +56,7 @@ export function NeteaseMobile({ song, songs, onSelect, onBack, onPlaybackChange,
     "多远都要在一起": "c97f8578ea201374e325a4c3bd7d9da0.mp3",
     "来自天堂的魔鬼": "849c9545459eb34a44f44a54113d03a3.mp3",
     "恋人": "d5eeb539abf2bd3e3b53c57edae6bb06.mp3",
+    "刻在我心底的名字": "43cb7a1bcfc2f222086fbc0a70f7d009.mp3",
   };
   const albumCovers: Record<string, string> = {
     "绝对占有 相对自由": "ed41a8a3b11b0735108e85d67b6ee58.jpg",
@@ -66,6 +67,7 @@ export function NeteaseMobile({ song, songs, onSelect, onBack, onPlaybackChange,
     "多远都要在一起": "9ee2f127a0593d260b323ea319c02de.jpg",
     "来自天堂的魔鬼": "9ee2f127a0593d260b323ea319c02de.jpg",
     "恋人": "50323917569c1aebd274f8920b2a152.jpg",
+    "刻在我心底的名字": "8d2910cb9210d8ada4c809fb2d1aa6c.jpg",
   };
   const audioFile = currentSong ? audioSources[currentSong.title] : undefined;
   const hasTestSource = Boolean(audioFile);
