@@ -655,6 +655,8 @@ function PhoneRuntime({
             <ControlCenter
               battery={work.phone.battery}
               network={work.phone.network}
+              appearance={globalAppearance}
+              onAppearanceChange={chooseAppearance}
               close={() => setPanel("")}
             />
           )}
