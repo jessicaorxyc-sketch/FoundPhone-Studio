@@ -273,6 +273,20 @@ export function WeChatSkin(p: SkinProps) {
 }
 .phone-shell.dark-phone .wechat-ui .wx-profile-menu .wx-discovery{background:#202020!important;color:#f5f5f5!important;}
 .phone-shell.light-phone .wechat-ui .wx-profile-menu .wx-discovery{background:#fff!important;color:#191919!important;}
+
+/* WeChat Moments personal timeline, matching the native full-width cover layout. */
+.wechat-ui .wx-moments-profile{flex:1;min-height:0;overflow-y:auto;background:#fff;color:#191919;}
+.wechat-ui .wx-moments-profile .wx-moment-cover{position:relative;display:block;width:100%;height:340px;min-height:340px;border:0;border-radius:0;margin:0;overflow:visible;}
+.wechat-ui .wx-moments-profile .wx-moment-cover>.wx-moment-camera{position:absolute;right:20px;top:20px;color:#fff;filter:drop-shadow(0 1px 2px #333);}
+.wechat-ui .wx-moment-identity{position:absolute;bottom:-31px;right:17px;display:flex;align-items:center;gap:13px;z-index:2;}
+.wechat-ui .wx-moment-identity strong{font-size:19px;font-weight:600;color:#fff;text-shadow:0 1px 4px #333;}
+.wechat-ui .wx-moment-identity .skin-avatar{width:72px;height:72px;min-width:72px;border:3px solid #fff;border-radius:8px;overflow:hidden;background:#202020;box-shadow:0 1px 3px #8884;}
+.wechat-ui .wx-moment-identity .skin-avatar img{width:100%;height:100%;object-fit:cover;}
+.wechat-ui .wx-moments-empty{padding:105px 16px 50px;text-align:center;color:#aaa;font-size:13px;}
+.phone-shell.dark-phone .wechat-ui .wx-moments-profile{background:#191919!important;color:#eee!important;}
+.phone-shell.dark-phone .wechat-ui .wx-moments-empty{color:#777!important;}
+.phone-shell.dark-phone .wechat-ui .wx-moment-identity .skin-avatar{border-color:#191919;}
+.phone-shell.light-phone .wechat-ui .wx-moments-profile{background:#fff!important;color:#191919!important;}
 `}</style>
       <div className="app-nav wx-nav">
         <button
@@ -376,27 +390,17 @@ export function WeChatSkin(p: SkinProps) {
           <Compose creator={p.creator} onAdd={p.onAdd} />
         </>
       ) : moments ? (
-        <div className="wx-moments">
+        <div className="wx-moments wx-moments-profile">
           <div className="wx-moment-cover" style={{backgroundImage:`url("${import.meta.env.BASE_URL}a4c05036075eff0dc23ea7cd75045b4.jpg")`,backgroundSize:"cover",backgroundPosition:"center"}}>
-            <Camera size={32} />
-            <span>朋友圈</span>
+            <Camera size={25} className="wx-moment-camera" />
+            <div className="wx-moment-identity">
+              <strong>king</strong>
+              <Avatar name="king" src={`${import.meta.env.BASE_URL}1df1f541878f9be0616bd17d63fee05.jpg`} />
+            </div>
           </div>
-          {posts.map((i) => (
-            <button
-              key={i.id}
-              className="wx-moment-post"
-              onClick={() => p.onItem(i)}
-            >
-              <Avatar name={i.sender} />
-              <div>
-                <strong>{i.sender}</strong>
-                <p>{i.body}</p>
-                {i.media && <ItemMedia item={i} />}
-                <small>{i.time}</small>
-              </div>
-            </button>
-          ))}
-          {!posts.length && <p className="skin-empty">暂无朋友圈动态</p>}
+          <div className="wx-moments-empty">
+            <span>暂无朋友圈动态</span>
+          </div>
           {p.creator && (
             <button className="phone-add" onClick={p.onAdd}>
               添加朋友圈动态
