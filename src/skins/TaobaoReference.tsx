@@ -8,7 +8,7 @@ const goods=[
  {name:"豪饮酸奶x奥莉蛙 原创设计王檀杰",detail:"双层印花磨砂 · iP17ProMax",price:58,emoji:"📱",image:"IMG_0056.jpeg",shop:"豪饮酸奶"},
  {name:"Oliwa原创设计手机磁吸支架",detail:"磁吸支架 · 原创周边",price:39,emoji:"🟢",image:"IMG_0057.jpeg",shop:"豪饮酸奶"},
  {name:"奥莉蛙原创设计平板保护套",detail:"10.9寸（Air4/5/6/7/8）",price:98,emoji:"💻",image:"IMG_0058.jpeg",shop:"豪饮酸奶"},
- {name:"豪饮酸奶x奥莉蛙 骨骼 原创设计",detail:"骨骼 OLED闪粉硬壳",price:59,emoji:"📱",image:"IMG_0056.jpeg",shop:"豪饮酸奶"},
+ {name:"豪饮酸奶x奥莉蛙 骨骼 原创设计",detail:"骨骼系列 · Nintendo Switch 保护贴",price:59,emoji:"🎮",image:"IMG_0059.jpeg",shop:"豪饮酸奶"},
  {name:"富山商店 x 奥莉蛙 安眠曲系列",detail:"安眠曲 法兰绒毯",price:168,emoji:"🛏️",image:"IMG_0055.jpeg",shop:"富山商店"}
 ];
 const messages=[
