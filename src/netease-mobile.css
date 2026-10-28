@@ -278,3 +278,7 @@
 .nm-heart-progress input[type="range"]::-webkit-slider-thumb,.nm-progress input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:#f5eff7;border:0;margin-top:-5.5px;}
 .nm-heart-progress input[type="range"]::-moz-range-track,.nm-progress input[type="range"]::-moz-range-track{height:3px;background:#8e8d94;border-radius:3px;}
 .nm-heart-progress input[type="range"]::-moz-range-thumb,.nm-progress input[type="range"]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#f5eff7;border:0;}
+
+/* Remove browser-native rounded outline around the seek bar. */
+.nm .nm-heart-progress input[type="range"],.nm .nm-progress input[type="range"]{border:0!important;box-shadow:none!important;outline:none!important;border-radius:0!important;background:transparent!important;}
+.nm .nm-heart-progress input[type="range"]:focus,.nm .nm-heart-progress input[type="range"]:focus-visible,.nm .nm-progress input[type="range"]:focus,.nm .nm-progress input[type="range"]:focus-visible{outline:none!important;box-shadow:none!important;}
