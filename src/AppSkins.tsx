@@ -199,6 +199,36 @@ export function WeChatSkin(p: SkinProps) {
 .wechat-ui[data-wx-theme="light"] .wx-contact{background:#fff;color:#191919;border-color:#ededed;}
 .wechat-ui[data-wx-theme="light"] .wx-discovery{background:#fff;color:#191919;border-color:#ededed;}
 .light-phone .wechat-ui{background:#f5f5f5;color:#191919}.light-phone .wechat-ui .wx-nav{background:#f7f7f7;color:#191919}.light-phone .wechat-ui .skin-scroll{background:#f5f5f5}.light-phone .wechat-ui .wx-search{background:#e8e8e8;color:#777}.light-phone .wechat-ui .wx-search input{color:#222}.light-phone .wechat-ui .wx-chat-row,.light-phone .wechat-ui .wx-contact,.light-phone .wechat-ui .wx-discovery{background:#fff;color:#191919;border-color:#e9e9e9}.light-phone .wechat-ui .wx-profile{background:#fff}.light-phone .wechat-ui .wx-profile-menu{background:#f5f5f5}.light-phone .wechat-ui .wx-bottom{background:#fafafa;border-color:#e7e7e7}.light-phone .wechat-ui .wx-bottom button{color:#666}.light-phone .wechat-ui .wx-bottom button.selected{color:#07c160}.light-phone .wechat-ui .wx-chat-row time{color:#aaa}.light-phone .wechat-ui .wx-chat-row p{color:#999}\n
+
+/* Phone-wide appearance overrides: WeChat inherits the iPhone setting. */
+.phone-shell.dark-phone .wechat-ui,
+.phone-shell.dark-phone .wechat-ui .skin-scroll,
+.phone-shell.dark-phone .wechat-ui .wx-profile-menu,
+.phone-shell.dark-phone .wechat-ui .wx-discover-groups{background:#111!important;color:#f5f5f5!important;}
+.phone-shell.dark-phone .wechat-ui .wx-nav,
+.phone-shell.dark-phone .wechat-ui .wx-bottom{background:#191919!important;color:#f5f5f5!important;border-color:#303030!important;}
+.phone-shell.dark-phone .wechat-ui .wx-chat-row,
+.phone-shell.dark-phone .wechat-ui .wx-contact,
+.phone-shell.dark-phone .wechat-ui .wx-discovery,
+.phone-shell.dark-phone .wechat-ui .wx-profile{background:#202020!important;color:#f5f5f5!important;border-color:#303030!important;}
+.phone-shell.dark-phone .wechat-ui .wx-chat-row strong,
+.phone-shell.dark-phone .wechat-ui .wx-contact,
+.phone-shell.dark-phone .wechat-ui .wx-profile h2,
+.phone-shell.dark-phone .wechat-ui .wx-nav strong{color:#f5f5f5!important;}
+.phone-shell.dark-phone .wechat-ui .wx-search{background:#242424!important;color:#aaa!important;}
+.phone-shell.dark-phone .wechat-ui .wx-search input{background:transparent!important;color:#f5f5f5!important;}
+.phone-shell.dark-phone .wechat-ui .wx-bottom button{color:#aaa!important;}
+.phone-shell.dark-phone .wechat-ui .wx-bottom button.selected{color:#07c160!important;}
+.phone-shell.light-phone .wechat-ui,
+.phone-shell.light-phone .wechat-ui .skin-scroll{background:#f3f3f3!important;color:#191919!important;}
+.phone-shell.light-phone .wechat-ui .wx-nav,
+.phone-shell.light-phone .wechat-ui .wx-bottom{background:#fafafa!important;color:#191919!important;}
+.phone-shell.light-phone .wechat-ui .wx-chat-row,
+.phone-shell.light-phone .wechat-ui .wx-contact,
+.phone-shell.light-phone .wechat-ui .wx-discovery,
+.phone-shell.light-phone .wechat-ui .wx-profile{background:#fff!important;color:#191919!important;}
+.phone-shell.light-phone .wechat-ui .wx-profile h2,
+.phone-shell.light-phone .wechat-ui .wx-chat-row strong{color:#191919!important;}
 `}</style>
       <div className="app-nav wx-nav">
         <button
