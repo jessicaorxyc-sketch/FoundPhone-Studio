@@ -51,11 +51,13 @@ export function NeteaseMobile({ song, songs, onSelect, onBack, onPlaybackChange,
     "绝对占有 相对自由": "8191158f23902d23e630745c82af8e1e.mp3",
     "笨小孩": "benxiaohai.mp3",
     "虚拟": "虚拟.mp3",
+    "恋人未满": "lianrenweiman.m4a",
   };
   const albumCovers: Record<string, string> = {
     "绝对占有 相对自由": "ed41a8a3b11b0735108e85d67b6ee58.jpg",
     "笨小孩": "3bd2ab3aa7a9894968c6c1a38aad29c.jpg",
     "虚拟": "903843fe9c3cf6ee854eea655e08d1d.jpg",
+    "恋人未满": "lianrenweiman.jpg",
   };
   const audioFile = currentSong ? audioSources[currentSong.title] : undefined;
   const hasTestSource = Boolean(audioFile);
