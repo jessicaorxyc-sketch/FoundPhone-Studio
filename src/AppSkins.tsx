@@ -186,6 +186,9 @@ export function WeChatSkin(p: SkinProps) {
       data-moments={moments}
       data-utility={!!utility}
     >
+      <style>{`
+.wechat-ui{background:#111;color:#f5f5f5}.wechat-ui .wx-nav{background:#111;color:#eee;border-bottom:0}.wechat-ui .skin-scroll{background:#111}.wechat-ui .wx-search{display:flex;align-items:center;background:#202020;color:#777;margin:10px 12px;padding:10px 12px;border-radius:8px}.wechat-ui .wx-search input{background:transparent;color:white;border:0;outline:0;width:100%}.wechat-ui .wx-chat-row,.wechat-ui .wx-contact{background:#202020;color:#eee;border-bottom:1px solid #303030;min-height:73px}.wechat-ui .wx-chat-row p{color:#858585}.wechat-ui .wx-chat-row time{color:#646464}.wechat-ui .wx-bottom{background:#1d1d1d;border-top:1px solid #303030}.wechat-ui .wx-bottom button{color:#b8b8b8}.wechat-ui .wx-bottom button.selected{color:#07c160}.wechat-ui .wx-profile{background:#181818;padding:45px 20px 34px}.wechat-ui .wx-profile h2{font-size:23px}.wechat-ui .wx-profile small{color:#999}.wechat-ui .wx-profile-menu{background:#111}.wechat-ui .wx-discovery{background:#202020;color:#ddd;border-bottom:1px solid #303030;min-height:59px}.wechat-ui .wx-contact{display:flex;align-items:center;gap:14px;padding:10px 16px}.wechat-ui .wx-reference-icon{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:5px;background:#168be1;color:white;font-size:24px}.wechat-ui .wx-contact:nth-of-type(1) .wx-reference-icon,.wechat-ui .wx-contact:nth-of-type(2) .wx-reference-icon{background:#fa9b32}.wechat-ui .wx-contact:nth-of-type(3) .wx-reference-icon{background:#07c160}
+`}</style>
       <div className="app-nav wx-nav">
         <button
           aria-label={utility || p.thread || moments ? "返回" : "收藏"}
