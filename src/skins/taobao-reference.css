@@ -221,3 +221,48 @@
 .tb2026 .tb-pdp-actions .tb-pdp-add,.tb2026 .tb-pdp-actions .tb-pdp-buy{min-width:0;flex:1;color:#fff;border-radius:24px;height:40px;font-weight:700;font-size:13px}
 .tb2026 .tb-pdp-actions .tb-pdp-add{background:linear-gradient(90deg,#ffb52f,#ff9422)}
 .tb2026 .tb-pdp-actions .tb-pdp-buy{background:linear-gradient(90deg,#ff7c23,#ff4c17)}
+
+/* Visual polish and accessible color contrast in both phone themes */
+.tb2026{--tb-ink:#1b1d27;--tb-muted:#656977;--tb-surface:#fff;--tb-canvas:#f6f6f8;--tb-accent:#ed6335;background:var(--tb-canvas);color:var(--tb-ink)}
+.tb2026 .tb-home-head{background:linear-gradient(180deg,#fff0ed 0%,#fff8f6 70%,#fff 100%);padding:14px 12px 12px}
+.tb2026 .tb-top-cats{gap:13px;margin-bottom:14px}
+.tb2026 .tb-top-cats button{font-size:15px}
+.tb2026 .tb-searchbar{border-width:1.5px;border-radius:15px;min-height:45px}
+.tb2026 .tb-searchbar button{border-radius:11px}
+.tb2026 .tb-shortcuts{padding:17px 8px;gap:17px 4px}
+.tb2026 .tb-shortcuts button{font-size:10px;gap:8px}
+.tb2026 .tb-promos{padding:12px 10px;gap:9px}
+.tb2026 .tb-promos button{border-radius:14px;min-height:116px}
+.tb2026 .tb-promos b{font-size:11px}
+.tb2026 .tb-sale{margin:11px 10px;border-radius:15px;padding:13px;background:linear-gradient(120deg,#ef4655,#e72d48)}
+.tb2026 .tb-sale>div{gap:7px}
+.tb2026 .tb-sale button{border-radius:11px}
+.tb2026 .tb-feed{gap:10px;padding:10px}
+.tb2026 .tb-feed button{border-radius:14px;min-width:0}
+.tb2026 .tb-feed strong{line-height:1.45;min-height:42px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.tb2026 .tb-nav{background:var(--tb-surface);border-color:#ececf0}
+.tb2026 .tb-nav button{color:var(--tb-ink)}
+.tb2026 .tb-nav button.active{color:var(--tb-accent)}
+.tb2026 .tb-toast{background:#24242a!important;color:#fff!important;box-shadow:0 6px 22px #0003;font-size:12px;line-height:1.45;text-align:center;max-width:calc(100% - 24px);margin:0 auto;opacity:1}
+.tb2026 .tb-toast *{color:#fff!important}
+.tb2026 .tb-promos button,.tb2026 .tb-sale button{overflow:hidden}
+.phone-shell.dark-phone .tb2026{--tb-ink:#f5f4f7;--tb-muted:#b6b4bd;--tb-surface:#25252b;--tb-canvas:#19191d;--tb-accent:#ff8850;background:var(--tb-canvas);color:var(--tb-ink)}
+.phone-shell.dark-phone .tb2026 .tb-home-head{background:linear-gradient(180deg,#302b2d,#252429 65%,#252429)}
+.phone-shell.dark-phone .tb2026 .tb-shortcuts,.phone-shell.dark-phone .tb2026 .tb-promos{background:#252429;color:#f5f4f7}
+.phone-shell.dark-phone .tb2026 .tb-top-cats button{color:#f5f4f7}
+.phone-shell.dark-phone .tb2026 .tb-top-cats button.active{color:#ff8850;border-color:#ff8850}
+.phone-shell.dark-phone .tb2026 .tb-searchbar{background:#303037;border-color:#ff8850;color:#ff8850}
+.phone-shell.dark-phone .tb2026 .tb-searchbar input{color:#f5f4f7}
+.phone-shell.dark-phone .tb2026 .tb-searchbar input::placeholder{color:#b7b5bc}
+.phone-shell.dark-phone .tb2026 .tb-promos button{background:#373036}
+.phone-shell.dark-phone .tb2026 .tb-promos b,.phone-shell.dark-phone .tb2026 .tb-promos strong{color:#ffb0a6}
+.phone-shell.dark-phone .tb2026 .tb-sale{background:linear-gradient(120deg,#a82d45,#8d2941)}
+.phone-shell.dark-phone .tb2026 .tb-sale button{background:#412f38;color:#ffe0e3}
+.phone-shell.dark-phone .tb2026 .tb-feed button{background:#29292f;color:#f5f4f7}
+.phone-shell.dark-phone .tb2026 .tb-feed button div{background:linear-gradient(130deg,#39343a,#463a3d)}
+.phone-shell.dark-phone .tb2026 .tb-feed b{color:#ff9069}
+.phone-shell.dark-phone .tb2026 .tb-nav{background:#25252b;border-color:#3a3940}
+.phone-shell.dark-phone .tb2026 .tb-nav button{color:#f5f4f7}
+.phone-shell.dark-phone .tb2026 .tb-nav button.active{color:#ff8850}
+.phone-shell.dark-phone .tb2026 .tb-toast{background:#f5f3f5!important;color:#1e2028!important}
+.phone-shell.dark-phone .tb2026 .tb-toast *{color:#1e2028!important}
