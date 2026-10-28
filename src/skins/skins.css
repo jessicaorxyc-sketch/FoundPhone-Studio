@@ -4344,3 +4344,13 @@
 .phone-shell.dark-phone .wechat-ui .wx-keyboard-compose .native-compose-field{background:#303030!important;color:#fff!important}
 .phone-shell.light-phone .wechat-ui .wx-keyboard-compose{background:#f6f6f6!important;border-top:1px solid #ddd}
 .phone-shell.light-phone .wechat-ui .wx-keyboard-compose .native-compose-field{background:#fff!important;color:#191919!important}
+
+
+/* Real Chongqing map imagery; Find location is deliberately simulated. */
+.chongqing-map{position:relative;overflow:hidden;background:#dce7da}
+.chongqing-map iframe{display:block;width:100%;height:100%;border:0;position:absolute;inset:0}
+.chongqing-map-caption{position:absolute;left:10px;top:10px;z-index:1;background:rgba(255,255,255,.94);color:#242424;padding:7px 11px;border-radius:10px;font-size:12px;font-weight:600;pointer-events:none;box-shadow:0 2px 10px #0002}
+.chongqing-find-location{position:absolute;left:10px;right:10px;bottom:12px;z-index:1;padding:8px 10px;background:rgba(255,255,255,.95);color:#222;border-radius:9px;font-size:11px;pointer-events:none}
+.chongqing-map-items{position:absolute;right:8px;top:10px;z-index:1;display:flex;flex-direction:column;gap:4px;max-width:38%}
+.chongqing-map-items button{background:#fff;color:#222;border-radius:8px;padding:5px 7px;font-size:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.phone-shell.dark-phone .chongqing-map-caption,.phone-shell.dark-phone .chongqing-find-location,.phone-shell.dark-phone .chongqing-map-items button{background:rgba(28,28,30,.94);color:#fff}
