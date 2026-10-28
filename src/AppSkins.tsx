@@ -173,6 +173,8 @@ export function WeChatSkin(p: SkinProps) {
   const contacts = [
     ...new Set(p.items.map((i) => i.sender).filter((s) => s !== "我")),
   ];
+  const wxDemoChats = [{title:"AAA丞哥",body:"[图片]",time:"23:25",avatar:"🍔"},{title:"铮儿 9.8",body:"[动态贴图]",time:"20:21",avatar:"✦"},{title:"已读不回 Rachel-1.4",body:"[动态贴图]",time:"13:00",avatar:"🌸"},{title:"Mu、瑶瑶蛋 Emily-1.4、AAA丞哥、穆…",body:"只要是她认不得就行",time:"7月2日",avatar:"👥"},{title:"官方账号",body:"[3则] 快讯",time:"23:23",avatar:"📘"},{title:"谁是凶手",body:"我天真了！告退！",time:"23:12",avatar:"🎭"},{title:"瑶瑶蛋 Emily-1.4",body:"[动态贴图]",time:"23:12",avatar:"🌷"},{title:"瓦群 一起上红豆🫘",body:"[27则] 初：[动态贴图] 你行",time:"23:08",avatar:"👥"},{title:"i冰蛋挞",body:"",time:"23:02",avatar:"🐻"}];
+  const wxDemoContacts = ["新的朋友","仅聊天的朋友","群组","标签","官方账号","服务账号","WeCom 联系人","企业微信通知","AAA珀艺亚克力定制","AA温州尚意工艺品有限公司","onoo小猫^_^🐭*"];
   const posts = p.items.filter(
     (i) => i.folder === "朋友圈" || i.kind === "post",
   );
@@ -206,7 +208,7 @@ export function WeChatSkin(p: SkinProps) {
         <strong>
           {utility ||
             p.thread ||
-            (moments ? "朋友圈" : tab === "微信" ? p.name : tab)}
+            (moments ? "朋友圈" : tab === "微信" ? "微信" : tab)}
         </strong>
         <button
           aria-label={
@@ -317,7 +319,7 @@ export function WeChatSkin(p: SkinProps) {
         <div className="skin-scroll">
           {tab === "微信" ? (
             <>
-              {searchOpen && (
+              {(searchOpen || true) && (
                 <label className="wx-search">
                   <Search size={14} />
                   <input
@@ -328,7 +330,7 @@ export function WeChatSkin(p: SkinProps) {
                   />
                 </label>
               )}
-              {conversations
+              {(conversations.length ? conversations : wxDemoChats.map(x => x.title))
                 .filter(
                   (t) =>
                     t.includes(query) ||
@@ -338,7 +340,7 @@ export function WeChatSkin(p: SkinProps) {
                 )
                 .map((t) => {
                   const list = p.items.filter((i) => i.title === t),
-                    last = list.at(-1)!;
+                    last = list.at(-1) || { ...wxDemoChats.find(x => x.title === t), avatar:"", read:true } as Item;
                   return (
                     <button
                       className="wx-chat-row"
@@ -370,8 +372,8 @@ export function WeChatSkin(p: SkinProps) {
             </>
           ) : tab === "通讯录" ? (
             <>
-              <div className="wx-section-label">联系人</div>
-              {contacts.map((c) => (
+              <label className="wx-search"><Search size={15}/><input placeholder="搜索" value={query} onChange={e=>setQuery(e.target.value)}/></label>
+              {[...wxDemoContacts,...contacts.filter(c=>!wxDemoContacts.includes(c))].filter(c=>c.includes(query)).map((c) => (
                 <button
                   key={c}
                   className="wx-contact"
@@ -383,10 +385,7 @@ export function WeChatSkin(p: SkinProps) {
                     }
                   }}
                 >
-                  <Avatar
-                    name={c}
-                    src={p.items.find((i) => i.sender === c)?.avatar}
-                  />
+                  <span className="wx-reference-icon">{c === "新的朋友" ? "♟" : c === "群组" ? "♧" : c === "标签" ? "◆" : c === "官方账号" ? "◧" : "◉"}</span>
                   {c}
                 </button>
               ))}
@@ -419,10 +418,10 @@ export function WeChatSkin(p: SkinProps) {
           ) : (
             <>
               <div className="wx-profile">
-                <Avatar name={p.owner || "机主"} />
+                <Avatar name="Jess1ka" />
                 <div>
-                  <h2>{p.owner || "机主"}</h2>
-                  <small>微信号：未设置</small>
+                  <h2>Jess1ka</h2>
+                  <small>微信 ID：Jessica-4569</small>
                   <button
                     className="wx-profile-status"
                     onClick={() => setUtility("状态")}
@@ -438,7 +437,7 @@ export function WeChatSkin(p: SkinProps) {
                   [ImageIcon, "朋友圈", "#3a9bd9"],
                   [Layers, "作品", "#329dd8"],
                   [ShoppingBag, "小店与卡包", "#ed7c59"],
-                  [Smile, "表情", "#f7b900"],
+                  [Smile, "贴图市集", "#f7b900"],
                   [Settings, "设置", "#1696d2"],
                 ].map(([Icon, label, color]) => {
                   const Glyph = Icon as typeof Settings;
