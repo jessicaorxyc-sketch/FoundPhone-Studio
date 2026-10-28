@@ -569,6 +569,9 @@ function PhoneRuntime({
                   onAdd={() => onAdd?.(app)}
                   onBack={() => setApp("")}
                   onSettings={onSettings}
+                  globalAppearance={globalAppearance}
+                  appearanceDark={appearanceDark}
+                  chooseAppearance={chooseAppearance}
                   onUi={(key, value) => {
                     const current = runtimeRef.current;
                     update(
@@ -975,6 +978,9 @@ function Media({ item }: { item: Item }) {
   );
 }
 function AppContent({
+  globalAppearance,
+  appearanceDark,
+  chooseAppearance,
   app,
   name,
   items,
@@ -988,6 +994,9 @@ function AppContent({
   onUi,
   work,
 }: {
+  globalAppearance: "light" | "dark" | "auto";
+  appearanceDark: boolean;
+  chooseAppearance: (mode: "light" | "dark" | "auto") => void;
   app: AppPlugin;
   name: string;
   items: Item[];
