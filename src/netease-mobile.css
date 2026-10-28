@@ -265,3 +265,9 @@
 .nm-mini .nm-mini-track>span.nm-mini-song-label{font-size:13px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .nm-mini .nm-mini-song-label small{display:inline;color:#9c9c9f;font-size:12px;margin:0}
 .nm-mini .nm-mini-play-button,.nm-mini .nm-mini-queue-button{flex-basis:32px!important}
+
+/* Fill the complete circular album label without inherited padding or grey backing. */
+.nm .nm-disc-label:has(> .nm-album-cover),
+.nm .nm-heart-label:has(> img){padding:0!important;overflow:hidden;background:transparent!important;gap:0!important;}
+.nm .nm-disc-label > .nm-album-cover,
+.nm .nm-heart-label > img{display:block;width:100%!important;height:100%!important;min-width:100%;min-height:100%;object-fit:cover!important;object-position:center;border-radius:50%;flex-shrink:0;}
