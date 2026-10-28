@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useState, type CSSProperties } from "react";
 import type { SkinProps } from "../AppSkins";
 import "./new-china-apps.css";
 
@@ -30,7 +30,7 @@ function Replica({id}: {id:AppId}) {
  const act=(message:string)=>{setNotice(message);};
  const showHome=tab===spec.tabs[0];
  const matches=spec.sections.filter(x=>(x.title+x.subtitle).includes(query));
- return <div className={`china-replica china-${id}`} style={{"--replica-accent":spec.accent} as React.CSSProperties}>
+ return <div className={`china-replica china-${id}`} style={{"--replica-accent":spec.accent} as CSSProperties}>
   <header className="china-top">
    {page?<button onClick={()=>setPage(null)} aria-label="返回">‹</button>:<span className="china-app-symbol">{id==="kfc"?"KFC":id==="tfamily"?"TF":spec.name.slice(0,1)}</span>}
    <strong>{page?.title||spec.name}</strong>
