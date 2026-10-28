@@ -14,3 +14,19 @@
 .bv-danmu-compose button{background:#fb6599;border:0;border-radius:16px;padding:6px 10px;color:#fff;font-size:12px}
 
 .bv-video-error button{border:1px solid #f69;background:#fa6599;color:#fff;border-radius:16px;padding:7px 12px;font-size:12px}
+
+
+/* Device-wide dark appearance: keep the video surface black, theme all detail panels. */
+.phone-shell.dark-phone .bv-page{background:#111!important;color:#f3f3f3!important;color-scheme:dark}
+.phone-shell.dark-phone .bv-tabs,.phone-shell.dark-phone .bv-related,.phone-shell.dark-phone .bv-comment,.phone-shell.dark-phone .bv-compose{border-color:#303030!important}
+.phone-shell.dark-phone .bv-tabs button{color:#aaa}
+.phone-shell.dark-phone .bv-tabs button.selected{color:#fb6599}
+.phone-shell.dark-phone .bv-title,.phone-shell.dark-phone .bv-details h3,.phone-shell.dark-phone .bv-related strong,.phone-shell.dark-phone .bv-comment p{color:#f3f3f3}
+.phone-shell.dark-phone .bv-description,.phone-shell.dark-phone .bv-meta,.phone-shell.dark-phone .bv-related small,.phone-shell.dark-phone .bv-creator small,.phone-shell.dark-phone .bv-comment-name{color:#aaa}
+.phone-shell.dark-phone .bv-tags{background:#292929;color:#bbb}
+.phone-shell.dark-phone .bv-banner{background:#362a19;color:#e8a94b}
+.phone-shell.dark-phone .bv-embed-notice{background:#292126;color:#ccc}
+.phone-shell.dark-phone .bv-compose,.phone-shell.dark-phone .bv-share{background:#1b1b1b;color:#eee}
+.phone-shell.dark-phone .bv-compose input,.phone-shell.dark-phone .bv-reply input,.phone-shell.dark-phone .bv-share button{background:#303030;color:#fff;border-color:#454545}
+.phone-shell.dark-phone .bv-comment-avatar{background:#333;color:#ddd}
+.phone-shell.dark-phone .bv-creator button.followed{background:#383838;color:#ddd}
