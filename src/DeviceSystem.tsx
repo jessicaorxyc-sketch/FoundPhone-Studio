@@ -14,6 +14,7 @@ import {
   Play,
   SkipForward,
   Moon,
+  Sun,
   RotateCcw,
   Monitor,
   Timer,
