@@ -254,6 +254,23 @@ export function WeChatSkin(p: SkinProps) {
 .phone-shell.light-phone .wechat-ui .wx-chat-row,
 .phone-shell.light-phone .wechat-ui .wx-contact,
 .phone-shell.light-phone .wechat-ui .wx-discovery{border-bottom:1px solid #ededed!important;box-shadow:none!important;}
+
+/* Remove inherited inset separators and their pseudo-elements in WeChat rows. */
+.phone-shell .wechat-ui .wx-chat-row,
+.phone-shell .wechat-ui .wx-profile-menu .wx-discovery{
+ border:0!important;border-bottom:0!important;border-top:0!important;
+ outline:0!important;box-shadow:none!important;
+ background-image:none!important;
+}
+.phone-shell .wechat-ui .wx-chat-row::before,
+.phone-shell .wechat-ui .wx-chat-row::after,
+.phone-shell .wechat-ui .wx-profile-menu .wx-discovery::before,
+.phone-shell .wechat-ui .wx-profile-menu .wx-discovery::after{
+ content:none!important;display:none!important;border:0!important;
+ box-shadow:none!important;background:none!important;
+}
+.phone-shell.dark-phone .wechat-ui .wx-profile-menu .wx-discovery{background:#202020!important;color:#f5f5f5!important;}
+.phone-shell.light-phone .wechat-ui .wx-profile-menu .wx-discovery{background:#fff!important;color:#191919!important;}
 `}</style>
       <div className="app-nav wx-nav">
         <button
