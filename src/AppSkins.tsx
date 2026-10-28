@@ -163,6 +163,7 @@ export function WeChatSkin(p: SkinProps) {
     "readThreads",
     [],
   );
+  const [wxTheme, setWxTheme] = useSkinState<"dark" | "light">(p, "wxTheme", "dark");
   const conversations = [
     ...new Set(
       p.items
@@ -181,12 +182,13 @@ export function WeChatSkin(p: SkinProps) {
   return (
     <div
       className="wechat-ui independent-skin"
+      data-wx-theme={wxTheme}
       data-tab={tab}
       data-thread={!!p.thread}
       data-moments={moments}
       data-utility={!!utility}
     >
-      <style>{`
+      <style>{`\n.wechat-ui[data-wx-theme="light"]{background:#f5f5f5;color:#191919}.wechat-ui[data-wx-theme="light"] .wx-nav{background:#f7f7f7;color:#191919}.wechat-ui[data-wx-theme="light"] .skin-scroll{background:#f5f5f5}.wechat-ui[data-wx-theme="light"] .wx-search{background:#e8e8e8;color:#777}.wechat-ui[data-wx-theme="light"] .wx-search input{color:#222}.wechat-ui[data-wx-theme="light"] .wx-chat-row,.wechat-ui[data-wx-theme="light"] .wx-contact,.wechat-ui[data-wx-theme="light"] .wx-discovery{background:#fff;color:#191919;border-color:#e9e9e9}.wechat-ui[data-wx-theme="light"] .wx-profile{background:#fff}.wechat-ui[data-wx-theme="light"] .wx-profile-menu{background:#f5f5f5}.wechat-ui[data-wx-theme="light"] .wx-bottom{background:#fafafa;border-color:#e7e7e7}.wechat-ui[data-wx-theme="light"] .wx-bottom button{color:#666}.wechat-ui[data-wx-theme="light"] .wx-bottom button.selected{color:#07c160}.wechat-ui[data-wx-theme="light"] .wx-chat-row time{color:#aaa}.wechat-ui[data-wx-theme="light"] .wx-chat-row p{color:#999}\n
 .wechat-ui{background:#111;color:#f5f5f5}.wechat-ui .wx-nav{background:#111;color:#eee;border-bottom:0}.wechat-ui .skin-scroll{background:#111}.wechat-ui .wx-search{display:flex;align-items:center;background:#202020;color:#777;margin:10px 12px;padding:10px 12px;border-radius:8px}.wechat-ui .wx-search input{background:transparent;color:white;border:0;outline:0;width:100%}.wechat-ui .wx-chat-row,.wechat-ui .wx-contact{background:#202020;color:#eee;border-bottom:1px solid #303030;min-height:73px}.wechat-ui .wx-chat-row p{color:#858585}.wechat-ui .wx-chat-row time{color:#646464}.wechat-ui .wx-bottom{background:#1d1d1d;border-top:1px solid #303030}.wechat-ui .wx-bottom button{color:#b8b8b8}.wechat-ui .wx-bottom button.selected{color:#07c160}.wechat-ui .wx-profile{background:#181818;padding:45px 20px 34px}.wechat-ui .wx-profile h2{font-size:23px}.wechat-ui .wx-profile small{color:#999}.wechat-ui .wx-profile-menu{background:#111}.wechat-ui .wx-discovery{background:#202020;color:#ddd;border-bottom:1px solid #303030;min-height:59px}.wechat-ui .wx-contact{display:flex;align-items:center;gap:14px;padding:10px 16px}.wechat-ui .wx-reference-icon{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:5px;background:#168be1;color:white;font-size:24px}.wechat-ui .wx-contact:nth-of-type(1) .wx-reference-icon,.wechat-ui .wx-contact:nth-of-type(2) .wx-reference-icon{background:#fa9b32}.wechat-ui .wx-contact:nth-of-type(3) .wx-reference-icon{background:#07c160}
 `}</style>
       <div className="app-nav wx-nav">
@@ -277,6 +279,7 @@ export function WeChatSkin(p: SkinProps) {
                 <span>›</span>
               </button>
             ))}
+          {utility === "设置" && <button className="wx-discovery" onClick={() => setWxTheme(wxTheme === "dark" ? "light" : "dark")}>外观模式：{wxTheme === "dark" ? "深色" : "浅色"}　点击切换</button>}
           {!p.items.some((i) => i.folder === utility) &&
             utility !== "聊天信息" && <p className="skin-empty">暂无内容</p>}
         </div>
@@ -434,6 +437,7 @@ export function WeChatSkin(p: SkinProps) {
                 </div>
               </div>
               <div className="wx-profile-menu">
+                <button className="wx-discovery" onClick={() => setWxTheme(wxTheme === "dark" ? "light" : "dark")}><Settings size={22} /> 外观模式：{wxTheme === "dark" ? "深色" : "浅色"} <span>切换 ›</span></button>
                 {[
                   [MessageCircle, "服务", "#07c160"],
                   [Layers, "收藏", "#e8a828"],
