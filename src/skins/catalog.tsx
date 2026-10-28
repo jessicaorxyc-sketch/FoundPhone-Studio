@@ -5,6 +5,7 @@ const messaging = () => import("./MessagingSkins");
 const social = () => import("./SocialSkins");
 const media = () => import("./MediaSkins");
 const commerce = () => import("./CommerceSkins");
+const china = () => import("./NewChinaApps");
 function skin<T>(load: () => Promise<T>, name: keyof T) {
   return lazy(async () => ({
     default: (await load())[name] as ComponentType<SkinProps>,
@@ -12,6 +13,14 @@ function skin<T>(load: () => Promise<T>, name: keyof T) {
 }
 const mymy = () => import("../vendor/mymy/Apps");
 export const catalogSkins = {
+  didi: skin(china, "DidiSkin"),
+  identityv: skin(china, "IdentityVSkin"),
+  perfectworld: skin(china, "PerfectWorldSkin"),
+  dianping: skin(china, "DianpingSkin"),
+  kfc: skin(china, "KfcSkin"),
+  doubao: skin(china, "DoubaoSkin"),
+  xianyu: skin(china, "XianyuSkin"),
+  tfamily: skin(china, "TFamilySkin"),
   kakao: skin(mymy, "MymyKakao"),
   instagram: skin(mymy, "MymyInstagram"),
   phone: skin(system, "PhoneSkin"),
